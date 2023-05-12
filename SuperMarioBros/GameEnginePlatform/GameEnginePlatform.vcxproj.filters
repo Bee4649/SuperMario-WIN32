@@ -2,8 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="GameEngineWindow.h" />
+    <ClInclude Include="GameEngineWindowTexture.h" />
+    <ClInclude Include="GameEngineInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineWindow.cpp" />
+    <ClCompile Include="GameEngineWindowTexture.cpp" />
+    <ClCompile Include="GameEngineInput.cpp" />
   </ItemGroup>
 </Project>
