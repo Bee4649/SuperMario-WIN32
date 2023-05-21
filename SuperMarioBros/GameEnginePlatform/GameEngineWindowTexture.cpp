@@ -130,8 +130,8 @@ void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, c
 	TransparentBlt(ImageDC,
 		_Pos.iX() - _Scale.ihX(),
 		_Pos.iY() - _Scale.ihY(),
-		_Scale.iX(),
-		_Scale.iY(),
+		_Scale.iX(), 
+		_Scale.iY(), 
 		CopyImageDC,
 		_OtherPos.iX(), // 카피하려는 이미지의 왼쪽위 x
 		_OtherPos.iY(), // 카피하려는 이미지의 왼쪽위 y

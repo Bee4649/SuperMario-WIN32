@@ -9,6 +9,10 @@ class float4
 {
 public:
 	static const float4 ZERO;
+	static const float4 LEFT;
+	static const float4 RIGHT;
+	static const float4 UP;
+	static const float4 DOWN;
 
 	// 실수는 기본적으로 == 이 거의 불가능하다. 
 	// 해도 정확하지 않는다. 실수를 처리하는 방식이 애초에 정확하지 않기 때문이다.
@@ -55,7 +59,17 @@ public:
 		return {hX(), hY(), Z, W};
 	}
 
-	float4 operator-(const float4& _Other)
+	float4 operator-() const
+	{
+		float4 ReturnValue = *this;
+
+		ReturnValue.X = -ReturnValue.X;
+		ReturnValue.Y = -ReturnValue.Y;
+		ReturnValue.Z = -ReturnValue.Z;
+		return ReturnValue;
+	}
+
+	float4 operator-(const float4& _Other) const
 	{
 		float4 ReturnValue;
 
@@ -68,7 +82,7 @@ public:
 
 
 
-	float4 operator+(const float4& _Other)
+	float4 operator+(const float4& _Other) const
 	{
 		float4 ReturnValue;
 
@@ -79,7 +93,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator*(const float4& _Other)
+	float4 operator*(const float4& _Other) const 
 	{
 		float4 ReturnValue;
 
@@ -91,7 +105,7 @@ public:
 	}
 
 
-	float4 operator*(const float _Value)
+	float4 operator*(const float _Value) const
 	{
 		float4 ReturnValue;
 
@@ -137,6 +151,13 @@ public:
 		Z *= _Value;
 
 		return *this;
+	}
+
+	bool operator==(const float4 _Value) const
+	{
+		return X == _Value.X &&
+		Y == _Value.Y &&
+		Z == _Value.Z;
 	}
 
 

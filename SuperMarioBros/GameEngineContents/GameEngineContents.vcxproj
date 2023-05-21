@@ -172,6 +172,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayLevel.h">
       <SubType>
       </SubType>
@@ -198,6 +202,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>

@@ -20,6 +20,9 @@
     <ClInclude Include="GameEngineRenderer.h">
       <Filter>Object\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineSprite.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -40,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="GameEngineRenderer.cpp">
       <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineSprite.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,9 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -36,6 +39,12 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
       <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>

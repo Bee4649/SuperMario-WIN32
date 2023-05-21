@@ -16,6 +16,8 @@ public:
 	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
 
 protected:
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
 	void Start() override;
@@ -23,5 +25,6 @@ private:
 	void Render() override;
 	void Release() override;
 
+	class Player* LevelPlayer = nullptr;
 };
 

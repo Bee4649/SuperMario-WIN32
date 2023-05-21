@@ -7,6 +7,7 @@
 HINSTANCE GameEngineWindow::Instance = nullptr;
 GameEngineWindow GameEngineWindow::MainWindow;
 bool GameEngineWindow::IsWindowUpdate = true;
+bool GameEngineWindow::IsFocusValue = false;
 
 GameEngineWindow::GameEngineWindow()
 {
@@ -105,6 +106,16 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
 {
 	switch (message)
 	{
+	case WM_SETFOCUS:
+	{
+		IsFocusValue = true;
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	case WM_KILLFOCUS:
+	{
+		IsFocusValue = false;
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
 	case WM_PAINT:
 	{
 		PAINTSTRUCT ps;
@@ -178,10 +189,10 @@ void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), vo
 		// 프레임과 데드타임이 완성됐다.
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (nullptr != _Update)
-			{
-				_Update();
-			}
+			//if (nullptr != _Update)
+			//{
+			//	_Update();
+			//}
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -237,4 +248,13 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
 
 	//                          100        100         500          500
 	SetWindowPos(hWnd, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+}
+
+float4 GameEngineWindow::GetMousePos()
+{
+	POINT MoniterPoint;
+	GetCursorPos(&MoniterPoint);
+	ScreenToClient(hWnd, &MoniterPoint);
+
+	return float4{ static_cast<float>(MoniterPoint.x), static_cast<float>(MoniterPoint.y) };
 }
