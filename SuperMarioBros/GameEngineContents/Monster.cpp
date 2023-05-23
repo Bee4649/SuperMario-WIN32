@@ -50,13 +50,13 @@ void Monster::Start()
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Test.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HPBar.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crown.bmp"));
 	}
 
 	{
-		GameEngineRenderer* Ptr = CreateRenderer("HPBar.bmp", RenderOrder::Play);
+		GameEngineRenderer* Ptr = CreateRenderer("Crown.bmp", RenderOrder::Play);
 		Ptr->SetRenderScale({ 150, 150 });
-		Ptr->SetTexture("HPBar.bmp");
+		Ptr->SetTexture("Crown.bmp");
 	}
 
 	GameEngineCollision* BodyCollsion = CreateCollision(CollisionOrder::MonsterBody);

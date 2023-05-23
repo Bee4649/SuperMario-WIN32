@@ -47,7 +47,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteFolder("FolderPlayer", FolderPath.PlusFilePath("FolderPlayer"));
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Test.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HPBar.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crown.bmp"));
 	}
 
 	{
@@ -73,10 +73,10 @@ void Player::Start()
 	}
 
 	{
-		GameEngineRenderer* Ptr = CreateRenderer("HPBar.bmp", RenderOrder::Play);
-		Ptr->SetRenderPos({ 0, -100 });
-		Ptr->SetRenderScale({ 200, 40 });
-		Ptr->SetTexture("HPBar.bmp");
+		GameEngineRenderer* Ptr = CreateRenderer("Crown.bmp", RenderOrder::Play);
+		Ptr->SetRenderPos({ 0, -150 });
+		Ptr->SetRenderScale({ 70, 90 });
+		Ptr->SetTexture("Crown.bmp");
 	}
 
 	{
