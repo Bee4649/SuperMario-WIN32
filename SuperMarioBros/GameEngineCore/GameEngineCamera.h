@@ -7,6 +7,7 @@
 class GameEngineRenderer;
 class GameEngineCamera
 {
+	friend class GameEngineRenderer;
 	friend class GameEngineActor;
 	friend class GameEngineLevel;
 

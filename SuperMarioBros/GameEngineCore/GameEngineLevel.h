@@ -10,8 +10,10 @@
 // 플레이 장면
 // 엔딩 장면
 class GameEngineCamera;
+class GameEngineCollision;
 class GameEngineLevel : public GameEngineObject
 {
+	friend class GameEngineCollision;
 	friend class GameEngineActor;
 	friend class GameEngineCore;
 	
@@ -68,7 +70,12 @@ private:
 
 	std::map<int, std::list<GameEngineActor*>> AllActors;
 
+	std::map<int, std::list<GameEngineCollision*>> AllCollision;
+
 	void ActorInit(GameEngineActor* _Actor, int _Order);
+
+	void ActorLevelEnd();
+	void ActorLevelStart();
 
 	void ActorUpdate(float _Delta);
 	void ActorRender(float _Delta);

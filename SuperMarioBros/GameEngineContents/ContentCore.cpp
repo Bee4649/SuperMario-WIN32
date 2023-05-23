@@ -21,7 +21,7 @@ void ContentCore::Start()
 	GameEngineCore::CreateLevel<EndingLevel>("EndingLevel");
 
 	// 이 레벨이 화면에 보여라.
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::ChangeLevel("PlayLevel");
 }
 
 // 행동한고.

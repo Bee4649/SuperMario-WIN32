@@ -23,6 +23,10 @@
     <ClInclude Include="Bullet.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -47,6 +51,10 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Global</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

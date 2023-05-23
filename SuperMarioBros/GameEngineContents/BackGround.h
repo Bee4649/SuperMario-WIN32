@@ -16,12 +16,17 @@ public:
 	BackGround& operator=(const BackGround& _Other) = delete;
 	BackGround& operator=(BackGround&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName);
+	void Init(const std::string& _FileName, const std::string& _DebugFileName);
+
+	void SwitchRender();
 
 protected:
 
 private:
+	bool SwitchRenderValue = true;
 	std::string FileName;
+	class GameEngineRenderer* Renderer;
+	class GameEngineRenderer* DebugRenderer;
 
 	void Start() override;
 	void Update(float _Delta) override;

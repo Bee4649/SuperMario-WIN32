@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "PlayActor.h"
 
 enum class PlayerState 
 {
@@ -16,8 +16,18 @@ enum class PlayerDir
 };
 
 // Ό³Έν :
-class Player : public GameEngineActor
+class Player : public PlayActor
 {
+private:
+	static Player* MainPlayer;
+
+public:
+	static Player* GetMainPlayer() 
+	{
+		return MainPlayer;
+	}
+
+
 public:
 	// constrcuter destructer
 	Player();
@@ -47,11 +57,15 @@ protected:
 	PlayerDir Dir = PlayerDir::Right;
 	std::string CurState = "";
 
+	GameEngineCollision* BodyCollsion = nullptr;
+
 	void DirCheck();
 
 	void ChangeAnimationState(const std::string& _StateName);
 
 private:
+	void LevelStart() override; 
+
 	void Start() override;
 	void Update(float _Delta) override;
 };

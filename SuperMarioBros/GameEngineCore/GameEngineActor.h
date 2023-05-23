@@ -8,6 +8,7 @@
 // 위치가 있다면 이 녀석으로 표현해야 합니다.
 class GameEngineLevel;
 class GameEngineRenderer;
+class GameEngineCollision;
 class GameEngineActor : public GameEngineObject
 {
 	friend GameEngineLevel;
@@ -57,12 +58,24 @@ public:
 
 	GameEngineRenderer* CreateRenderer(const std::string& _ImageName, int _Order);
 
+	template<typename EnumType>
+	GameEngineCollision* CreateCollision(EnumType _Order)
+	{
+		return CreateCollision(static_cast<int>(_Order));
+	}
+
+
+	GameEngineCollision* CreateCollision(int _Order = 0);
+
+
 	GameEngineLevel* GetLevel() 
 	{
 		return Level;
 	}
 
 protected:
+	virtual void LevelStart() {}
+	virtual void LevelEnd() {}
 
 private:
 	GameEngineLevel* Level;
@@ -70,8 +83,9 @@ private:
 	float4 Pos = float4::ZERO;
 
 	std::list<GameEngineRenderer*> AllRenderer;
+	std::list<GameEngineCollision*> AllCollision;
 
-	void PushMainCameraRenderer(GameEngineRenderer*);
+
 
 	void ActorRelease();
 };

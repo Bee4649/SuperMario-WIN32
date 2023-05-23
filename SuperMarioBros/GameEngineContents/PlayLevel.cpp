@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include "Monster.h"
 
 
 // Contents
@@ -20,6 +21,21 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start() 
 {
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Test.Bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		GameEnginePath FolderPath = FilePath;
+
+		FilePath.MoveChild("ContentsResources\\Texture\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("StageTestPixel.bmp"));
+	}
+
+
+
 	// ResourcesManager::GetInst().TextureLoad("AAA.Png", 경로);
 
 	// 플레이 레벨이 만들어졌다.
@@ -32,10 +48,11 @@ void PlayLevel::Start()
 	// 자기 임의대로 만들겠다는 것이고 xxxxx
 	// Player* NewPlayer = new Player();
 
-	BackGround* Back = CreateActor<BackGround>();
-	Back->Init("StageTest.Bmp");
+	BackGroundPtr = CreateActor<BackGround>();
+	BackGroundPtr->Init("StageTest.Bmp", "StageTestPixel.bmp");
 
 	LevelPlayer = CreateActor<Player>();
+	LevelPlayer->SetGroundTexture("StageTestPixel.bmp");
 }
 
 
@@ -44,6 +61,17 @@ void PlayLevel::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('O'))
 	{
 		GameEngineCore::ChangeLevel("TitleLevel");
+	}
+
+	if (true == GameEngineInput::IsDown('J'))
+	{
+		BackGroundPtr->SwitchRender();
+	}
+
+	if (1.0f <= GetLiveTime())
+	{
+		Monster* NewMonster = CreateActor<Monster>();
+		ResetLiveTime();
 	}
 
 	// GameEngineCore::ChangeLevel("TitleLevel");
@@ -62,11 +90,13 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	//LevelPlayer->SetPos(WinScale.Half());
-	// 0 0
-	// x y
-	GetMainCamera()->SetPos(LevelPlayer->GetPos() - WinScale.Half());
+	LevelPlayer->SetGroundTexture("StageTestPixel.bmp");
+
+	//float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+	////LevelPlayer->SetPos(WinScale.Half());
+	//// 0 0
+	//// x y
+	//GetMainCamera()->SetPos(LevelPlayer->GetPos() - WinScale.Half());
 
 }
 
