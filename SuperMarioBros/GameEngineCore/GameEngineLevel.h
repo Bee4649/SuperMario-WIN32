@@ -53,7 +53,11 @@ public:
 	}
 
 protected:
+	
+
+	// 레벨이 시작될때 실행
 	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
+	// 다른 레벨로 교체될때 실행
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
 private:

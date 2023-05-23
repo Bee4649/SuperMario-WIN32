@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
 // Ό³Έν :
 class TitleLevel : public GameEngineLevel
@@ -16,9 +17,16 @@ public:
 	TitleLevel& operator=(TitleLevel&& _Other) noexcept = delete;
 
 protected:
+
+	
 	void Update(float _DeltaTime) override;
+
+	
+	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
+	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
 private:
 
+	
 };
 

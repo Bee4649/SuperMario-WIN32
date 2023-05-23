@@ -61,7 +61,9 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 		RenderScale = Texture->GetScale();
 	}
 	ScaleCheck = false;
+
 }
+
 
 void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime) 
 {

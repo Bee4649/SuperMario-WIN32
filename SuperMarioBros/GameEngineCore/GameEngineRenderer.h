@@ -59,6 +59,8 @@ public:
 
 	void SetRenderScaleToTexture();
 
+	
+
 
 	void SetOrder(int _Order) override; 
 
@@ -67,6 +69,7 @@ protected:
 
 
 private:
+	
 	GameEngineCamera* Camera = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineSprite* Sprite = nullptr;
