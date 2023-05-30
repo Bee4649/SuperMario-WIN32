@@ -35,6 +35,13 @@ public:
 	// 내 위치에서 
 	int GetGroundColor(unsigned int _DefaultColor, float4 _Pos = float4::ZERO);
 
+	float4 ActorCameraPos();
+
+	void SetGravityVector(float4 _GravityVector)
+	{
+		GravityVector = _GravityVector;
+	}
+
 protected:
 
 private:

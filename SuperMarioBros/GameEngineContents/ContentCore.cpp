@@ -14,7 +14,7 @@ ContentCore::~ContentCore()
 
 void ContentCore::Start() 
 {
-	GameEngineWindow::MainWindow.SetPosAndScale({100, 100}, { 1024, 900 });
+	GameEngineWindow::MainWindow.SetPosAndScale({100, 100}, { 1280, 720 });
 
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
@@ -30,7 +30,7 @@ void ContentCore::Update(float _Delta)
 }
 
 // 그려지고.
-void ContentCore::Render() 
+void ContentCore::Render(float _Delta)
 {
 }
 

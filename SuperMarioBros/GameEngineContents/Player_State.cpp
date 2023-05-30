@@ -21,6 +21,11 @@ void Player::RunStart()
 
 void Player::IdleUpdate(float _Delta)
 {
+	if (true == MainRenderer->IsAnimationEnd())
+	{
+		++TestValue;
+	}
+
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
 		if (RGB(255, 255, 255) == Color)
@@ -53,6 +58,13 @@ void Player::IdleUpdate(float _Delta)
 		return;
 	}
 
+	if (true == GameEngineInput::IsPress(VK_SPACE))
+	{
+		ChanageState(PlayerState::Jump);
+		return;
+	}
+
+
 	// 줄줄이 사탕으로 
 	//if (true)
 	//{
@@ -81,6 +93,11 @@ void Player::RunUpdate(float _Delta)
 				AddPos(float4::UP);
 			}
 
+			if (true == GameEngineInput::IsPress(VK_SPACE))
+			{
+				ChanageState(PlayerState::Jump);
+				return;
+			}
 
 			GravityReset();
 		}
@@ -97,16 +114,14 @@ void Player::RunUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress('A') && Dir == PlayerDir::Left)
 	{
-		CheckPos = { -30.0f, -50.0f };
-
+		// 귀찮음
+		// => 프로그래머의 최악의 
+		CheckPos = LeftCheck;
 		MovePos = { -Speed * _Delta, 0.0f };
-
-		// unsigned int Color = GetGroundColor(RGB(255, 255, 255));
-
-	} else if (true == GameEngineInput::IsPress('D') && Dir == PlayerDir::Right)
+	} 
+	else if (true == GameEngineInput::IsPress('D') && Dir == PlayerDir::Right)
 	{
-		CheckPos = { 30.0f, -50.0f };
-
+		CheckPos = RightCheck;
 		MovePos = { Speed * _Delta, 0.0f };
 	}
 
@@ -123,6 +138,7 @@ void Player::RunUpdate(float _Delta)
 	{
 		DirCheck();
 		ChanageState(PlayerState::Idle);
+		return;
 	}
 
 	{
@@ -135,5 +151,28 @@ void Player::RunUpdate(float _Delta)
 		}
 	}
 
+
+}
+
+void Player::JumpStart()
+{
+	// 애니메이션 해야하는데 귀찮음
+
+	SetGravityVector(float4::UP);
+}
+
+void Player::JumpUpdate(float _Delta)
+{
+	Gravity(_Delta);
+
+
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (RGB(255, 255, 255) != Color)
+		{
+			ChanageState(PlayerState::Idle);
+			return;
+		}
+	}
 
 }

@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "GameEngineLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 std::string GameEngineCore::WindowTitle = "";
 std::map<std::string, class GameEngineLevel*> GameEngineCore::AllLevel;
@@ -24,6 +25,7 @@ void GameEngineCore::CoreStart(HINSTANCE _Inst)
 	// 엔진쪽에 준비를 다 해고
 	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
 	GameEngineInput::InputInit();
+	// GameEngineSound::Init();
 
 	// 유저의 준비를 해준다.
 	Process->Start();
@@ -49,6 +51,7 @@ void GameEngineCore::CoreUpdate()
 	}
 
 	// 업데이트를 
+	GameEngineSound::Update();
 	GameEngineTime::MainTimer.Update();
 	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
 
@@ -71,7 +74,7 @@ void GameEngineCore::CoreUpdate()
 	CurLevel->ActorUpdate(Delta);
 	GameEngineWindow::MainWindow.ClearBackBuffer();
 	CurLevel->ActorRender(Delta);
-	CurLevel->Render();
+	CurLevel->Render(Delta);
 	GameEngineWindow::MainWindow.DoubleBuffering();
 
 	// 프레임의 가장 마지막에 Release가 될겁니다.
@@ -81,6 +84,8 @@ void GameEngineCore::CoreUpdate()
 
 void GameEngineCore::CoreEnd() 
 {
+	GameEngineSound::Release();
+
 	Process->Release();
 
 	if (nullptr != Process)

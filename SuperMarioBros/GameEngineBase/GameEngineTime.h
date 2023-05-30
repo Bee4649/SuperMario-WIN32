@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 #include <Windows.h>
 
 // Ό³Έν :
@@ -17,7 +18,7 @@ public:
 	GameEngineTime& operator=(const GameEngineTime& _Other) = delete;
 	GameEngineTime& operator=(GameEngineTime&& _Other) noexcept = delete;
 
-	float GetDeltaTime() 
+	float GetDeltaTime()
 	{
 		return FloatDelta;
 	}
@@ -29,9 +30,9 @@ public:
 protected:
 
 private:
-	LARGE_INTEGER Count = { 0 };
-	LARGE_INTEGER Cur = { 0 };
-	LARGE_INTEGER Prev = { 0 };
+	LARGE_INTEGER Count = LARGE_INTEGER(0);
+	LARGE_INTEGER Cur = LARGE_INTEGER(0);
+	LARGE_INTEGER Prev = LARGE_INTEGER(0);
 	__int64 Tick;
 	double DoubleDelta;
 	float FloatDelta;

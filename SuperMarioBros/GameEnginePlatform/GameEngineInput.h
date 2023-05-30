@@ -2,63 +2,36 @@
 #include <Windows.h>
 #include <map>
 #include <string>
-#include <GameEngineBase/GameEngineMath.h>
+#include <GameEngineBase/GameEngineMath.h>;
 
 // 설명 :
+class GameEngineWindow;
 class GameEngineInput
 {
+	friend GameEngineWindow;
+
 private:
-	class GameEngineKey 
+	class GameEngineKey
 	{
 		friend GameEngineInput;
 
-		bool Down = false;
-		bool Press = false;
-		bool Up = false;
-		bool Free = true;
+		bool Down = false; // 누른 순간.
+		bool Press = false; // 계속 누르고 있는 상태.
+		bool Up = false; // 떈 순간.
+		bool Free = true; // 안눌렀을 때.
 
-		// 의미가 없다고 봐요.
+		// 의미가 없다고 봐요. 몇초간 눌렀을 때
 		float PressTime = 0.0f;
 
 		int Key = -1;
 
-		bool KeyCheck() 
+		bool KeyCheck()
 		{
 			return 0 != GetAsyncKeyState(Key);
 		}
 
-		void Reset() 
-		{
-			if (true == Press)
-			{
-				Down = false;
-				Press = false;
-				Up = true;
-				Free = true;
-			}
-			else if (true == Up)
-			{
-				Down = false;
-				Press = false;
-				Up = false;
-				Free = true;
-			}
-		}
-
 		void Update(float _DeltaTime);
 
-	public:
-		GameEngineKey() 
-			: Key(-1)
-		{
-
-		}
-
-		GameEngineKey(int _Key) 
-			: Key(_Key)
-		{
-
-		}
 	};
 
 public:
@@ -72,20 +45,38 @@ public:
 	GameEngineInput& operator=(const GameEngineInput& _Other) = delete;
 	GameEngineInput& operator=(GameEngineInput&& _Other) noexcept = delete;
 
-	static float4 MousePos();
+	// static float4 MousePos();
 
-	static void InputInit();
 	static void Update(float _DeltaTime);
-	static void Reset();
+	static void CreateKey(const std::string_view& _Name, int _Key);
+	static bool IsKey(const std::string_view& _Name, int _Key);
 
-	static bool IsDown(int _Key);
-	static bool IsUp(int _Key);
-	static bool IsPress(int _Key);
-	static bool IsFree(int _Key);
+	static bool IsDown(const std::string_view& _Name, int _Key);
+	static bool IsUp(const std::string_view& _Name, int _Key);
+	static bool IsPress(const std::string_view& _Name, int _Key);
+	static bool IsFree(const std::string_view& _Name, int _Key);
+	static float GetPressTime(const std::string_view& _Name);
+
+	static bool IsAnyKey()
+	{
+		return IsAnyKeyValue;
+	}
 
 protected:
 
 private:
-	static std::map<int, GameEngineKey> AllKeys;
+	//      PlayerJump       
+	static std::map<std::string, GameEngineKey> Keys;
+	static bool IsAnyKeyValue;
+
+	static void IsAnyKeyOn()
+	{
+		IsAnyKeyValue = true;
+	}
+
+	static void IsAnyKeyOff()
+	{
+		IsAnyKeyValue = false;
+	}
 };
 

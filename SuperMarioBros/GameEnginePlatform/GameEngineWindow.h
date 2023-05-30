@@ -2,12 +2,22 @@
 #include <Windows.h>
 #include <string>
 #include "GameEngineWindowTexture.h"
+#include <GameEngineBase/GameEngineMath.h>
 
 // 설명 :
+class GameEngineWindowTexture;
 class GameEngineWindow
 {
+	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
+
 public:
 	static GameEngineWindow MainWindow;
+	
+	// 윈도우를 만들어 주는 기능
+	static void WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos);
+
+	static void SettingWindowSize(float4 _Size);
+	static void SettingWindowPos(float4 _Pos);
 
 	// constrcuter destructer
 	GameEngineWindow();
@@ -60,6 +70,21 @@ public:
 		return IsFocusValue;
 	}
 
+	float GetDoubleBufferingCopyScaleRatio() const
+	{
+		return CopyRatio;
+	}
+
+	void SetDoubleBufferingCopyScaleRatio(float _Ratio) 
+	{
+		CopyRatio = _Ratio;
+	}
+
+	void AddDoubleBufferingCopyScaleRatio(float _Ratio)
+	{
+		CopyRatio += _Ratio;
+	}
+
 protected:
 
 private:
@@ -69,6 +94,7 @@ private:
 	std::string Title = "";
 	HWND hWnd = nullptr;
 
+	float CopyRatio = 1.0f;
 
 	float4 Scale;
 	GameEngineWindowTexture* WindowBuffer = nullptr;
@@ -80,6 +106,7 @@ private:
 	HDC Hdc = nullptr;
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	
 	void InitInstance();
 	void MyRegisterClass();
 };

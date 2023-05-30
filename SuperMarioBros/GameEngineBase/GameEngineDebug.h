@@ -18,6 +18,7 @@ public:
 	GameEngineDebug& operator=(GameEngineDebug&& _Other) noexcept = delete;
 
 	static void LeckCheck();
+	static void LeakPointBreak(int _Point);
 
 protected:
 
@@ -25,6 +26,4 @@ private:
 
 };
 
-#define MsgBoxAssert(Text) \
-std::string Value = Text; \
-MessageBoxA(nullptr, Value.c_str(), "Error", MB_OK); assert(false);
+#define MsgAssert(MsgText) std::string ErrorText = MsgText; MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK); assert(false);

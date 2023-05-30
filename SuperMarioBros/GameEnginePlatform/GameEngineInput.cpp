@@ -1,7 +1,9 @@
 #include "GameEngineInput.h"
+#include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDebug.h>
 
-std::map<int, GameEngineInput::GameEngineKey> GameEngineInput::AllKeys;
+std::map<std::string, GameEngineInput::GameEngineKey> GameEngineInput::Keys;
+bool GameEngineInput::IsAnyKeyValue = false;
 
 GameEngineInput::GameEngineInput()
 {
@@ -11,6 +13,7 @@ GameEngineInput::~GameEngineInput()
 {
 }
 
+/*
 void GameEngineInput::InputInit()
 {
 	static bool Check = false;
@@ -120,7 +123,7 @@ void GameEngineInput::InputInit()
 	}
 
 }
-
+*/
 
 void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 {
@@ -168,22 +171,10 @@ void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 	}
 }
 
-void GameEngineInput::Reset()
-{
-	std::map<int, GameEngineKey>::iterator StartIter = AllKeys.begin();
-	std::map<int, GameEngineKey>::iterator EndIter = AllKeys.end();
-
-	for (; StartIter != EndIter; ++StartIter)
-	{
-		StartIter->second.Reset();
-	}
-
-}
-
 void GameEngineInput::Update(float _DeltaTime)
 {
-	std::map<int, GameEngineKey>::iterator StartIter = AllKeys.begin();
-	std::map<int, GameEngineKey>::iterator EndIter = AllKeys.end();
+	std::map<std::string, GameEngineKey>::iterator StartIter = Keys.begin();
+	std::map<std::string, GameEngineKey>::iterator EndIter = Keys.end();
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
@@ -192,40 +183,91 @@ void GameEngineInput::Update(float _DeltaTime)
 
 }
 
-bool GameEngineInput::IsDown(int _Key)
+bool GameEngineInput::IsKey(const std::string_view& _Name, int _Key)
 {
-	if (AllKeys.end() == AllKeys.find(_Key))
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	return Keys.end() != Keys.find(UpperName);
+
+}
+
+void GameEngineInput::CreateKey(const std::string_view& _Name, int _Key)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() != Keys.find(UpperName))
 	{
-		MsgBoxAssert("아직 처리하지 못하는 키입니다." + std::to_string(_Key));
+		MsgAssert("이미 존재하는 이름의 크기를 또 만들려고 했습니다.");
 	}
 
-	return AllKeys[_Key].Down;
+	_Key = toupper(_Key);
+
+	Keys[UpperName].Key = _Key;
 }
-bool GameEngineInput::IsUp(int _Key)
+
+bool GameEngineInput::IsDown(const std::string_view& _Name, int _Key)
 {
-	if (AllKeys.end() == AllKeys.find(_Key))
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() == Keys.find(UpperName))
 	{
-		MsgBoxAssert("아직 처리하지 못하는 키입니다." + std::to_string(_Key));
+		MsgAssert("존재하지 않는 키를 사용하려고 했습니다." + UpperName);
 	}
 
-	return AllKeys[_Key].Up;
+	return Keys[UpperName].Down;
 }
-bool GameEngineInput::IsPress(int _Key)
+
+bool GameEngineInput::IsUp(const std::string_view& _Name, int _Key)
 {
-	if (AllKeys.end() == AllKeys.find(_Key))
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() == Keys.find(UpperName))
 	{
-		MsgBoxAssert("아직 처리하지 못하는 키입니다." + std::to_string(_Key));
+		MsgAssert("존재하지 않는 키를 사용하려고 했습니다." + UpperName);
 	}
 
-	return AllKeys[_Key].Press;
+
+	return Keys[UpperName].Up;
 }
-bool GameEngineInput::IsFree(int _Key)
+bool GameEngineInput::IsPress(const std::string_view& _Name, int _Key)
 {
-	if (AllKeys.end() == AllKeys.find(_Key))
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() == Keys.find(UpperName))
 	{
-		MsgBoxAssert("아직 처리하지 못하는 키입니다." + std::to_string(_Key));
+		MsgAssert("존재하지 않는 키를 사용하려고 했습니다." + UpperName);
 	}
 
-	return AllKeys[_Key].Free;
+
+	return Keys[UpperName].Press;
 }
+bool GameEngineInput::IsFree(const std::string_view& _Name, int _Key)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() == Keys.find(UpperName))
+	{
+		MsgAssert("존재하지 않는 키를 사용하려고 했습니다." + UpperName);
+	}
+
+	return Keys[UpperName].Free;
+}
+
+float GameEngineInput::GetPressTime(const std::string_view& _Name)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Name);
+
+	if (Keys.end() == Keys.find(UpperName))
+	{
+		MsgAssert("존재하지 않는 키를 사용하려고 했습니다." + UpperName);
+	}
+
+	return Keys[UpperName].PressTime;
+}
+
+
+
+
+
+
 

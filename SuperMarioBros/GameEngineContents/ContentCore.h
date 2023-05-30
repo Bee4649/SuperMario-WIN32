@@ -24,7 +24,7 @@ private:
 	void Update(float _Delta) override;
 
 	// 그려지고.
-	void Render() override;
+	void Render(float _Delta) override;
 
 	// 정리된다.
 	void Release() override;

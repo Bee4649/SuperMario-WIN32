@@ -1,26 +1,15 @@
 #include "GameEngineRandom.h"
 #include <iostream>
+#include <chrono>
 
 GameEngineRandom GameEngineRandom::MainRandom;
 
-GameEngineRandom::GameEngineRandom() 
+GameEngineRandom::GameEngineRandom()
+	: MtRand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))
 {
-	Seed = (int)time(nullptr);
-	srand(Seed);
+	// chrono는 std에서 제공하는 시간을 재기위한 함수임.
 }
 
-GameEngineRandom::GameEngineRandom(int _Seed)
-{
-	Seed = _Seed;
-	srand(Seed);
-}
-
-int GameEngineRandom::RandomInt(int _Min, int _Max)
-{
-	return (rand() % (_Max + 1 - _Min)) + _Min;
-}
-
-GameEngineRandom::~GameEngineRandom() 
+GameEngineRandom::~GameEngineRandom()
 {
 }
-

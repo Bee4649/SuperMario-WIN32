@@ -4,7 +4,9 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include "Monster.h"
+#include "PlayUIManager.h"
 
 
 // Contents
@@ -21,6 +23,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start() 
 {
+	GameEngineSound::SetGlobalVolume(0.05f);
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Test.Bmp"))
 	{
@@ -31,8 +34,19 @@ void PlayLevel::Start()
 		GameEnginePath FolderPath = FilePath;
 
 		FilePath.MoveChild("ContentsResources\\Texture\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("STAGE1COL.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("StageTestPixel.bmp"));
 	}
+
+	if (nullptr == GameEngineSound::FindSound("BGMTest.mp3"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("BGMTest.mp3"));
+	}
+
 
 
 
@@ -49,10 +63,13 @@ void PlayLevel::Start()
 	// Player* NewPlayer = new Player();
 
 	BackGroundPtr = CreateActor<BackGround>();
-	BackGroundPtr->Init("Stage1Test.Bmp", "STAGE1COL.bmp");
+	BackGroundPtr->Init("StageTest.Bmp", "StageTestPixel.bmp");
 
 	LevelPlayer = CreateActor<Player>();
-	LevelPlayer->SetGroundTexture("STAGE1COL.bmp");
+	LevelPlayer->SetGroundTexture("StageTestPixel.bmp");
+
+	CreateActor<PlayUIManager>();
+
 }
 
 
@@ -60,7 +77,9 @@ void PlayLevel::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('O'))
 	{
-		GameEngineCore::ChangeLevel("TitleLevel");
+		BGMPlayer.Stop();
+
+		// GameEngineCore::ChangeLevel("TitleLevel");
 	}
 
 	if (true == GameEngineInput::IsDown('J'))
@@ -68,7 +87,7 @@ void PlayLevel::Update(float _Delta)
 		BackGroundPtr->SwitchRender();
 	}
 
-	if (1.0f <= GetLiveTime())
+	if (0.0f <= GetLiveTime())
 	{
 		Monster* NewMonster = CreateActor<Monster>();
 		ResetLiveTime();
@@ -76,21 +95,22 @@ void PlayLevel::Update(float _Delta)
 
 	// GameEngineCore::ChangeLevel("TitleLevel");
 }
-void PlayLevel::Render() 
-{
-}
 void PlayLevel::Release() 
 {
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel) 
 {
+
+
 	if (nullptr == LevelPlayer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 
-	LevelPlayer->SetGroundTexture("STAGE1COL.bmp");
+	BGMPlayer = GameEngineSound::SoundPlay("BGMTest.mp3");
+
+	LevelPlayer->SetGroundTexture("StageTestPixel.bmp");
 
 	//float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	////LevelPlayer->SetPos(WinScale.Half());

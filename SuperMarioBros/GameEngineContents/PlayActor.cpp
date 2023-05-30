@@ -51,3 +51,8 @@ int PlayActor::GetGroundColor(unsigned int _DefaultColor, float4 _Pos)
 
 	return GroundTexture->GetColor(_DefaultColor, GetPos() + _Pos);
 }
+
+float4 PlayActor::ActorCameraPos()
+{
+	return GetPos() - GetLevel()->GetMainCamera()->GetPos();
+}

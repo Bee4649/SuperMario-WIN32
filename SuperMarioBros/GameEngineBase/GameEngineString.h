@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <string_view>
 
 // Ό³Έν :
 class GameEngineString
@@ -15,17 +16,14 @@ public:
 	GameEngineString& operator=(const GameEngineString& _Other) = delete;
 	GameEngineString& operator=(GameEngineString&& _Other) noexcept = delete;
 
-	static std::string ToUpperReturn(const std::string& _Value) 
-	{
-		std::string UpperString = _Value;
+	static std::string ToUpper(const std::string_view& _Str);
+	static std::string ToString(int Value);
 
-		for (size_t i = 0; i < UpperString.size(); i++)
-		{
-			UpperString[i] = toupper(UpperString[i]);
-		}
+	static std::wstring AnsiToUniCode(const std::string_view& _Text);
+	static std::string UniCodeToAnsi(const std::wstring_view& _Text);
 
-		return UpperString;
-	}
+	static std::string UniCodeToUTF8(const std::wstring_view& _Text);
+	static std::string AnsiToUTF8(const std::string_view& _Text);
 
 protected:
 

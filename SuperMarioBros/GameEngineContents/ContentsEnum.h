@@ -13,7 +13,7 @@ enum class RenderOrder
 	PlayUI,
 };
 
-// ÇïÅ×ÀÌÄ¿ 
+
 enum class CollisionOrder
 {
 	Map,

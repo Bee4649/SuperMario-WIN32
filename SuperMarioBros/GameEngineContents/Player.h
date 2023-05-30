@@ -5,6 +5,7 @@ enum class PlayerState
 {
 	Idle,
 	Run,
+	Jump,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -45,17 +46,22 @@ protected:
 	void StateUpdate(float _Delta);
 
 	void IdleStart();
+	void IdleUpdate(float _Delta);
+
 	void RunStart();
+	void RunUpdate(float _Delta);
 
 	// 클래스로 만들어도 되고.
-	void IdleUpdate(float _Delta);
-	void RunUpdate(float _Delta);
+	void JumpStart();
+	void JumpUpdate(float _Delta);
 
 	void ChanageState(PlayerState State);
 
 	PlayerState State = PlayerState::Max;
 	PlayerDir Dir = PlayerDir::Right;
 	std::string CurState = "";
+
+	int TestValue = 0;
 
 	GameEngineCollision* BodyCollsion = nullptr;
 
@@ -68,5 +74,11 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void Render(float _Delta) override;
+
+////////////////////// DebugValue
+	float4 LeftCheck = { -100.0f, -50.0f };
+	float4 RightCheck = { 100.0f, -50.0f };
+
 };
 

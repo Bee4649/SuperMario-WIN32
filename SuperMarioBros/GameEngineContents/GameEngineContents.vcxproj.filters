@@ -27,6 +27,13 @@
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="PlayActor.h" />
+    <ClInclude Include="DefaultHeader.h" />
+    <ClInclude Include="PlayUIManager.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalValue.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -55,6 +62,12 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="PlayActor.cpp" />
+    <ClCompile Include="PlayUIManager.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -62,6 +75,9 @@
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{d837136f-a0ad-4933-965c-0b1485f945ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play">
+      <UniqueIdentifier>{024a5cf4-f6f6-466b-a27d-13f5cb3bbdb1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

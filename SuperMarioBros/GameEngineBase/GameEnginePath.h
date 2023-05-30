@@ -1,45 +1,52 @@
 #pragma once
 #include <string>
+// c++ 실행되는 곳에서 사용할 수 있는 모든 문자열 관련 처리방식을 지원해준다.
 #include <filesystem>
 
-// 설명 :
+// 설명 : 경로에 관련된 기능을 대표하는 킆래스
+//class GameEngineFile;
+//class GameEngineDirectory;
+
 class GameEnginePath
 {
+	friend class GameEngineFile;
+	friend class GameEngineDirectory;
+
 public:
 	// constrcuter destructer
 	GameEnginePath();
+	GameEnginePath(std::filesystem::path _Path);
 	GameEnginePath(const std::string& _path);
 	~GameEnginePath();
 
-	//// delete Function
-	//GameEnginePath(const GameEnginePath& _Other) = delete;
-	//GameEnginePath(GameEnginePath&& _Other) noexcept = delete;
-	//GameEnginePath& operator=(const GameEnginePath& _Other) = delete;
-	//GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
+	// delete Function
+	GameEnginePath(const GameEnginePath& _Other) = delete;
+	GameEnginePath(GameEnginePath&& _Other) noexcept = delete;
+	GameEnginePath& operator=(const GameEnginePath& _Other) = delete;
+	GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
 
 	std::string GetFileName();
+	std::string GetPathToString() const;
 
-	void SetCurrentPath();
 	void MoveParent();
-	void MoveParentToExistsChild(const std::string& _ChildPath);
-	void MoveChild(const std::string& _ChildPath);
 
-	std::string PlusFilePath(const std::string& _ChildPath);
+	// 내자식중 특정 경로나 특정 파일이 있는곳까지 자동 move
+	void MoveParentToChildPath(const std::string_view& _String);
 
-	std::string GetStringPath() 
-	{
-		return Path.string();
-	}
+	bool IsExists();
+	bool IsExistsToPlusString(const std::string_view& _String);
 
-	bool IsDirectory();
+	bool IsRoot();
 
-	static std::string GetParentString(const std::string& _ChildPath);
+	bool Move(const std::string_view& _Path);
+
+	void SetPath(const std::string_view& _Path);
 
 protected:
-	std::filesystem::path Path;
+
 
 private:
-
+	std::filesystem::path Path;
 	// std::string Path;
 };
 

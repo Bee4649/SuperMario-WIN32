@@ -1,18 +1,25 @@
 #include "Player.h"
+#pragma region Headers
+
 #include "ContentsEnum.h"
 #include <Windows.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCore.h>
 #include "Bullet.h"
 #include "Monster.h"
+#include "PlayUIManager.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+
+#pragma endregion
 
 Player* Player::MainPlayer = nullptr;
 
@@ -47,11 +54,13 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteFolder("FolderPlayer", FolderPath.PlusFilePath("FolderPlayer"));
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Test.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crown.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HPBar.bmp"));
 	}
 
 	{
-		MainRenderer = CreateRenderer(-200);
+
+		MainRenderer = CreateRenderer(200);
+
 		// MainRenderer->SetRenderScale({ 200, 200 });
 		// MainRenderer->SetSprite("Left_Player.bmp");
 
@@ -60,7 +69,7 @@ void Player::Start()
 
 
 		MainRenderer->CreateAnimation("Left_Idle", "Left_Player.bmp", 0, 2, 0.1f, true);
-		MainRenderer->CreateAnimation("Right_Idle", "Right_Player.bmp", 0, 2, 0.1f, true);
+		MainRenderer->CreateAnimation("Right_Idle", "Right_Player.bmp", 0, 2, 1.0f, true);
 
 		// MainRenderer->CreateAnimation("Right_Idle", "FolderPlayer");
 
@@ -72,11 +81,19 @@ void Player::Start()
 		MainRenderer->SetRenderScaleToTexture();
 	}
 
+	//{
+	//	GameEngineRenderer* Ptr = CreateUIRenderer(200);
+	//	Ptr->SetRenderPos({ 100, -300 });
+	//	Ptr->SetRenderScale({ 200, 40 });
+	//	Ptr->SetTexture("HPBar.bmp");
+	//}
+
 	{
-		GameEngineRenderer* Ptr = CreateRenderer("Crown.bmp", RenderOrder::Play);
-		Ptr->SetRenderPos({ 0, -150 });
-		Ptr->SetRenderScale({ 70, 90 });
-		Ptr->SetTexture("Crown.bmp");
+		GameEngineRenderer* Ptr = CreateRenderer("HPBar.bmp", RenderOrder::Play);
+		Ptr->SetRenderPos({ 0, -100 });
+		Ptr->SetRenderScale({ 200, 40 });
+		Ptr->SetTexture("HPBar.bmp");
+
 	}
 
 	{
@@ -116,16 +133,22 @@ void Player::Update(float _Delta)
 		// 나는 몬스터랑 충돌한거야.
 	}
 
-	if (true == GameEngineInput::IsDown('L'))
+	if (true == GameEngineInput::IsPress('L'))
 	{
-		Monster::AllMonsterDeath();
+		// GameEngineSound::SoundLoad("C:\\AAAA\\AAAA\\A\\AAA.Mp3");
+		// GameEngineSound::SoundPlay("AAA.Mp3");
+		// GameEngineSound::PlayBgm("AAA.Mp3");
+		// GameEngineSound::StopBgm("AAA.Mp3");
+
+		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(1.0f * _Delta);
+
+		// Monster::AllMonsterDeath();
 	}
 
-	if (true == GameEngineInput::IsDown('Y'))
+	if (true == GameEngineInput::IsPress('Y'))
 	{
-		MainRenderer->SetOrder(1000);
-
-		// GravityOff();
+		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(-1.0f * _Delta);
+		// GameEngineLevel::CollisionDebugRenderSwitch();
 	}
 
 	StateUpdate(_Delta);
@@ -143,6 +166,9 @@ void Player::StateUpdate(float _Delta)
 		return IdleUpdate(_Delta);
 	case PlayerState::Run:
 		return RunUpdate(_Delta);
+	case PlayerState::Jump:
+		return JumpUpdate(_Delta);
+		break;
 	default:
 		break;
 	}
@@ -160,6 +186,9 @@ void Player::ChanageState(PlayerState _State)
 			break;
 		case PlayerState::Run:
 			RunStart();
+			break;
+		case PlayerState::Jump:
+			JumpStart();
 			break;
 		default:
 			break;
@@ -258,4 +287,26 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 void Player::LevelStart() 
 {
 	MainPlayer = this;
+}
+
+void Player::Render(float _Delta)
+{
+	std::string Text = "";
+	Text += "플레이어 테스트 값 : ";
+	Text += std::to_string(TestValue);
+	HDC dc = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
+	TextOutA(dc, 2, 3, Text.c_str(), static_cast<int>(Text.size()));
+
+	CollisionData Data;
+
+	Data.Pos = ActorCameraPos();
+	Data.Scale = { 5,5 };
+	Rectangle(dc, Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+
+	Data.Pos = ActorCameraPos() + LeftCheck;
+	Rectangle(dc, Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+
+	Data.Pos = ActorCameraPos() + RightCheck;
+	Rectangle(dc, Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+
 }

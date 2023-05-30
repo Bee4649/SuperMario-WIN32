@@ -61,24 +61,27 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 		RenderScale = Texture->GetScale();
 	}
 	ScaleCheck = false;
-
 }
 
-
-void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime) 
+void GameEngineRenderer::Render(float _DeltaTime) 
 {
 	if (nullptr != CurAnimation)
 	{
+		if (true == CurAnimation->Loop)
+		{
+			CurAnimation->IsEnd = false;
+		}
+
 		CurAnimation->CurInter -= _DeltaTime;
 		if (0.0f >= CurAnimation->CurInter)
 		{
-			CurAnimation->CurInter 
-				= CurAnimation->Inters[CurAnimation->CurFrame];
-
 			++CurAnimation->CurFrame;
+
 
 			if (CurAnimation->CurFrame > abs(static_cast<int>(CurAnimation->EndFrame - CurAnimation->StartFrame)))
 			{
+				CurAnimation->IsEnd = true;
+
 				if (true == CurAnimation->Loop)
 				{
 					CurAnimation->CurFrame = 0;
@@ -89,6 +92,8 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 				}
 			}
 
+			CurAnimation->CurInter
+				= CurAnimation->Inters[CurAnimation->CurFrame];
 		}
 
 		size_t Frame = CurAnimation->Frames[CurAnimation->CurFrame];
@@ -112,7 +117,7 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
 
-	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
+	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale);
 
 }
 
@@ -217,6 +222,7 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AniamtionName, bool
 
 	CurAnimation->CurInter = CurAnimation->Inters[0];
 	CurAnimation->CurFrame = 0;
+	CurAnimation->IsEnd = false;
 
 	if (nullptr == CurAnimation)
 	{
@@ -225,9 +231,18 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AniamtionName, bool
 	}
 }
 
-void GameEngineRenderer::Start() 
+void GameEngineRenderer::MainCameraSetting()
 {
 	Camera = GetActor()->GetLevel()->GetMainCamera();
+}
+
+void GameEngineRenderer::UICameraSetting()
+{
+	Camera = GetActor()->GetLevel()->GetUICamera();
+}
+
+void GameEngineRenderer::Start() 
+{
 }
 
 void GameEngineRenderer::SetOrder(int _Order)
