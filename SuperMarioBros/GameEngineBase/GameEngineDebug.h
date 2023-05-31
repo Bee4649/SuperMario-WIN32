@@ -17,7 +17,7 @@ public:
 	GameEngineDebug& operator=(const GameEngineDebug& _Other) = delete;
 	GameEngineDebug& operator=(GameEngineDebug&& _Other) noexcept = delete;
 
-	static void LeckCheck();
+	static void LeakCheck();
 	static void LeakPointBreak(int _Point);
 
 protected:

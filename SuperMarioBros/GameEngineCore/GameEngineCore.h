@@ -1,51 +1,76 @@
 #pragma once
 #include <GameEngineBase/GameEngineDebug.h>
-#include <GameEngineBase/GameEngineString.h>
 #include <Windows.h>
-#include <string>
+#include <string_view>
 #include <map>
-#include "GameEngineObject.h"
-
-class CoreProcess : public GameEngineObject
-{
-
-};
 
 // 설명 :
 class GameEngineLevel;
 class GameEngineCore
 {
+
+private:
+
+	static void GlobalStart();
+	static void GlobalUpdate();
+	static void GlobalEnd();
+
 public:
+
+	// constrcuter destructer
+	GameEngineCore();
+	~GameEngineCore();
+
 	// delete Function
 	GameEngineCore(const GameEngineCore& _Other) = delete;
 	GameEngineCore(GameEngineCore&& _Other) noexcept = delete;
 	GameEngineCore& operator=(const GameEngineCore& _Other) = delete;
 	GameEngineCore& operator=(GameEngineCore&& _Other) noexcept = delete;
 
-	template<typename CoreProcessType>
-	static void EngineStart(const std::string& _Title, HINSTANCE _Inst) 
+	void CoreStart(HINSTANCE _Instance);
+
+	void ChangeLevel(const std::string_view& _Name);
+
+
+	static GameEngineCore* GetInst();
+
+	void DebugSwitch()
 	{
-		EngineStart(_Title, _Inst, new CoreProcessType());
+		IsDebugValue = !IsDebugValue;
 	}
 
-	template<typename LevelType>
-	static void CreateLevel(const std::string& _Name) 
+	void SetDebugMode(bool _IsDebug)
 	{
-		std::string Upper = GameEngineString::ToUpperReturn(_Name);
+		IsDebugValue = _IsDebug;
+	}
+
+	bool IsDebug()
+	{
+		return IsDebugValue;
+	}
+
+
+protected:
+
+	template<typename LevelType>
+	void CreateLevel(const std::string& _Name) 
+	{
 
 		// 이미 내부에 TitleLevel이 존재한다.
-		if (AllLevel.end() != AllLevel.find(Upper))
+		if (Levels.end() != Levels.find(_Name.data()))
 		{
-			MsgBoxAssert(Upper + "의 이름을 가진 GameEngineLevel은 이미 존재합니다.");
+			MsgAssert(Name + "의 이름을 가진 GameEngineLevel은 이미 존재합니다.");
 			return;
 		}
 
+		// 업캐스팅이 벌어지니깐
 		GameEngineLevel* NewLevel = new LevelType();
 
-		LevelInit(NewLevel);
-
-		AllLevel.insert(std::make_pair(Upper, NewLevel));
-
+		LevelLoading(Level, _Name);
+		// Level->Loading();
+		// insert할때마다 새로운 string이 생기면서 자신만의 메모리를 가지게 됩니다.
+		Levels.insert(std::make_pair(_Name.data(), NewLevel));
+		
 		//std::pair<std::map<std::string, class GameEngineLevel*>::iterator, bool> Pair 
 		//	= AllLevel.insert(std::make_pair(_Title, nullptr));
 
@@ -56,41 +81,24 @@ public:
 		//}
 	}
 
-	static void ChangeLevel(const std::string& _Name)
-	{
-		std::string Upper = GameEngineString::ToUpperReturn(_Name);
-
-		std::map<std::string, GameEngineLevel*>::iterator Finditer = AllLevel.find(Upper);
-
-		// 이미 내부에 TitleLevel이 존재한다.
-		if (AllLevel.end() == Finditer)
-		{
-			MsgBoxAssert(Upper + "의 이름을 가진 GameEngineLevel은 존재하지 않습니다.");
-			return;
-		}
-
-		NextLevel = Finditer->second;
-	}
-
-
-protected:
+	virtual void Start() = 0;
+	virtual void Update() = 0;
+	virtual void End() = 0;
 
 private:
-	static std::string WindowTitle;
-	static CoreProcess* Process;
 
-	static void LevelInit(GameEngineLevel* _Level);
-
-	static void CoreStart(HINSTANCE _Inst);
-	static void CoreUpdate();
-	static void CoreEnd();
-	static void EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr);
-
+	// 그래서 map을 사용한다. 레벨이라는것은 장면이고,
+	// GameEngineLevel을 "어떠한 이름"으로 찾고 이름으로 실행시키고.
+	std::map<std::string, GameEngineLevel*> Levels;
+	
 	static GameEngineLevel* CurLevel;
-	static GameEngineLevel* NextLevel;
-	static std::map<std::string, GameEngineLevel*> AllLevel;
 
-	// constrcuter destructer
-	GameEngineCore();
-	~GameEngineCore();
+	static GameEngineLevel* NextLevel;
+
+	void LevelLoading(GameEngineLevel* _Level, const std::string_view& _Name);
+
+	bool IsDebugValue = false;
+
+
+
 };

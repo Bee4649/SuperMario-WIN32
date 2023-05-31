@@ -3,118 +3,142 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "GameEngineLevel.h"
+#include "ResourcesManager.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 
-std::string GameEngineCore::WindowTitle = "";
-std::map<std::string, class GameEngineLevel*> GameEngineCore::AllLevel;
-CoreProcess* GameEngineCore::Process = nullptr;
-GameEngineLevel* GameEngineCore::CurLevel = nullptr;
-GameEngineLevel* GameEngineCore::NextLevel = nullptr;
+GameEngineCore* Core;
+
+GameEngineCore* GameEngineCore::GetInst()
+{
+	return Core;
+}
+
+void GameEngineCore::GlobalStart()
+{
+	Core->Start();
+
+	GameEngineTime::MainTimer.Reset();
+}
+
+
+void GameEngineCore::GlobalUpdate()
+{
+
+	// 프레임 시작할때 한번 델타타임을 정하고
+	GameEngineSound::Update();
+	float TimeDeltaTime = GameEngineTime::MainTimer.Update();
+	GameEngineInput::Update(TimeDeltaTime);
+
+	// 여기에서 처리한다
+	if (nullptr != Core->NextLevel)
+	{
+		GameEngineLevel* PrevLevel = Core->CurLevel;
+		GameEngineLevel* NextLevel = Core->NextLevel;
+
+		if (nullptr != PrevLevel)
+		{
+			PrevLevel->LevelChangeEnd(NextLevel);
+			PrevLevel->ActorLevelChangeEnd(NextLevel);
+		}
+
+		Core->CurLevel = NextLevel;
+		Core->NextLevel = nullptr;
+
+		if (nullptr != NextLevel)
+		{
+			NextLevel->LevelChangeStart(PrevLevel);
+			NextLevel->ActorLevelChangeStart(PrevLevel);
+		}
+	}
+
+	if (1.0f / 60.0f <= TimeDeltaTime)
+	{
+		TimeDeltaTime = 1.0f / 60.0f;
+	}
+
+	Core->Update();
+	if (nullptr == Core->CurLevel)
+	{
+		MsgAssert("레벨을 지정해주지 않은 상태로 코어를 실행했습니다");
+		return;
+	}
+
+	Core->CurLevel->Update(TimeDeltaTime);
+	Core->CurLevel->ActorUpdate(TimeDeltaTime);
+	GameEngineWindow::DoubleBufferClear();
+	Core->CurLevel->ActorRender(TimeDeltaTime);
+	GameEngineWindow::DoubleBufferRender();
+	Core->CurLevel->Release();
+}
+
+
+void GameEngineCore::GlobalEnd()
+{
+	Core->End();
+
+	ResourcesManager::GetInst().Release();
+}
+
 
 GameEngineCore::GameEngineCore() 
 {
+	GameEngineDebug::LeakCheck();
+	// 나는 자식중에 하나일수밖에 없다.
+	// 나는 절대 만들어질 수 없기 때문이다.
+	Core = this;
 }
 
 GameEngineCore::~GameEngineCore() 
 {
-}
+	std::map<std::string, GameEngineLevel*>::iterator StartIter = Levels.begin();
+	std::map<std::string, GameEngineLevel*>::iterator EndIter = Levels.end();
 
-void GameEngineCore::CoreStart(HINSTANCE _Inst) 
-{
-	// 엔진쪽에 준비를 다 해고
-	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
-	GameEngineInput::InputInit();
-	// GameEngineSound::Init();
-
-	// 유저의 준비를 해준다.
-	Process->Start();
-}
-
-void GameEngineCore::CoreUpdate() 
-{
-	if (nullptr != NextLevel)
+	for (size_t i = 0; StartIter != EndIter; ++StartIter)
 	{
-		if (nullptr != CurLevel)
+		if (nullptr != StartIter->second)
 		{
-			CurLevel->LevelEnd(NextLevel);
-			CurLevel->ActorLevelEnd();
-		}
-
-		NextLevel->LevelStart(CurLevel);
-		NextLevel->ActorLevelStart();
-
-		CurLevel = NextLevel;
-
-		NextLevel = nullptr;
-		GameEngineTime::MainTimer.Reset();
-	}
-
-	// 업데이트를 
-	GameEngineSound::Update();
-	GameEngineTime::MainTimer.Update();
-	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
-
-	if (true == GameEngineWindow::IsFocus())
-	{
-		GameEngineInput::Update(Delta);
-	}
-	else 
-	{
-		GameEngineInput::Reset();
-	}
-
-	// 한프레임 동안은 절대로 기본적인 세팅의 
-	// 변화가 없게 하려고 하는 설계의도가 있는것.
-	// 이걸 호출한 애는 PlayLevel
-	CurLevel->AddLiveTime(Delta);
-	CurLevel->Update(Delta);
-
-	// TitleLevel
-	CurLevel->ActorUpdate(Delta);
-	GameEngineWindow::MainWindow.ClearBackBuffer();
-	CurLevel->ActorRender(Delta);
-	CurLevel->Render(Delta);
-	GameEngineWindow::MainWindow.DoubleBuffering();
-
-	// 프레임의 가장 마지막에 Release가 될겁니다.
-	CurLevel->ActorRelease();
-
-}
-
-void GameEngineCore::CoreEnd() 
-{
-	GameEngineSound::Release();
-
-	Process->Release();
-
-	if (nullptr != Process)
-	{
-		delete Process;
-		Process = nullptr;
-	}
-
-	for (std::pair<std::string, GameEngineLevel*> _Pair : AllLevel)
-	{
-		if (nullptr != _Pair.second)
-		{
-			delete _Pair.second;
-			_Pair.second = nullptr;
+			delete StartIter->second;
 		}
 	}
+
+	Levels.clear();
 }
 
-
-void GameEngineCore::EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr)
+void GameEngineCore::CoreStart(HINSTANCE _instance)
 {
-	GameEngineDebug::LeckCheck();
+	if (false == GameEngineInput::IsKey("EngineMouseLeft"))
+	{
+		GameEngineInput::CreateKey("EngineMouseLeft", VK_LBUTTON);
+		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
+	}
 
-	Process = _Ptr;
-	WindowTitle = _Title;
-	GameEngineWindow::MessageLoop(_Inst, CoreStart, CoreUpdate, CoreEnd);
+	GameEngineWindow::WindowCreate(_instance, "Super Mario Wolrd", { 1280, 720 }, { 0, 0 });
+	GameEngineWindow::MessageLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
 }
 
-void GameEngineCore::LevelInit(GameEngineLevel* _Level)
+void GameEngineCore::ChangeLevel(const std::string_view& _Name)
 {
-	_Level->Start();
+	std::map<std::string, GameEngineLevel*>::iterator FindIter = Levels.find(_Name.data());
+
+	if (FindIter == Levels.end())
+	{
+		std::string Name = _Name.data();
+		MsgAssert(Name + "존재하지 않는 레벨을 실행시키려고 했습니다");
+		return;
+	}
+
+	NextLevel = FindIter->second;
+}
+
+void GameEngineCore::LevelLoading(GameEngineLevel* _Level, const std::string_view& _Name)
+{
+	if (nullptr == _Level)
+	{
+		MsgAssert("nullptr 인 레벨을 로딩하려고 했습니다.");
+		return;
+	}
+
+	_Level->SetName(_Name);
+	_Level->Loading();
 }

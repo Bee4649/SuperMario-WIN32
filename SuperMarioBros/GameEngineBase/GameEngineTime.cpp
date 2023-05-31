@@ -23,7 +23,7 @@ void GameEngineTime::Reset()
 }
 
 // 프레임 사이에서 실행되어야할 함수들은 다 업데이트라고 이름을 지을 것이다.
-void GameEngineTime::Update()
+float GameEngineTime::Update()
 {
 	// 이 함수가 실행될때까지 걸린 시간...
 	QueryPerformanceCounter(&Cur);

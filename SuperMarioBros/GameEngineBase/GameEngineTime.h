@@ -25,7 +25,7 @@ public:
 
 	void Reset();
 
-	void Update();
+	float Update();
 
 protected:
 

@@ -197,6 +197,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="IconRes.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
@@ -259,6 +260,12 @@
     <ProjectReference Include="..\GameEnginePlatform\GameEnginePlatform.vcxproj">
       <Project>{a4198b71-d72c-4c1a-9fa2-6a2a1290c0e7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameEngineContents.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\ContentsResources\Texture\Mario Swag.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
