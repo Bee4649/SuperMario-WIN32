@@ -2,8 +2,6 @@
 #include "GameEngineRenderer.h"
 #include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
-#include "GameEngineCamera.h"
-#include <GameEngineBase/GameEngineDebug.h>
 
 GameEngineActor::GameEngineActor() 
 {
@@ -11,93 +9,120 @@ GameEngineActor::GameEngineActor()
 
 GameEngineActor::~GameEngineActor() 
 {
-	for (GameEngineRenderer* Render : AllRenderer)
+	for (GameEngineRenderer* Render : RenderList)
 	{
+		if (nullptr == Render)
+		{
+			continue;
+		}
+
 		delete Render;
 		Render = nullptr;
 	}
 
-	for (GameEngineCollision* Collision : AllCollision)
+	for (GameEngineCollision* Collision : CollisionList)
 	{
+		if (nullptr == Collision)
+		{
+			continue;
+		}
+
 		delete Collision;
 		Collision = nullptr;
 	}
 
 }
-
-void GameEngineActor::ActorRelease()
+GameEngineLevel* GameEngineActor::GetLevel()
 {
-	std::list<GameEngineRenderer*>::iterator ObjectStartIter = AllRenderer.begin();
-	std::list<GameEngineRenderer*>::iterator ObjectEndIter = AllRenderer.end();
+	return GetOwner<GameEngineLevel>();
+}
 
-	for (; ObjectStartIter != ObjectEndIter; )
+GameEngineRenderer* GameEngineActor::CreateRender(const std::string_view& _Image, int _Order /*= 0*/)
+{
+	GameEngineRenderer* Render = CreateRender(_Order);
+	Render->SetImage(_Image);
+	return Render;
+}
+
+GameEngineRenderer* GameEngineActor::CreateRender(int _Order /*= 0*/)
+{
+	GameEngineRenderer* Render = new GameEngineRenderer();
+	Render->SetOwner(this);
+	Render->SetOrder(_Order);
+	RenderList.push_back(Render);
+	return Render;
+}
+
+GameEngineCollision* GameEngineActor::CreateCollision(int _GroupIndex)
+{
+	GameEngineCollision* Collision = new GameEngineCollision();
+	Collision->SetOwner(this);
+	Collision->SetOrder(_GroupIndex);
+	CollisionList.push_back(Collision);
+	return Collision;
+}
+
+
+void GameEngineActor::Release()
+{
 	{
-		GameEngineRenderer* Renderer = *ObjectStartIter;
-		if (false == Renderer->IsDeath())
+		std::list<GameEngineRenderer*>::iterator StartIter = RenderList.begin();
+		std::list<GameEngineRenderer*>::iterator EndIter = RenderList.end();
+
+		for (; StartIter != EndIter; )
 		{
-			++ObjectStartIter;
-			continue;
+			GameEngineRenderer* ReleaseRender = *StartIter;
+
+			if (nullptr == ReleaseRender)
+			{
+				MsgAssert("nullptr 인 Render가 내부에 들어있습니다.");
+			}
+
+			if (false == ReleaseRender->IsDeath())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = RenderList.erase(StartIter);
+
+			delete ReleaseRender;
+			ReleaseRender = nullptr;
 		}
+	}
+	{
+		std::list<GameEngineCollision*>::iterator StartIter = CollisionList.begin();
+		std::list<GameEngineCollision*>::iterator EndIter = CollisionList.end();
 
-
-		if (nullptr == Renderer)
+		for (; StartIter != EndIter; )
 		{
-			MsgBoxAssert("nullptr인 액터가 레벨의 리스트에 들어가 있었습니다.");
-			continue;
+			GameEngineCollision* ReleaseCollision = *StartIter;
+
+			if (nullptr == ReleaseCollision)
+			{
+				MsgAssert("nullptr 인 Render가 내부에 들어있습니다.");
+			}
+
+			if (false == ReleaseCollision->IsDeath())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = CollisionList.erase(StartIter);
+
+			delete ReleaseCollision;
+			ReleaseCollision = nullptr;
 		}
-
-		delete Renderer;
-		Renderer = nullptr;
-
-		// [s] [a] [a]     [a] [e]
-		ObjectStartIter = AllRenderer.erase(ObjectStartIter);
-
 	}
 }
 
-GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, int _Order) 
+void GameEngineActor::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
-	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
-	NewRenderer->Master = this;
-	NewRenderer->MainCameraSetting();
-	NewRenderer->SetOrder(_Order);
-
-	if (_ImageName != "")
-	{
-		NewRenderer->SetTexture(_ImageName);
-	}
-	AllRenderer.push_back(NewRenderer);
-
-	return NewRenderer;
 }
 
-
-GameEngineRenderer* GameEngineActor::CreateUIRenderer(const std::string& _ImageName, int _Order)
+void GameEngineActor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
-	NewRenderer->Master = this;
-	NewRenderer->UICameraSetting();
-	NewRenderer->SetOrder(_Order);
-
-	if (_ImageName != "")
-	{
-		NewRenderer->SetTexture(_ImageName);
-	}
-	AllRenderer.push_back(NewRenderer);
-
-	return NewRenderer;
-}
-
-GameEngineCollision* GameEngineActor::CreateCollision(int _Order/* = 0*/)
-{
-	GameEngineCollision* NewCollision = new GameEngineCollision();
-
-	NewCollision->Master = this;
-	NewCollision->Start();
-	NewCollision->SetOrder(_Order);
-	AllCollision.push_back(NewCollision);
-
-	return NewCollision;
 }

@@ -1,14 +1,10 @@
 #include "GameEngineRenderer.h"
-#include <GameEngineBase/GameEngineDebug.h>
+#include "GameEngineCore.h"
+#include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineBase/GameEngineString.h>
-#include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include "GameEngineCamera.h"
-#include "ResourcesManager.h"
 #include "GameEngineActor.h"
-#include "GameEngineSprite.h"
 #include "GameEngineLevel.h"
-#include <math.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 
 GameEngineRenderer::GameEngineRenderer() 
 {

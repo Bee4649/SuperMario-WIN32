@@ -1,18 +1,41 @@
 #pragma once
-#include "GameEngineActorSubObject.h"
-#include <GameEngineBase/GameEngineMath.h>
-#include <string>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <map>
-#include <vector>
+#include <string_view>
+#include "GameEngineComponent.h"
+// 랜더링에 관련된 기능을 모두 집약한당.
+
+
+enum class TextAlign
+{
+	Left = DT_LEFT,
+	Right = DT_RIGHT,
+	Center = DT_CENTER
+};
+
+class FrameAnimationParameter
+{
+public:
+	std::string_view AnimationName = "";
+	std::string_view ImageName = "";
+	std::string_view FilterName = "";
+	int Start = 0;
+	int End = 0;
+	int CurrentIndex = 0;
+	float InterTime = 0.1f;
+	bool Loop = true;
+	std::vector<int> FrameIndex = std::vector<int>();
+	std::vector<float> FrameTime = std::vector<float>();
+};
+
 
 // 설명 :
-class GameEngineSprite;
 class GameEngineActor;
-class GameEngineWindowTexture;
-class GameEngineRenderer : public GameEngineActorSubObject
+class GameEngineLevel;
+class GameEngineRenderer : public GameEngineComponent
 {
-	friend class GameEngineCamera;
 	friend class GameEngineActor;
+	friend class GameEngineLevel;
 
 public:
 	// constrcuter destructer
@@ -25,81 +48,145 @@ public:
 	GameEngineRenderer& operator=(const GameEngineRenderer& _Other) = delete;
 	GameEngineRenderer& operator=(GameEngineRenderer&& _Other) noexcept = delete;
 
-	void SetSprite(const std::string& _Name, size_t _Index = 0);
-
-	void SetTexture(const std::string& _Name);
-
-	void SetRenderPos(const float4& _Value)
+	inline GameEngineWindowTexture* GetImage()
 	{
-		RenderPos = _Value;
+		return Image;
+	}
+
+	inline int GetFrame()
+	{
+		return Frame;
+	}
+
+	inline void SetTransColor(int _Color)
+	{
+		TransColor = _Color;
+	}
+
+	inline void SetEffectCamera(bool _Effect)
+	{
+		IsEffectCamera = _Effect;
+	}
+
+	inline void EffectCameraOff()
+	{
+		SetEffectCamera(false);
+	}
+
+	inline void EffectCameraOn()
+	{
+		SetEffectCamera(true);
+	}
+
+	inline int GetTextHeight()
+	{
+		return TextHeight;
+	}
+
+	inline void SetAlpha(int _Alpha)
+	{
+		Alpha = _Alpha;
+	}
+
+	inline float GetAngle(float _Angle)
+	{
+		return Angle;
+	}
+
+	inline void SetAngleAdd(float _Angle)
+	{
+		Angle += _Angle;
+	}
+
+	inline void SetAngle(float _Angle)
+	{
+		Angle = _Angle;
+	}
+
+	inline void SetTextBoxScale(float4 _TextBoxScale)
+	{
+		TextBoxScale = _TextBoxScale;
 	}
 
 
-	void SetRenderScale(const float4& _Value)
-	{
-		RenderScale = _Value;
-		ScaleCheck = true;
-	}
+	void SetRotFilter(const std::string_view& _ImageName);
 
-	void SetCopyPos(const float4& _Value)
-	{
-		CopyPos = _Value;
-	}
+	void SetImage(const std::string_view& _ImageName);
 
-	void SetCopyScale(const float4& _Value)
-	{
-		CopyScale = _Value;
-	}
+	void SetImageToScaleToImage(const std::string_view& _ImageName);
 
-	void SetScaleRatio(const float& _Scale)
-	{
-		ScaleRatio = _Scale;
-	}
+	void SetScaleToImage();
 
+	void SetFrame(int _Frame);
 
-	void SetRenderScaleToTexture();
+	bool IsAnimationEnd();
+	void CreateAnimation(const FrameAnimationParameter& _Paramter);
+	void ChangeAnimation(const std::string_view& _AnimationName, bool _ForceChange = false);
 
+	void SetOrder(int _Order) override;
 
-	void SetOrder(int _Order) override; 
+	void SetText(const std::string_view& _Text, const int _TextHeight = 20, const std::string_view& _TextType = "굴림", const TextAlign _TextAlign = TextAlign::Center, const COLORREF _TextColor = RGB(0, 0, 0), float4 TextBoxScale = float4::Zero);
+
 
 protected:
-	void Start() override;
-
 
 private:
-	GameEngineCamera* Camera = nullptr;
-	GameEngineWindowTexture* Texture = nullptr;
-	GameEngineSprite* Sprite = nullptr;
+	GameEngineWindowTexture* Image = nullptr;
+	GameEngineWindowTexture* RotationFilter = nullptr;
 
-	float ScaleRatio = 1.0f;
+	bool IsEffectCamera = true;
 
-	bool ScaleCheck = false;
+	int TransColor = RGB(255, 0, 255);
 
-	float4 RenderPos;
-	float4 RenderScale;
+	int Frame = 0;
 
-	float4 CopyPos;
-	float4 CopyScale;
+	int Alpha = 255;
 
 	void Render(float _DeltaTime);
 
-private:
-	class Animation
+	void TextRender(float _DeltaTime);
+	void ImageRender(float _DeltaTime);
+
+
+	class FrameAnimation
 	{
 	public:
-		GameEngineSprite* Sprite = nullptr;
-		size_t CurFrame = 0;
-		size_t StartFrame = -1;
-		size_t EndFrame = -1;
-		float CurInter = 0.0f;
-		std::vector<size_t> Frames;
-		std::vector<float> Inters;
+		GameEngineRenderer* Parent = nullptr;
+		// 짤려있는 이미지여야 한다.
+		GameEngineWindowTexture* Image = nullptr;
+		GameEngineWindowTexture* FilterImage = nullptr;
+		std::vector<int> FrameIndex;
+		std::vector<float> FrameTime;
+		int CurrentIndex = 0;
+		float CurrentTime = 0.0f;
 		bool Loop = true;
-		bool IsEnd = false;
+
+
+		bool IsEnd();
+
+		void Render(float _DeltaTime);
+
+		void Reset()
+		{
+			CurrentIndex = 0;
+			CurrentTime = 0.0f;
+		}
 	};
 
-public:
-	Animation* FindAnimation(const std::string& _AniamtionName);
+	std::map<std::string, FrameAnimation> Animation;
+	FrameAnimation* CurrentAnimation = nullptr;
+
+	/// <summary>
+	/// TextRender
+	/// </summary>
+	std::string RenderText = std::string();
+	int TextHeight = 0;
+	std::string TextType = std::string();
+	TextAlign Align = TextAlign::Left;
+	COLORREF TextColor = RGB(0, 0, 0);
+	float4 TextBoxScale;
+
+	float Angle = 0.0f;
 
 	/// <summary>
 	/// 애니메이션 생성함수
@@ -110,24 +197,4 @@ public:
 	/// <param name="_End">끝 프레임</param>
 	/// <param name="_Inter">애니메이션 시간</param>
 	/// <param name="_Loop">애니메이션 반복</param>
-	void CreateAnimation(
-		const std::string& _AniamtionName, 
-		const std::string& _SpriteName, 
-		size_t _Start = -1, size_t _End = -1,
-		float _Inter = 0.1f, 
-		bool _Loop = true);
-
-	void ChangeAnimation(const std::string& _AniamtionName, bool _ForceChange = false);
-
-	void MainCameraSetting();
-	void UICameraSetting();
-
-	bool IsAnimationEnd() 
-	{
-		return CurAnimation->IsEnd;
-	}
-
-	std::map<std::string, Animation> AllAnimation;
-	Animation* CurAnimation = nullptr;
 };
-

@@ -1,176 +1,29 @@
 #include "GameEngineCollision.h"
 #include "GameEngineActor.h"
 #include "GameEngineLevel.h"
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineCore/GameEngineCamera.h>
-#include <list>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
-bool (*GameEngineCollision::CollisionFunction[static_cast<int>(CollisionType::Max)][static_cast<int>(CollisionType::Max)])(GameEngineCollision* _Left, GameEngineCollision* _Right) = { nullptr };
+static bool(*ColFunctionPtr[Max][Max])(const CollisionData& _Left, const CollisionData& _Right);
 
-bool GameEngineCollision::PointToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	MsgBoxAssert("충돌체크함수를 만들지 않았습니다.");
-	return false;
-}
-bool GameEngineCollision::PointToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
 
-	if (RightData.Bot() < LeftData.Pos.Y)
-	{
-		return false;
-	}
-
-	if (RightData.Top() > LeftData.Pos.Y)
-	{
-		return false;
-	}
-
-	if (RightData.Left() > LeftData.Pos.X)
-	{
-		return false;
-	}
-
-	if (RightData.Right() < LeftData.Pos.X)
-	{
-		return false;
-	}
-
-	return true;
-}
-bool GameEngineCollision::PointToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
-
-	float Len = (LeftData.Pos - RightData.Pos).Size();
-	float RadiusSum = RightData.Scale.Max2D();
-	RadiusSum *= 0.5f;
-
-	if (Len <= RadiusSum)
-	{
-		return true;
-	}
-
-	return false;
-}
-bool GameEngineCollision::RectToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
-
-	if (LeftData.Bot() < RightData.Pos.Y)
-	{
-		return false;
-	}
-
-	if (LeftData.Top() > RightData.Pos.Y)
-	{
-		return false;
-	}
-
-	if (LeftData.Left() > RightData.Pos.X)
-	{
-		return false;
-	}
-
-	if (LeftData.Right() < RightData.Pos.X)
-	{
-		return false;
-	}
-
-	return true;
-}
-bool GameEngineCollision::RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
-
-	if (LeftData.Bot() < RightData.Top())
-	{
-		return false;
-	}
-
-	if (LeftData.Top() > RightData.Bot())
-	{
-		return false;
-	}
-
-	if (LeftData.Left() > RightData.Right())
-	{
-		return false;
-	}
-
-	if (LeftData.Right() < RightData.Left())
-	{
-		return false;
-	}
-
-	return true;
-}
-bool GameEngineCollision::RectToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	MsgBoxAssert("충돌체크함수를 만들지 않았습니다.");
-	return false;
-}
-bool GameEngineCollision::CirCleToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
-
-	float Len = (LeftData.Pos - RightData.Pos).Size();
-	float RadiusSum = LeftData.Scale.Max2D();
-	RadiusSum *= 0.5f;
-
-	if (Len <= RadiusSum)
-	{
-		return true;
-	}
-
-	return false;
-}
-bool GameEngineCollision::CirCleToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	MsgBoxAssert("충돌체크함수를 만들지 않았습니다.");
-	return false;
-}
-bool GameEngineCollision::CirCleToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	CollisionData LeftData = _Left->GetCollisionData();
-	CollisionData RightData = _Right->GetCollisionData();
-
-	float Len = (LeftData.Pos - RightData.Pos).Size();
-	float RadiusSum = LeftData.Scale.Max2D() + RightData.Scale.Max2D();
-	RadiusSum *= 0.5f;
-
-	if (Len <= RadiusSum)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-class CollisionInitClass
+class CollisionFunctionInit
 {
 public:
-	CollisionInitClass()
+	CollisionFunctionInit()
 	{
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Point)][static_cast<size_t>(CollisionType::Point)] = &GameEngineCollision::PointToPoint;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Point)][static_cast<size_t>(CollisionType::Rect)] = &GameEngineCollision::PointToRect;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Point)][static_cast<size_t>(CollisionType::CirCle)] = &GameEngineCollision::PointToCirCle;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Rect)][static_cast<size_t>(CollisionType::Point)] = &GameEngineCollision::RectToPoint;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Rect)][static_cast<size_t>(CollisionType::Rect)] = &GameEngineCollision::RectToRect;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::Rect)][static_cast<size_t>(CollisionType::CirCle)] = &GameEngineCollision::RectToCirCle;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::CirCle)][static_cast<size_t>(CollisionType::Point)] = &GameEngineCollision::CirCleToPoint;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::CirCle)][static_cast<size_t>(CollisionType::Rect)] = &GameEngineCollision::CirCleToRect;
-		GameEngineCollision::CollisionFunction[static_cast<size_t>(CollisionType::CirCle)][static_cast<size_t>(CollisionType::CirCle)] = &GameEngineCollision::CirCleToCirCle;
+		ColFunctionPtr[CirCle][CirCle] = GameEngineCollision::CollisionCirCleToCirCle;
+		ColFunctionPtr[CirCle][Point] = GameEngineCollision::CollisionCirCleToPoint;
+		ColFunctionPtr[Rect][Rect] = GameEngineCollision::CollisionRectToRect;
+		ColFunctionPtr[Rect][Point] = GameEngineCollision::CollisionRectToPoint;
+	}
+	~CollisionFunctionInit()
+	{
+
 	}
 };
 
-CollisionInitClass ColInitInst = CollisionInitClass();
+CollisionFunctionInit Init = CollisionFunctionInit();
 
 GameEngineCollision::GameEngineCollision()
 {
@@ -178,115 +31,189 @@ GameEngineCollision::GameEngineCollision()
 
 GameEngineCollision::~GameEngineCollision()
 {
-	//Points.push_back({1, 0});
-	//Points.push_back({ 1, 0 });
 }
 
-float4 GameEngineCollision::GetActorPivotPos()
+
+bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right)
 {
-	return GetActor()->GetPos() + CollisionPos;
+	float4 Len = _Left.Position - _Right.Position;
+	float Size = Len.Size();
+	float RadiusSum = _Left.Scale.hX();
+	return RadiusSum > Size;
 }
 
+bool GameEngineCollision::CollisionCirCleToCirCle(const CollisionData& _Left, const CollisionData& _Right)
+{
+	float4 Len = _Left.Position - _Right.Position;
+	float Size = Len.Size();
+	float RadiusSum = _Left.Scale.hX() + _Right.Scale.hX();
+	return RadiusSum > Size;
+}
 
-bool GameEngineCollision::Collision(int _Order,
-	std::vector<GameEngineCollision*>& _Result,
-	CollisionType _ThisType,
-	CollisionType _OtherType)
+bool GameEngineCollision::CollisionRectToRect(const CollisionData& _Left, const CollisionData& _Right)
+{
+	if (_Left.Bot() <= _Right.Top())
+	{
+		return false;
+	}
+
+	if (_Left.Top() >= _Right.Bot())
+	{
+		return false;
+	}
+
+	if (_Left.Left() >= _Right.Right())
+	{
+		return false;
+	}
+
+	if (_Left.Right() <= _Right.Left())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const CollisionData& _Right)
+{
+	if (_Left.Bot() <= _Right.Position.Y)
+	{
+		return false;
+	}
+
+	if (_Left.Top() >= _Right.Position.Y)
+	{
+		return false;
+	}
+
+	if (_Left.Left() >= _Right.Position.X)
+	{
+		return false;
+	}
+
+	if (_Left.Right() <= _Right.Position.X)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void GameEngineCollision::SetOrder(int _Order)
+{
+	GetActor()->GetLevel()->PushCollision(this, _Order);
+}
+
+bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter)
 {
 	if (false == IsUpdate())
 	{
 		return false;
 	}
 
-	std::list<GameEngineCollision*>& OtherCollision = GetActor()->GetLevel()->AllCollision[_Order];
+	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
 
-	if (0 == OtherCollision.size())
+	for (GameEngineCollision* OtherCollision : _TargetGroup)
 	{
-		return false;
-	}
-
-	bool Check = false;
-
-	for (GameEngineCollision* Collision : OtherCollision)
-	{
-		if (nullptr == Collision)
-		{
-			MsgBoxAssert("존재하지 않는 콜리전이 있습니다.");
-			return false;
-		}
-
-		if (false == Collision->IsUpdate())
+		if (OtherCollision == this)
 		{
 			continue;
 		}
 
-		// 도대체 어느순간에 콜리전은 레벨에 들어가는가?
-		// 언제 관리되는가?
-		// 어떻게 꺼내오는가 ?
-		// Level 
-
-		// 상대랑 나랑 충돌을 해보는 것.
-		if (true == CollisonCheck(Collision, _ThisType, _OtherType))
+		if (false == OtherCollision->IsUpdate())
 		{
-			_Result.push_back(Collision);
-			Check = true;
+			continue;
+		}
+
+		CollisionType Type = _Parameter.ThisColType;
+		CollisionType OtherType = _Parameter.TargetColType;
+
+		if (nullptr == ColFunctionPtr[Type][OtherType])
+		{
+			MsgAssert("아직 충돌함수를 만들지 않은 충돌 타입입니다");
+		}
+
+		if (true == ColFunctionPtr[Type][OtherType](GetCollisionData(), OtherCollision->GetCollisionData()))
+		{
+			return true;
 		}
 	}
-
-	return Check;
+	return false;
 }
 
-
-void GameEngineCollision::SetOrder(int _Order)
+bool GameEngineCollision::Collision(const CollisionCheckParameter& _Parameter, std::vector<GameEngineCollision*>& _Collision)
 {
-	std::list<GameEngineCollision*>& PrevCollisions = GetActor()->GetLevel()->AllCollision[GetOrder()];
-	PrevCollisions.remove(this);
-
-	GameEngineObject::SetOrder(_Order);
-
-	std::list<GameEngineCollision*>& NextCollisions = GetActor()->GetLevel()->AllCollision[GetOrder()];
-	NextCollisions.push_back(this);
-
-}
-
-bool GameEngineCollision::CollisonCheck(GameEngineCollision* _Other
-	, CollisionType _ThisType
-	, CollisionType _OtherType)
-{
-	if (nullptr == CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)])
+	if (false == IsUpdate())
 	{
-		MsgBoxAssert("충돌체크함수를 만들지 않았습니다.");
 		return false;
 	}
 
-	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](this, _Other);
+	_Collision.clear();
+
+	std::list<GameEngineCollision*>& _TargetGroup = GetActor()->GetLevel()->Collisions[_Parameter.TargetGroup];
+
+	SetDebugRenderType(_Parameter.ThisColType);
+
+	for (GameEngineCollision* OtherCollision : _TargetGroup)
+	{
+		if (false == OtherCollision->IsUpdate())
+		{
+			continue;
+		}
+
+		CollisionType Type = _Parameter.ThisColType;
+		CollisionType OtherType = _Parameter.TargetColType;
+
+		OtherCollision->SetDebugRenderType(OtherType);
+
+		if (nullptr == ColFunctionPtr[Type][OtherType])
+		{
+			MsgAssert("아직 충돌함수를 만들지 않은 충돌 타입입니다");
+		}
+
+		if (true == ColFunctionPtr[Type][OtherType](GetCollisionData(), OtherCollision->GetCollisionData()))
+		{
+			_Collision.push_back(OtherCollision);
+		}
+	}
+
+	return _Collision.size() != 0;
 }
 
-void GameEngineCollision::DebugRender() 
+CollisionData GameEngineCollision::GetCollisionData()
 {
-	CollisionData Data = GetCollisionData();
+	return { GetActorPlusPos(), GetScale() };
+}
 
-	Data.Pos -= GetActor()->GetLevel()->GetMainCamera()->GetPos();
-
-
-	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
-
-	switch (ColType)
+void GameEngineCollision::DebugRender()
+{
+	HDC BackBufferDc = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 DebugRenderPos = GetActorPlusPos() - GetActor()->GetLevel()->GetCameraPos();
+	switch (DebugRenderType)
 	{
-	case CollisionType::Point:
-		Data.Scale.X = 3;
-		Data.Scale.Y = 3;
-		Ellipse(BackBuffer->GetImageDC(), Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+	case Point:
 		break;
-	case CollisionType::Rect:
-		Rectangle(BackBuffer->GetImageDC(), Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+	case CirCle:
+	{
+		int Radius = GetScale().ihX();
+		Ellipse(BackBufferDc,
+			DebugRenderPos.iX() - Radius,
+			DebugRenderPos.iY() - Radius,
+			DebugRenderPos.iX() + Radius,
+			DebugRenderPos.iY() + Radius);
 		break;
-	case CollisionType::CirCle:
-		Data.Scale.X = Data.Scale.Max2D();
-		Data.Scale.Y = Data.Scale.X;
-		Ellipse(BackBuffer->GetImageDC(), Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
+	}
+	case Rect:
+	{
+		Rectangle(BackBufferDc,
+			DebugRenderPos.iX() - GetScale().ihX(),
+			DebugRenderPos.iY() - GetScale().ihY(),
+			DebugRenderPos.iX() + GetScale().ihX(),
+			DebugRenderPos.iY() + GetScale().ihY());
 		break;
-	case CollisionType::Max:
+	}
+	case Max:
 		break;
 	default:
 		break;

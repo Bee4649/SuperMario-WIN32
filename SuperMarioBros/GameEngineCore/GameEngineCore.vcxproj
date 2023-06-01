@@ -163,14 +163,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineCamera.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="GameEngineCollision.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineComponent.h" />
     <ClInclude Include="GameEngineCore.h">
       <SubType>
       </SubType>
@@ -187,6 +184,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineResources.h" />
     <ClInclude Include="GameEngineSprite.h">
       <SubType>
       </SubType>
@@ -205,14 +203,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineCamera.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="GameEngineCollision.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineComponent.cpp" />
     <ClCompile Include="GameEngineCore.cpp">
       <SubType>
       </SubType>
@@ -229,6 +224,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineResources.cpp" />
     <ClCompile Include="GameEngineSprite.cpp">
       <SubType>
       </SubType>
