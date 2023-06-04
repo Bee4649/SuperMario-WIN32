@@ -17,9 +17,6 @@
     <ClInclude Include="Player.h">
       <Filter>Global</Filter>
     </ClInclude>
-    <ClInclude Include="ContentsEnum.h">
-      <Filter>Global</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -27,7 +24,6 @@
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="PlayActor.h" />
-    <ClInclude Include="DefaultHeader.h" />
     <ClInclude Include="PlayUIManager.h">
       <Filter>Play</Filter>
     </ClInclude>
@@ -37,6 +33,11 @@
     <ClInclude Include="IconRes.h">
       <Filter>Icon</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="GameOverLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -71,6 +72,10 @@
     <ClCompile Include="GlobalValue.cpp">
       <Filter>Global</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

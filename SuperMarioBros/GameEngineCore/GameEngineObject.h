@@ -32,10 +32,11 @@ public:
 		// 부모도 켜져있어야 한다 true == Parent->IsUpdate()
 
 		return nullptr != Parent ? ((true == IsUpdateValue && false == IsDeath()) && true == Parent->IsUpdate()) : (IsUpdateValue && false == IsDeath());
-
+		
+		// return nullptr != Parent ? 1000 : 200;
 	}
 
-	virtual bool IsDeath()
+	bool IsDeath()
 	{
 		return nullptr != Parent ? (true == IsDeathValue || Parent->IsDeath()) : (true == IsDeathValue);
 	}

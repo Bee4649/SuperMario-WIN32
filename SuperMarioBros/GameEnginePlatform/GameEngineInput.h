@@ -49,12 +49,12 @@ public:
 
 	static void Update(float _DeltaTime);
 	static void CreateKey(const std::string_view& _Name, int _Key);
-	static bool IsKey(const std::string_view& _Name, int _Key);
+	static bool IsKey(const std::string_view& _Name);
 
-	static bool IsDown(const std::string_view& _Name, int _Key);
-	static bool IsUp(const std::string_view& _Name, int _Key);
-	static bool IsPress(const std::string_view& _Name, int _Key);
-	static bool IsFree(const std::string_view& _Name, int _Key);
+	static bool IsDown(const std::string_view& _Name);
+	static bool IsUp(const std::string_view& _Name);
+	static bool IsPress(const std::string_view& _Name);
+	static bool IsFree(const std::string_view& _Name);
 	static float GetPressTime(const std::string_view& _Name);
 
 	static bool IsAnyKey()

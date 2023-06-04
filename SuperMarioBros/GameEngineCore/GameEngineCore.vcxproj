@@ -159,10 +159,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineActorSubObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="GameEngineCollision.h">
       <SubType>
       </SubType>
@@ -185,21 +181,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineResources.h" />
-    <ClInclude Include="GameEngineSprite.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ResourcesManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="NumberRenderObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="GameEngineActorSubObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -225,14 +210,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineResources.cpp" />
-    <ClCompile Include="GameEngineSprite.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ResourcesManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="NumberRenderObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">

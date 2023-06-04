@@ -3,7 +3,7 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "GameEngineLevel.h"
-#include "ResourcesManager.h"
+#include "GameEngineResources.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 
@@ -65,9 +65,9 @@ void GameEngineCore::GlobalUpdate()
 	}
 
 	Core->CurLevel->Update(TimeDeltaTime);
-	Core->CurLevel->ActorUpdate(TimeDeltaTime);
+	Core->CurLevel->ActorsUpdate(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferClear();
-	Core->CurLevel->ActorRender(TimeDeltaTime);
+	Core->CurLevel->ActorsRender(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferRender();
 	Core->CurLevel->Release();
 }
@@ -77,7 +77,7 @@ void GameEngineCore::GlobalEnd()
 {
 	Core->End();
 
-	ResourcesManager::GetInst().Release();
+	GameEngineResources::GetInst().Release();
 }
 
 
@@ -105,7 +105,7 @@ GameEngineCore::~GameEngineCore()
 	Levels.clear();
 }
 
-void GameEngineCore::CoreStart(HINSTANCE _instance)
+void GameEngineCore::CoreStart(HINSTANCE _Instance)
 {
 	if (false == GameEngineInput::IsKey("EngineMouseLeft"))
 	{
@@ -113,7 +113,7 @@ void GameEngineCore::CoreStart(HINSTANCE _instance)
 		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
 	}
 
-	GameEngineWindow::WindowCreate(_instance, "Super Mario Wolrd", { 1280, 720 }, { 0, 0 });
+	GameEngineWindow::WindowCreate(_Instance, "Super Mario Wolrd", { 1280, 720 }, { 0, 0 });
 	GameEngineWindow::MessageLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
 }
 

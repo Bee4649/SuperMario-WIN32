@@ -145,9 +145,9 @@ protected:
 	virtual void Update(float _DeltaTime) = 0;
 	
 	// 레벨이 시잘될 때 실행
-	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
+	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) {}
 	// 다른 레벨로 교최될때 실행
-	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
+	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) {}
 
 private:
 	static bool IsDebugRender;
