@@ -46,8 +46,6 @@ GameEngineWindowTexture* GameEngineResources::TextureLoad(const GameEnginePath& 
 
 GameEngineWindowTexture* GameEngineResources::TextureLoad(const std::string_view& _Path, const std::string_view& _Name)
 {
-	// D:\\Project\\AR45\\WINAPI\\APIApp\\ContentsResources\\Image\\Heros.BmP
-
 	std::string UpperName = GameEngineString::ToUpper(_Name);
 
 	if (AllImage.end() != AllImage.find(UpperName))

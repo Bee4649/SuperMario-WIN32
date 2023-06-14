@@ -7,7 +7,7 @@
 #pragma comment(lib, "msimg32.lib")
 
 
-GameEngineWindowTexture::GameEngineWindowTexture() 
+GameEngineWindowTexture::GameEngineWindowTexture()
 {
 }
 
@@ -50,7 +50,7 @@ bool GameEngineWindowTexture::TextureCreate(HDC _Hdc)
 	}
 
 	ImageDC = _Hdc;
-	ScaleCheck();
+	ImageScaleCheck();
 	return true;
 
 }
@@ -96,7 +96,7 @@ bool GameEngineWindowTexture::TextureCreate(const float4& _Scale)
 	// 이 함수의 리턴값이 기존에 연결되어있던 애를 리턴해주는것.
 	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
 
-	ScaleCheck();
+	ImageScaleCheck();
 	
 	TextureClear();
 
@@ -136,12 +136,12 @@ bool GameEngineWindowTexture::TextureLoad(const std::string_view& _Path)
 
 	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
 
-	ScaleCheck();
+	ImageScaleCheck();
 
 	return true;
 }
 
-void GameEngineWindowTexture::ScaleCheck()
+void GameEngineWindowTexture::ImageScaleCheck()
 {
 	HBITMAP CurrentBitMap = static_cast<HBITMAP>(GetCurrentObject(ImageDC, OBJ_BITMAP));
 	

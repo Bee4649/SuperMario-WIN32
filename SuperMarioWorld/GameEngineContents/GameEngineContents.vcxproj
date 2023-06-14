@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
     <ClInclude Include="ContentCore.h">
       <SubType>
       </SubType>
@@ -164,14 +165,22 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EnemyActor.h" />
+    <ClInclude Include="Fire.h" />
+    <ClInclude Include="FireFlower.h" />
     <ClInclude Include="GameOverLevel.h" />
+    <ClInclude Include="ItemActor.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Mario.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayUIManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="IconRes.h" />
     <ClInclude Include="StageLevel.h" />
+    <ClInclude Include="SuperMushroom.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
@@ -182,6 +191,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="ContentCore.cpp">
       <SubType>
       </SubType>
@@ -190,13 +200,22 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EnemyActor.cpp" />
+    <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="FireFlower.cpp" />
     <ClCompile Include="GameOverLevel.cpp" />
+    <ClCompile Include="ItemActor.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioState.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayUIManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="StageLevel.cpp" />
+    <ClCompile Include="SuperMushroom.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>

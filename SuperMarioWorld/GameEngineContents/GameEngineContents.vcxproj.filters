@@ -36,6 +36,33 @@
     <ClInclude Include="resource.h">
       <Filter>Icon</Filter>
     </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperMushroom.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>PlayObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyActor.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemActor.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -65,6 +92,36 @@
     </ClCompile>
     <ClCompile Include="WorldMario.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperMushroom.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioState.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>PlayObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyActor.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemActor.cpp">
+      <Filter>PlayObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

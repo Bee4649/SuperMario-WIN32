@@ -131,6 +131,6 @@ private:
 
 	std::vector<ImageCutData> ImageCutDatas;
 
-	void ScaleCheck();
+	void ImageScaleCheck();
 };
 

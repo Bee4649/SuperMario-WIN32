@@ -66,12 +66,12 @@ public:
 		return dynamic_cast<ActorType*>(NewActor);
 	}
 
-	void SetCamerMove(const float4& _MoveValue)
+	void SetCameraMove(const float4& _MoveValue)
 	{
 		CameraPos += _MoveValue;
 	}
 
-	void SetCamerPos(const float4& _CameraPos)
+	void SetCameraPos(const float4& _CameraPos)
 	{
 		CameraPos += _CameraPos;
 	}

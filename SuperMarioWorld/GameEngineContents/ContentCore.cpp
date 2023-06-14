@@ -47,10 +47,10 @@ void ContentCore::Start()
 		GameEngineInput::CreateKey("Dash", 'Z');
 		GameEngineInput::CreateKey("Jump", 'X');
 		GameEngineInput::CreateKey("Spin", 'C');
-		GameEngineInput::CreateKey("CollisionDebug", 'J');
-		GameEngineInput::CreateKey("1", '1');
-		GameEngineInput::CreateKey("2", '2');
-		GameEngineInput::CreateKey("3", '3');
+		GameEngineInput::CreateKey("CollisionDebug", 'O');
+		GameEngineInput::CreateKey("U", 'U');
+		GameEngineInput::CreateKey("I", 'I');
+		GameEngineInput::CreateKey("MAPCHANGE", 'P');
 
 
 	}
@@ -77,7 +77,7 @@ void ContentCore::Start()
 // 매 프레임마다 실행되는 함수
 void ContentCore::Update()
 {
-	if (GameEngineInput::IsDown("J"))
+	if (GameEngineInput::IsDown("CollisionDebug"))
 	{
 		CollisionDebug = !CollisionDebug;
 	}
@@ -93,7 +93,7 @@ void ContentCore::ResourcesLoad()
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");
-	Dir.Move("Image");
+	Dir.Move("Texture");
 	Dir.Move("World");
 	// World 폴더에 있는 리소스를 불러온다
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("WORLD1.BMP"));
@@ -108,7 +108,7 @@ void ContentCore::ResourcesLoad()
 
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");
-	Dir.Move("Image");
+	Dir.Move("Texture");
 	Dir.Move("TITLE");
 	// Title 폴더에 있는 리소스를 불러온다
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("GAMEOVER.BMP"));

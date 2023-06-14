@@ -50,11 +50,9 @@ void PlayUIManager::SetStockItem(ItemType _Item)
 	case ItemType::SuperMushroom:
 		StockImageRender->SetImage("SUPERMUSHROOM.BMP");
 		break;
-	case ItemType::FireFlower:
-		StockImageRender->SetImage("FIREFLOWERUI.BMP");
-		break;
-	case ItemType::Feather:
-		break;
+//	case ItemType::FireFlower:
+//		StockImageRender->SetImage("FIREFLOWERUI.BMP");
+//		break;
 	default:
 		StockImageRender->SetImage("NONE.BMP");
 		break;
