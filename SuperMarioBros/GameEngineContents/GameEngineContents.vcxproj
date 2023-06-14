@@ -155,10 +155,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BackGround.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentCore.h">
       <SubType>
       </SubType>
@@ -169,46 +165,23 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameOverLevel.h" />
-    <ClInclude Include="GlobalValue.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="LevelLoader.h" />
-    <ClInclude Include="Monster.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="PlayUIManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="IconRes.h" />
+    <ClInclude Include="StageLevel.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WorldImage.h" />
+    <ClInclude Include="WorldLevel.h" />
+    <ClInclude Include="WorldMario.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BackGround.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ContentCore.cpp">
       <SubType>
       </SubType>
@@ -218,40 +191,19 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameOverLevel.cpp" />
-    <ClCompile Include="GlobalValue.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="LevelLoader.cpp" />
-    <ClCompile Include="Monster.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Player_State.cpp" />
-    <ClCompile Include="PlayLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="PlayUIManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="StageLevel.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WorldImage.cpp" />
+    <ClCompile Include="WorldLevel.cpp" />
+    <ClCompile Include="WorldMario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">

@@ -55,10 +55,12 @@ protected:
 	template<typename LevelType>
 	void CreateLevel(const std::string& _Name) 
 	{
-
+		// Title을 만들었는데
+		// 또 Title을 만들겠다고 한 상황
 		// 이미 내부에 TitleLevel이 존재한다.
 		if (Levels.end() != Levels.find(_Name.data()))
 		{
+			std::string Name = _Name.data();
 			MsgAssert(Name + "의 이름을 가진 GameEngineLevel은 이미 존재합니다.");
 			return;
 		}
@@ -66,7 +68,7 @@ protected:
 		// 업캐스팅이 벌어지니깐
 		GameEngineLevel* NewLevel = new LevelType();
 
-		LevelLoading(Level, _Name);
+		LevelLoading(NewLevel, _Name);
 		// Level->Loading();
 		// insert할때마다 새로운 string이 생기면서 자신만의 메모리를 가지게 됩니다.
 		Levels.insert(std::make_pair(_Name.data(), NewLevel));
@@ -91,9 +93,9 @@ private:
 	// GameEngineLevel을 "어떠한 이름"으로 찾고 이름으로 실행시키고.
 	std::map<std::string, GameEngineLevel*> Levels;
 	
-	static GameEngineLevel* CurLevel;
+	GameEngineLevel* CurLevel = nullptr;
 
-	static GameEngineLevel* NextLevel;
+	GameEngineLevel* NextLevel = nullptr;
 
 	void LevelLoading(GameEngineLevel* _Level, const std::string_view& _Name);
 

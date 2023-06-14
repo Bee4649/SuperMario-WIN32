@@ -18,18 +18,18 @@ GameEngineRenderer::~GameEngineRenderer()
 
 void GameEngineRenderer::SetRotFilter(const std::string_view& _ImageName)
 {
-	RotationFilter = GameEngineResources::GetInst().ImageFind(_ImageName);
+	RotationFilter = GameEngineResources::GetInst().TextureFind(_ImageName);
 }
 
 void GameEngineRenderer::SetImage(const std::string_view& _ImageName)
 {
-	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+	Image = GameEngineResources::GetInst().TextureFind(_ImageName);
 	
 }
 
 void GameEngineRenderer::SetImageToScaleToImage(const std::string_view& _ImageName)
 {
-	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+	Image = GameEngineResources::GetInst().TextureFind(_ImageName);
 	SetScaleToImage();
 }
 
@@ -262,7 +262,7 @@ bool GameEngineRenderer::IsAnimationEnd()
 void GameEngineRenderer::CreateAnimation(const FrameAnimationParameter& _Paramter)
 {
 	// 애니메이션을 만들기 위해서 이미지를 검증한다.
-	GameEngineWindowTexture* Image = GameEngineResources::GetInst().ImageFind(_Paramter.ImageName);
+	GameEngineWindowTexture* Image = GameEngineResources::GetInst().TextureFind(_Paramter.ImageName);
 
 	if (nullptr == Image)
 	{
@@ -288,7 +288,7 @@ void GameEngineRenderer::CreateAnimation(const FrameAnimationParameter& _Paramte
 
 	if (_Paramter.FilterName != "")
 	{
-		NewAnimation.FilterImage = GameEngineResources::GetInst().ImageFind(_Paramter.FilterName);
+		NewAnimation.FilterImage = GameEngineResources::GetInst().TextureFind(_Paramter.FilterName);
 
 		if (nullptr == NewAnimation.FilterImage)
 		{

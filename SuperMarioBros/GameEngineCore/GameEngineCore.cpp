@@ -26,7 +26,7 @@ void GameEngineCore::GlobalUpdate()
 {
 
 	// 프레임 시작할때 한번 델타타임을 정하고
-	GameEngineSound::Update();
+	GameEngineSound::SoundUpdate();
 	float TimeDeltaTime = GameEngineTime::MainTimer.Update();
 	GameEngineInput::Update(TimeDeltaTime);
 

@@ -38,4 +38,5 @@ float GameEngineTime::Update()
 
 	FloatDelta = static_cast<float>(DoubleDelta);
 
+	return FloatDelta;
 }

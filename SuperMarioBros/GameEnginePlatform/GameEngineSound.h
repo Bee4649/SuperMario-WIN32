@@ -1,71 +1,17 @@
 #pragma once
-#include <string>
 #include <string_view>
-#include <map>
-#include <GameEngineBase/GameEnginePath.h>
 
 // 선언
 #include <GameEnginePlatform/ThirdParty/FMOD/inc/fmod.hpp>
 
-class GameEngineSoundPlayer 
-{
-	friend class GameEngineSound;
-
-public:
-	// void SetVolume(float _Volume);
-	// void Stop();
-
-	GameEngineSoundPlayer() 
-	{
-
-	}
-
-
-private:
-	GameEngineSoundPlayer(FMOD::Channel* _Control)
-		: Control(_Control)
-	{
-	}
-
-	FMOD::Channel* Control = nullptr;
-};
-
-// 설명 :
+// 설명 : 자체가 사운드 파일 역할
 class GameEngineSound
 {
-	// static float GlobalVolume;
-
-	// Management
-
-	friend class SoundSystemCreator;
-	friend class GameEngineSoundPlayer;
-
-private:
-	// static std::map<std::string, GameEngineSound*> AllSound;
-
-public:
-	/*
-	static void SetGlobalVolume(float _Value) 
-	{
-		GlobalVolume = _Value;
-	}
-
-	static float GetGlobalVolume()
-	{
-		return GlobalVolume;
-	}
-	*/
-	// static GameEngineSound* FindSound(const std::string& _Name);
-
-	// static void SoundLoad(const std::string& _Name, const std::string& _Path);
-
-	// 1번의 재생을 하고 끝나면 그냥 종료하고 나는 컨트롤할수 없다.
-	// static GameEngineSoundPlayer SoundPlay(const std::string& _Name);
-
-	// static void Release();
-
-	void Load(const std::string_view& _Path);
-	static void Update();
+public:	
+	void SoundLoad(const std::string_view& _Path);
+	FMOD::Channel* Play();
+	
+	static void SoundUpdate();
 
 public:
 	// constrcuter destructer
@@ -78,15 +24,9 @@ public:
 	GameEngineSound& operator=(const GameEngineSound& _Other) = delete;
 	GameEngineSound& operator=(GameEngineSound&& _Other) noexcept = delete;
 
-	FMOD::Channel* Play();
 protected:
 
-	// GameEngineSound::SoundLoad("C:\\AAAA\\AAAA\\A\\AAA.Mp3");
-	// GameEngineSound::SoundPlay("AAA.Mp3");
-	// GameEngineSound::PlayBgm("AAA.Mp3");
-	// GameEngineSound::StopBgm("AAA.Mp3");
 private:
 	FMOD::Sound* FMODSound = nullptr;
-
 };
 

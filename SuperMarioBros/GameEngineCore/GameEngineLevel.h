@@ -61,7 +61,7 @@ public:
 
 		GameEngineActor* NewActor = new ActorType();
 		ActorStart(NewActor, _Order);
-		Actors.push_back(NewActor);
+		Actors[_Order].push_back(NewActor);
 
 		return dynamic_cast<ActorType*>(NewActor);
 	}

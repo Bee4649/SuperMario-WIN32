@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include <map>
 #include <string>
-#include <GameEngineBase/GameEngineMath.h>;
 
 // Ό³Έν :
 class GameEngineWindow;

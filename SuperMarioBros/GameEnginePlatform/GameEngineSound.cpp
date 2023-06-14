@@ -10,20 +10,6 @@
 #pragma comment(lib, "..\\GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmod_vc.lib")
 #endif
 
-////////////////////////////////////////////////// SoundPlayer
-/*
-void GameEngineSoundPlayer::SetVolume(float _Volume)
-{
-	Control->setVolume(_Volume * GameEngineSound::GlobalVolume);
-}
-
-void GameEngineSoundPlayer::Stop()
-{
-	Control->stop();
-}
-*/
-
-//////////////////////////////////////////////// 관리를 위한 코드 
 
 // FMOD를 사용하기 위한 핸들 및 객체
 FMOD::System* SoundSystem = nullptr;
@@ -48,16 +34,18 @@ public:
 	~SoundSystemCreator()
 	{
 
+
 		SoundSystem->release();
 	}
 };
 
 
-void GameEngineSound::Update()
+void GameEngineSound::SoundUpdate()
 {
 	if (nullptr == SoundSystem)
 	{
-		MsgAssert("Sound System이 생성되지 않아서 사운드 업데이트를 돌릴수가 없습니다.");
+		MsgAssert("사운드 업데이트가 불가능합니다.");
+		return;
 	}
 
 	SoundSystem->update();
@@ -66,53 +54,19 @@ void GameEngineSound::Update()
 
 
 SoundSystemCreator SoundInitObject = SoundSystemCreator();
-// float GameEngineSound::GlobalVolume = 1.0f;
-
-// std::map<std::string, GameEngineSound*> GameEngineSound::AllSound;
 
 
-GameEngineSound::GameEngineSound() 
+GameEngineSound::GameEngineSound()
 {
 }
 
-GameEngineSound::~GameEngineSound() 
+GameEngineSound::~GameEngineSound()
 {
-
-}
-
-//
-//void GameEngineSound::Init()
-//{
-//	static bool IsOnce = false;
-//
-//	if (true == IsOnce)
-//	{
-//		return;
-//	}
-//
-//
-//
-//
-//	// Fmod를 사용하기 위한 준비를 하는 함수
-//	IsOnce = true;
-//}
-
-/*
-GameEngineSound* GameEngineSound::FindSound(const std::string& _Path)
-{
-	std::string UpperName = GameEngineString::AnsiToUTF8(_Path);
-
-	std::map<std::string, GameEngineSound*>::iterator FindIter = AllSound.find(UpperName);
-
-	if (FindIter == AllSound.end())
-	{
-		return nullptr;
-	}
 	
-	return FindIter->second;
 }
-*/
-void GameEngineSound::Load(const std::string_view& _Path)
+
+
+void GameEngineSound::SoundLoad(const std::string_view& _Path)
 {
 	std::string UTF8Path = GameEngineString::AnsiToUTF8(_Path);
 
@@ -123,43 +77,6 @@ void GameEngineSound::Load(const std::string_view& _Path)
 
 	return;
 }
-/*
-GameEngineSoundPlayer GameEngineSound::SoundPlay(const std::string& _Name)
-{
-	GameEngineSound* FindSoundPtr = FindSound(_Name);
-
-	if (nullptr == FindSoundPtr)
-	{
-		MsgAssert("존재하지 않는 사운드를 재생하려고 했습니다.");
-		return nullptr;
-	}
-
-	GameEngineSoundPlayer Player = FindSoundPtr->Play();
-
-	Player.SetVolume(1.0f);
-
-	return Player;
-}
-*/
-
-/*
-void GameEngineSound::Release()
-{
-	for (std::pair<std::string, GameEngineSound*> Pair  : GameEngineSound::AllSound)
-	{
-		if (nullptr == Pair.second)
-		{
-			return;
-		}
-
-		delete Pair.second;
-	}
-}
-*/
-
-
-/////////////////////////////// 맴버
-
 
 FMOD::Channel* GameEngineSound::Play()
 {
@@ -173,10 +90,4 @@ FMOD::Channel* GameEngineSound::Play()
 	SoundSystem->playSound(FMODSound, nullptr, false, &Return);
 
 	return Return;
-
-	FMOD::Channel* SoundControl = nullptr;
-
- 	SoundSystem->playSound(FMODSound, nullptr, false, &SoundControl);
-
-	return SoundControl;
 }

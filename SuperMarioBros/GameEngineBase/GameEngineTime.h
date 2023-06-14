@@ -30,11 +30,11 @@ public:
 protected:
 
 private:
-	LARGE_INTEGER Count = LARGE_INTEGER(0);
-	LARGE_INTEGER Cur = LARGE_INTEGER(0);
-	LARGE_INTEGER Prev = LARGE_INTEGER(0);
-	__int64 Tick;
-	double DoubleDelta;
-	float FloatDelta;
+	__int64 Tick = 0;
+	LARGE_INTEGER Count = LARGE_INTEGER();
+	LARGE_INTEGER Cur = LARGE_INTEGER();
+	LARGE_INTEGER Prev = LARGE_INTEGER();
+	double DoubleDelta = 0.0f;
+	float FloatDelta = 0.0f;
 };
 

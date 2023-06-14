@@ -49,8 +49,8 @@ public:
 protected:
 
 private:
-	float4 Position = float4::Zero;
-	float4 Scale = float4::Zero;
+	float4 Position = float4::ZERO;
+	float4 Scale = float4::ZERO;
 
 };
 

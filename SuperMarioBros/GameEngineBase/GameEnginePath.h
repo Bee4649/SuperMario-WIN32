@@ -9,6 +9,8 @@
 
 class GameEnginePath
 {
+
+	// 전방선언을 그냥 필요
 	friend class GameEngineFile;
 	friend class GameEngineDirectory;
 
@@ -16,12 +18,12 @@ public:
 	// constrcuter destructer
 	GameEnginePath();
 	GameEnginePath(std::filesystem::path _Path);
-	GameEnginePath(const std::string& _path);
+	GameEnginePath(const std::string& _Path);
 	~GameEnginePath();
 
 	// delete Function
-	GameEnginePath(const GameEnginePath& _Other) = delete;
-	GameEnginePath(GameEnginePath&& _Other) noexcept = delete;
+	GameEnginePath(const GameEnginePath& _Other);
+	GameEnginePath(GameEnginePath&& _Other);
 	GameEnginePath& operator=(const GameEnginePath& _Other) = delete;
 	GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
 

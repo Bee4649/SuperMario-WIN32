@@ -97,7 +97,7 @@ GameEngineSound* GameEngineResources::SoundLoad(const std::string_view& _Path, c
 	}
 
 	GameEngineSound* NewSound = new GameEngineSound();
-	NewSound->Load(_Path);
+	NewSound->SoundLoad(_Path);
 	AllSound.insert(std::make_pair(UpperName, NewSound));
 	return NewSound;
 }

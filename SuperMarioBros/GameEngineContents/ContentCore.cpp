@@ -5,12 +5,16 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include "TitleLevel.h"
+#include "WorldLevel.h"
 #include "EndingLevel.h"
 #include "GameOverLevel.h"
+#include "EndingLevel.h"
+
 
 ContentCore ContentCore :: Core;
 
-ContentCore::ContentCore() 
+
+ContentCore::ContentCore()
 {
 }
 
@@ -26,7 +30,7 @@ void ContentCore::ResetGame()
 	CoinNum = 0;
 	Score = 0;
 }
-void ContentCore::Start() 
+void ContentCore::Start()
 {
 	// 해상도 설정
 	// (256 x 224) * 4
@@ -47,8 +51,8 @@ void ContentCore::Start()
 		GameEngineInput::CreateKey("1", '1');
 		GameEngineInput::CreateKey("2", '2');
 		GameEngineInput::CreateKey("3", '3');
-		GameEngineInput::CreateKey("4", '4');
-		
+
+
 	}
 
 
@@ -58,33 +62,68 @@ void ContentCore::Start()
 
 	// 모든 레벨을 생성
 	CreateLevel<TitleLevel>("Title");
+	CreateLevel<WorldLevel>("World");
 	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");
+
 
 	// 시작 (Title) 레벨로 변경
 	ChangeLevel("Title");
 
 
-
-
-
-
-
-	// 이 레벨이 화면에 보여라.
-	GameEngineCore::ChangeLevel("PlayLevel");
+	
 }
-//
-// 행동한고.
-//void ContentCore::Update(float _Delta)
-//{
-//}
-//
-// 그려지고.
-//void ContentCore::Render(float _Delta)
-//{
-//}
-//
-// 정리된다.
-//void ContentCore::Release() 
-//{
-//}
+
+// 매 프레임마다 실행되는 함수
+void ContentCore::Update()
+{
+	if (GameEngineInput::IsDown("J"))
+	{
+		CollisionDebug = !CollisionDebug;
+	}
+}
+
+// 프로그램이 꺼질때 실행되는 함수
+void ContentCore::End()
+{
+}
+
+void ContentCore::ResourcesLoad()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Image");
+	Dir.Move("World");
+	// World 폴더에 있는 리소스를 불러온다
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("WORLD1.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("WORLD1FRONT.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGEBLOCK1.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGEBLOCK2.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("SEA.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("MARIO.BMP"))->Cut(4, 5);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CLOUD.BMP"))->Cut(1, 4);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("TIDE.BMP"))->Cut(1, 8);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGEBUTTON.BMP"))->Cut(1, 7);
+
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Image");
+	Dir.Move("TITLE");
+	// Title 폴더에 있는 리소스를 불러온다
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("GAMEOVER.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("TITLE.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("ENDING.BMP"));
+
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
+	// Sound 폴더에 있는 모든 리소스를 불러온다
+	std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		GameEngineResources::GetInst().SoundLoad(Files[i].GetFullPath());
+	}
+
+}
