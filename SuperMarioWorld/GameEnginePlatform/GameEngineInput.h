@@ -34,9 +34,8 @@ private:
 	};
 
 public:
-	// constrcuter destructer
-	GameEngineInput();
-	~GameEngineInput();
+	
+	
 
 	// delete Function
 	GameEngineInput(const GameEngineInput& _Other) = delete;
@@ -56,6 +55,8 @@ public:
 	static bool IsFree(const std::string_view& _Name);
 	static float GetPressTime(const std::string_view& _Name);
 
+	static void MouseCursorOff();
+
 	static bool IsAnyKey()
 	{
 		return IsAnyKeyValue;
@@ -64,6 +65,10 @@ public:
 protected:
 
 private:
+	// constrcuter destructer
+	GameEngineInput();
+	~GameEngineInput();
+
 	//      PlayerJump       
 	static std::map<std::string, GameEngineKey> Keys;
 	static bool IsAnyKeyValue;

@@ -182,6 +182,10 @@ void GameEngineInput::Update(float _DeltaTime)
 	}
 
 }
+void GameEngineInput::MouseCursorOff()
+{
+	ShowCursor(FALSE);
+}
 
 bool GameEngineInput::IsKey(const std::string_view& _Name)
 {

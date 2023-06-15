@@ -12,14 +12,14 @@ void WorldLevel::StageClear(const std::string_view& _StageName)
 	{
 		ImageActor->BlockRender1->Off();
 		ImageActor->LockStage1->On();
-		//WorldData->Stage3->Unlock();
+		WorldData->Stage3->Unlock();
 		return;
 	}
 	if ("Stage2" == _StageName)
 	{
 		ImageActor->BlockRender2->Off();
 		ImageActor->LockStage2->On();
-		//WorldData->Stage4->Unlock();
+		WorldData->Stage4->Unlock();
 		return;
 	}
 }
@@ -38,8 +38,8 @@ WorldLevel::~WorldLevel() {
 void WorldLevel::Loading()
 {
 	ImageActor = CreateActor<WorldImage>();
-	//WorldData = CreateActor<WorldMario>();
-	//WorldData->SetPos({ 475, 650 });
+	WorldData = CreateActor<WorldMario>();
+	WorldData->SetPos({ 475, 650 });
 	CreateActor<LevelLoader>();
 }
 

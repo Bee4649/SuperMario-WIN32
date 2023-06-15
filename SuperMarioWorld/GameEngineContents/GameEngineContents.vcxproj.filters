@@ -63,6 +63,21 @@
     <ClInclude Include="ItemActor.h">
       <Filter>PlayObject\Item</Filter>
     </ClInclude>
+    <ClInclude Include="StageLevel1.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel2.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel3.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel4.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageUnderground1.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -122,6 +137,21 @@
     </ClCompile>
     <ClCompile Include="ItemActor.cpp">
       <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel1.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel2.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel3.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel4.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageUnderground1.cpp">
+      <Filter>Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
