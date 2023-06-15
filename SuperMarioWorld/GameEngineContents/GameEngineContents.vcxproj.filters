@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentCore.h" />
+    <ClInclude Include="IconRes.h">
+      <Filter>Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="GameOverLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldImage.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldLevel.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMario.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperMushroom.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>PlayObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>PlayObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyActor.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemActor.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel1.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel2.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel3.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel4.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageUnderground1.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="GameOverLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldImage.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldLevel.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMario.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperMushroom.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioState.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>PlayObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>PlayObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyActor.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemActor.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel1.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel2.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel3.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel4.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageUnderground1.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{b7cca68c-5ba7-4be7-960e-398dba3d0ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icon">
+      <UniqueIdentifier>{dc49adf2-cad9-4914-8d04-f2595844f790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{99b56018-87f0-4949-a89b-64e53a467ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{a4eaf162-5e5a-4687-93f1-36db5f74909e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{c6eebc08-fd49-472c-abc0-d55f2463057d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayObject">
+      <UniqueIdentifier>{d837136f-a0ad-4933-965c-0b1485f945ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayObject\Player">
+      <UniqueIdentifier>{2b811e17-e510-4470-a24b-21bdcb35c9e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayObject\Item">
+      <UniqueIdentifier>{fae7ccb1-3585-4262-859b-c65ca8dba7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayObject\Enemy">
+      <UniqueIdentifier>{b273cd03-ffa7-401c-9519-6c7fecfa5bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayObject\Block">
+      <UniqueIdentifier>{5ec327eb-048c-4977-8c5f-b573d3f81f2f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\ContentsResources\Texture\MarioSwag.ico">
+      <Filter>Icon</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameEngineContents.rc">
+      <Filter>Icon</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
