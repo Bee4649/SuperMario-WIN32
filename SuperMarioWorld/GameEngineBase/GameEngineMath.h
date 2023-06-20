@@ -33,6 +33,7 @@ public:
 	static const float4 DOWN;
 	static const float4 FORWARD;
 	static const float4 BACK;
+	static const float4 Null;
 
 
 	static float4 AngleToDirection2DToDeg(float _Deg)
@@ -175,7 +176,7 @@ public:
 		return sqrtf(X * X + Y * Y);
 	}
 
-	inline void Normalize()
+	void Normalize()
 	{
 		// 길이를 1로 만드는 함수입니다.
 		float Len = Size();
@@ -185,7 +186,7 @@ public:
 		Z /= Len;
 	}
 
-	inline float4 NormalizeReturn()
+	float4 NormalizeReturn()
 	{
 		float4 Result = *this;
 		Result.Normalize();

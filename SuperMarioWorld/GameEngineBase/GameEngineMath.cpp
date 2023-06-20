@@ -8,11 +8,17 @@ const float GameEngineMath::PI2 = PI * 2.0f;
 const float GameEngineMath::DegressToRadians = GameEngineMath::PI / 180;
 const float GameEngineMath::RadiansToDegress = 180 / GameEngineMath::PI;
 
-const float4 float4::ZERO = { 0.0f, 0.0f, 0.0f, 0.0f };
-const float4 float4::LEFT = { -1.0f, 0.0f, 0.0f, 0.0f };
-const float4 float4::RIGHT = { 1.0f, 0.0f, 0.0f, 0.0f };
-const float4 float4::UP = { 0.0f, -1.0f, 0.0f, 0.0f };
-const float4 float4::DOWN = { 0.0f, 1.0f, 0.0f, 0.0f };
+const float4 float4::ZERO = { 0.0f, 0.0f, 0.0f, 1.0f };
+const float4 float4::LEFT = { -1.0f, 0.0f, 0.0f, 1.0f };
+const float4 float4::RIGHT = { 1.0f, 0.0f, 0.0f, 1.0f };
+const float4 float4::UP = { 0.0f, -1.0f, 0.0f, 1.0f };
+const float4 float4::DOWN = { 0.0f, 1.0f, 0.0f, 1.0f };
+
+// 2d때는 쓸일이 없을것이다.
+const float4 float4::FORWARD = { 0.0f, 0.0f, 1.0f, 1.0f };
+const float4 float4::BACK = { 0.0f, 0.0f, -1.0f, 1.0f };
+const float4 float4::Null = { 0.0f, 0.0f, 0.0f, 0.0f };
+
 
 // 123121 [1][2][3][1][2][1]
 std::vector<unsigned int> GameEngineMath::GetDigits(int _Value)

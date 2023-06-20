@@ -20,12 +20,12 @@ public:
 	Map();
 	~Map();
 
+	static Map* MainMap;
+
 	Map(const Map& _Other) = delete;
 	Map(Map&& _Other) noexcept = delete;
 	Map& operator=(const Map& _Other) = delete;
 	Map& operator=(Map&& _Other) noexcept = delete;
-
-	static Map* MainMap;
 
 	void SetImage(const std::string_view& _BackGroundName, const std::string_view& _StageName, const std::string_view& _StageColName);
 	void SetDebugMap(const std::string_view& _DebugMapName);

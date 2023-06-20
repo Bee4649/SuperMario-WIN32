@@ -8,8 +8,6 @@
 // 제안하는 클래스
 class GameEngineObject
 {
-	friend class GameEngineLevel;
-	friend class GameEngineCore;
 
 public:
 	// constrcuter destructer
@@ -31,34 +29,33 @@ public:
 		// 내가 죽지도 않았어야 한다. false == IsDeath()
 		// 부모도 켜져있어야 한다 true == Parent->IsUpdate()
 
-		return nullptr != Parent ? ((true == IsUpdateValue && false == IsDeath()) && true == Parent->IsUpdate()) : (IsUpdateValue && false == IsDeath());
+		return nullptr != Parent ? ((true == ObjectUpdate && false == IsDeath()) && true == Parent->IsUpdate()) : (ObjectUpdate && false == IsDeath());
 		
 		// return nullptr != Parent ? 1000 : 200;
 	}
 
 	bool IsDeath()
 	{
-		return nullptr != Parent ? (true == IsDeathValue || Parent->IsDeath()) : (true == IsDeathValue);
+		return nullptr != Parent ? (true == ObjectDeath || Parent->IsDeath()) : (true == ObjectDeath);
 	}
 
 	void Death()
 	{
-		IsDeathValue = true;
+		ObjectDeath = true;
 	}
 
 	virtual void On()
 	{
-		IsUpdateValue = true;
+		ObjectUpdate = true;
 	}
-
 	virtual void Off()
 	{
-		IsUpdateValue = false;
+		ObjectUpdate = false;
 	}
 
-	int GetOrder()
+	virtual void OnOffSwtich()
 	{
-		return Order;
+		ObjectUpdate = !ObjectUpdate;
 	}
 
 	virtual void SetOrder(int _Order)
@@ -66,9 +63,9 @@ public:
 		Order = _Order;
 	}
 
-	virtual void OnOffSwtich()
+	int GetOrder()
 	{
-		IsUpdateValue = !IsUpdateValue;
+		return Order;
 	}
 
 	virtual void SetOwner(GameEngineObject* _Parent)
@@ -104,18 +101,18 @@ public:
 
 protected:
 
-
 private:
 	// float LiveTime = 0.0f;
 
 	int Order = 0;
 
-	// 자기를 관리하거나 자기를 소유한 오브젝트들을 부모라는 보려고 하는것.
+	// 자기를 관리하거나 자기를 소유한 오브젝트들을 부모라는 느낌으로 보려고 하는것.
 	GameEngineObject* Parent = nullptr;
 
-	bool IsUpdateValue = true; // 이걸 false로 만들면 됩니다.
-	bool IsDeathValue = false; // 아예 메모리에서 날려버리고 싶어.
+	bool ObjectDeath = false; // 이걸 false로 만들면 됩니다.
+	bool ObjectUpdate = true; // 아예 메모리에서 날려버리고 싶어.
 
 	std::string Name;
+
 };
 

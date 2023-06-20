@@ -1,10 +1,8 @@
 #pragma once
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <map>
-#include <string_view>
 #include "GameEngineComponent.h"
-// 랜더링에 관련된 기능을 모두 집약한당.
-
+// 랜더링에 관련된 기능을 모두 집약한다.
 
 enum class TextAlign
 {
@@ -34,8 +32,8 @@ class GameEngineActor;
 class GameEngineLevel;
 class GameEngineRenderer : public GameEngineComponent
 {
-	friend class GameEngineActor;
-	friend class GameEngineLevel;
+	friend GameEngineActor;
+	friend GameEngineLevel;
 
 public:
 	// constrcuter destructer
@@ -108,7 +106,6 @@ public:
 		TextBoxScale = _TextBoxScale;
 	}
 
-
 	void SetRotFilter(const std::string_view& _ImageName);
 
 	void SetImage(const std::string_view& _ImageName);
@@ -125,11 +122,9 @@ public:
 
 	void SetOrder(int _Order) override;
 
-	void SetText(const std::string_view& _Text, const int _TextHeight = 20, 
-		const std::string_view& _TextType = "굴림", const TextAlign _TextAlign = TextAlign::Center, 
-		const COLORREF _TextColor = RGB(0, 0, 0), float4 TextBoxScale = float4::ZERO);
 
-	
+	void SetText(const std::string_view& _Text, const int _TextHeight = 20, const std::string_view& _TextType = "굴림", const TextAlign _TextAlign = TextAlign::Center, const COLORREF _TextColor = RGB(0, 0, 0), float4 TextBoxScale = float4::ZERO);
+
 protected:
 
 private:
@@ -148,7 +143,6 @@ private:
 
 	void TextRender(float _DeltaTime);
 	void ImageRender(float _DeltaTime);
-
 
 	class FrameAnimation
 	{
@@ -178,9 +172,9 @@ private:
 	std::map<std::string, FrameAnimation> Animation;
 	FrameAnimation* CurrentAnimation = nullptr;
 
-	/// <summary>
+
 	/// TextRender
-	/// </summary>
+	
 	std::string RenderText = std::string();
 	int TextHeight = 0;
 	std::string TextType = std::string();
@@ -188,15 +182,9 @@ private:
 	COLORREF TextColor = RGB(0, 0, 0);
 	float4 TextBoxScale;
 
+
 	float Angle = 0.0f;
 
-	/// <summary>
-	/// 애니메이션 생성함수
-	/// </summary>
-	/// <param name="_AniamtionName">애니메이션 이름</param>
-	/// <param name="_SpriteName">스프라이트 이름</param>
-	/// <param name="_Start">시작 프레임</param>
-	/// <param name="_End">끝 프레임</param>
-	/// <param name="_Inter">애니메이션 시간</param>
-	/// <param name="_Loop">애니메이션 반복</param>
+	
 };
+

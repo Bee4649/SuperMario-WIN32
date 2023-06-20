@@ -8,9 +8,6 @@
 class GameEngineSound
 {
 public:	
-	void SoundLoad(const std::string_view& _Path);
-	FMOD::Channel* Play();
-	
 	static void SoundUpdate();
 
 public:
@@ -23,6 +20,9 @@ public:
 	GameEngineSound(GameEngineSound&& _Other) noexcept = delete;
 	GameEngineSound& operator=(const GameEngineSound& _Other) = delete;
 	GameEngineSound& operator=(GameEngineSound&& _Other) noexcept = delete;
+
+	void SoundLoad(const std::string_view& _Path);
+	FMOD::Channel* Play();
 
 protected:
 

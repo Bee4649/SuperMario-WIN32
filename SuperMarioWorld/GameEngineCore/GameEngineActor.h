@@ -41,6 +41,8 @@ public:
 		return Pos;
 	}
 
+	GameEngineLevel* GetLevel();
+
 	template<typename EnumType>
 	GameEngineRenderer* CreateRender(const std::string_view& _Image, EnumType _Order)
 	{
@@ -64,7 +66,7 @@ public:
 
 	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
 
-	GameEngineLevel* GetLevel();
+
 
 protected:
 

@@ -52,7 +52,7 @@ public:
 
 	bool Collision(const CollisionCheckParameter& _CollisionCheck, std::vector<GameEngineCollision*>& _Collision);
 
-	virtual void SetOrder(int _Order) override;
+	void SetOrder(int _Order) override;
 
 	CollisionData GetCollisionData();
 

@@ -4,7 +4,11 @@
 #include <string_view>
 #include <map>
 
-// 설명 :
+// core도 여러개 만들어진다고 생각하지는 않을겁니다.
+
+// 설명 : 엔진에서 응당 로드해야할 필수적인 리소스나 
+// 순수가상함수가 있으니까 추상클래이다.
+
 class GameEngineLevel;
 class GameEngineCore
 {
@@ -30,7 +34,6 @@ public:
 	void CoreStart(HINSTANCE _Instance);
 
 	void ChangeLevel(const std::string_view& _Name);
-
 
 	static GameEngineCore* GetInst();
 
@@ -66,12 +69,12 @@ protected:
 		}
 
 		// 업캐스팅이 벌어지니깐
-		GameEngineLevel* NewLevel = new LevelType();
+		GameEngineLevel* Level = new LevelType();
 
-		LevelLoading(NewLevel, _Name);
+		LevelLoading(Level, _Name);
 		// Level->Loading();
 		// insert할때마다 새로운 string이 생기면서 자신만의 메모리를 가지게 됩니다.
-		Levels.insert(std::make_pair(_Name.data(), NewLevel));
+		Levels.insert(std::make_pair(_Name.data(), Level));
 		
 		//std::pair<std::map<std::string, class GameEngineLevel*>::iterator, bool> Pair 
 		//	= AllLevel.insert(std::make_pair(_Title, nullptr));

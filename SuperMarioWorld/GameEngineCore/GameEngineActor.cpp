@@ -7,31 +7,31 @@ GameEngineActor::GameEngineActor()
 {
 }
 
-GameEngineActor::~GameEngineActor() 
+GameEngineActor::~GameEngineActor()
 {
-	for (GameEngineRenderer* Render : RenderList)
+	for (GameEngineRenderer* _Render : RenderList)
 	{
-		if (nullptr == Render)
+		if (nullptr == _Render)
 		{
 			continue;
 		}
 
-		delete Render;
-		Render = nullptr;
+		delete _Render;
+		_Render = nullptr;
 	}
 
-	for (GameEngineCollision* Collision : CollisionList)
+	for (GameEngineCollision* _Collision : CollisionList)
 	{
-		if (nullptr == Collision)
+		if (nullptr == _Collision)
 		{
 			continue;
 		}
 
-		delete Collision;
-		Collision = nullptr;
+		delete _Collision;
+		_Collision = nullptr;
 	}
-
 }
+
 GameEngineLevel* GameEngineActor::GetLevel()
 {
 	return GetOwner<GameEngineLevel>();

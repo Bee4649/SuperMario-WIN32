@@ -19,16 +19,18 @@ class SoundSystemCreator
 public:
 	SoundSystemCreator()
 	{
-		// 이런 외부 함수는 내부에서 new를 하고 있습니다.
-		if (FMOD_RESULT::FMOD_OK != FMOD::System_Create(&SoundSystem))
+		FMOD::System_Create(&SoundSystem);
+
+		if (nullptr == SoundSystem)
 		{
-			MsgAssert("사운드 시스템 생성에 실패했습니다.");
+			MsgAssert("사운드 초기화가 제대로 되지 않았습니다.");
 		}
 
-		if (FMOD_RESULT::FMOD_OK != SoundSystem->init(32, FMOD_DEFAULT, nullptr))
+		if (FMOD_OK != SoundSystem->init(32, FMOD_DEFAULT, nullptr))
 		{
 			MsgAssert("사운드 시스템 이니셜라이즈에 실패했습니다.");
 		}
+
 	}
 
 	~SoundSystemCreator()
@@ -39,6 +41,7 @@ public:
 	}
 };
 
+SoundSystemCreator SoundInitObject = SoundSystemCreator();
 
 void GameEngineSound::SoundUpdate()
 {
@@ -50,11 +53,6 @@ void GameEngineSound::SoundUpdate()
 
 	SoundSystem->update();
 }
-
-
-
-SoundSystemCreator SoundInitObject = SoundSystemCreator();
-
 
 GameEngineSound::GameEngineSound()
 {

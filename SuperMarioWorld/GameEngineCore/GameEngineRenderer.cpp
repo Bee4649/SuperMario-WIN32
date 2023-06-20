@@ -6,14 +6,12 @@
 #include "GameEngineLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 
-
-GameEngineRenderer::GameEngineRenderer() 
+GameEngineRenderer::GameEngineRenderer()
 {
 }
 
-GameEngineRenderer::~GameEngineRenderer() 
+GameEngineRenderer::~GameEngineRenderer()
 {
-	
 }
 
 void GameEngineRenderer::SetRotFilter(const std::string_view& _ImageName)
@@ -24,7 +22,7 @@ void GameEngineRenderer::SetRotFilter(const std::string_view& _ImageName)
 void GameEngineRenderer::SetImage(const std::string_view& _ImageName)
 {
 	Image = GameEngineResources::GetInst().TextureFind(_ImageName);
-	
+	// SetScaleToImage();
 }
 
 void GameEngineRenderer::SetImageToScaleToImage(const std::string_view& _ImageName)
@@ -57,7 +55,7 @@ void GameEngineRenderer::SetFrame(int _Frame)
 
 	if (false == Image->IsImageCutting())
 	{
-		MsgAssert("잘려있는 이미지만 프레임을 지정해 줄 수 있습니다.");
+		MsgAssert("잘려있는 이미지만 프레임을 지정해줄 수 있습니다.");
 	}
 
 	if (false == Image->IsCutIndexValid(_Frame))
@@ -73,7 +71,6 @@ bool GameEngineRenderer::FrameAnimation::IsEnd()
 	int Value = (static_cast<int>(FrameIndex.size()) - 1);
 	return CurrentIndex == Value;
 }
-
 
 void GameEngineRenderer::FrameAnimation::Render(float _DeltaTime)
 {
@@ -138,17 +135,17 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	lf.lfHeight = TextHeight;
 	lf.lfWidth = 0;
 	lf.lfEscapement = 0;
-	lf.lfOrientation = 0; // 기준선과 디바이스의 x축 사이의 각도(10도)
-	lf.lfWeight = 0; // 굵기 표시
-	lf.lfItalic = 0; // 기울임꼴 글꼴
-	lf.lfUnderline = 0; // 밑줄이 그은 글꼴
-	lf.lfStrikeOut = 0; // 취소선 글꼴
-	lf.lfCharSet = HANGEUL_CHARSET; // 문자 집합
+	lf.lfOrientation = 0;
+	lf.lfWeight = 0;
+	lf.lfItalic = 0;
+	lf.lfUnderline = 0;
+	lf.lfStrikeOut = 0;
+	lf.lfCharSet = HANGEUL_CHARSET;
 	lf.lfOutPrecision = 0;
 	lf.lfClipPrecision = 0;
-	lf.lfQuality = 0; // 출력 품질 GDI
-	lf.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN; // 비트 4 (가변 스트로크 너비(비례) 및 세리프가 있는 글꼴입니다. MS Serif를 예로 들 수 있습니다.)
-	lstrcpy(lf.lfFaceName, TEXT(TextType.c_str())); // 32 TCHAR 값을 초과하면 안됨.
+	lf.lfQuality = 0;
+	lf.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+	lstrcpy(lf.lfFaceName, TEXT(TextType.c_str()));
 	hFont = CreateFontIndirect(&lf);
 	OldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
@@ -168,9 +165,7 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 		HBRUSH oldBrush = static_cast<HBRUSH>(SelectObject(DoubleDC, myBrush));
 		HPEN myPen = CreatePen(PS_DASH, 0, RGB(0, 0, 0));
 		HPEN oldPen = static_cast<HPEN>(SelectObject(DoubleDC, myPen));
-		
-		Rectangle(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(),
-			Rect.left, Rect.top, Rect.right, Rect.bottom);
+		Rectangle(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), Rect.left, Rect.top, Rect.right, Rect.bottom);
 
 		SelectObject(DoubleDC, oldBrush);
 		DeleteObject(myBrush);
@@ -178,10 +173,7 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 		DeleteObject(myPen);
 	}
 
-	DrawTextA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(),
-		RenderText.c_str(), static_cast<int>(RenderText.size()),
-		&Rect, static_cast<UINT>(Align));
-	
+	DrawTextA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), RenderText.c_str(), static_cast<int>(RenderText.size()), &Rect, static_cast<UINT>(Align));
 	SelectObject(hdc, OldFont);
 	DeleteObject(hFont);
 
@@ -218,7 +210,7 @@ void GameEngineRenderer::ImageRender(float _DeltaTime)
 		{
 			if (nullptr == RotationFilter)
 			{
-				MsgAssert("회전 시킬 수 없는 이미지 입니다. 필터가 존재하지 않습니다.");
+				MsgAssert("회전시킬수 없는 이미지 입니다. 필터가 존재하지 않습니다.");
 			}
 
 			GameEngineWindow::GetDoubleBufferImage()->PlgCopy(Image, Frame, RenderPos, GetScale(), Angle, RotationFilter);
