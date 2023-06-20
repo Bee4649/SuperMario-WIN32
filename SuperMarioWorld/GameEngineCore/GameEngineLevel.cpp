@@ -168,10 +168,10 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 			// TextOutStart.ix(), TextOutStart.iy(),
 
 			RECT Rect;
-			Rect.left = TextOutStart.iX();
-			Rect.top = TextOutStart.iY();
-			Rect.right = TextOutStart.iX() + 1000;
-			Rect.bottom = TextOutStart.iY() + 1000;
+			Rect.left = TextOutStart.ix();
+			Rect.top = TextOutStart.iy();
+			Rect.right = TextOutStart.ix() + 1000;
+			Rect.bottom = TextOutStart.iy() + 1000;
 
 			DrawTextA(ImageDc, DebugTexts[i].c_str(), static_cast<int>(DebugTexts[i].size()), &Rect, DT_LEFT);
 

@@ -18,8 +18,7 @@ GameEngineTime::~GameEngineTime()
 
 void GameEngineTime::Reset()
 {
-	QueryPerformanceCounter(&Cur);
-	Prev = Cur;
+	QueryPerformanceCounter(&Prev);
 }
 
 // 프레임 사이에서 실행되어야할 함수들은 다 업데이트라고 이름을 지을 것이다.
@@ -32,7 +31,7 @@ float GameEngineTime::Update()
 
 	// 현재 시간
 	// 8바이트 실수형          200사이값               100                        /             셀수있는 시간
-	DoubleDelta = static_cast<double>(Tick) - static_cast<double>(Prev.QuadPart) / static_cast<double>(Count.QuadPart);
+	DoubleDelta = static_cast<double>(Cur.QuadPart) - static_cast<double>(Prev.QuadPart) / static_cast<double>(Count.QuadPart);
 
 	Prev.QuadPart = Cur.QuadPart;
 

@@ -503,19 +503,19 @@ void Mario::MoveCalculation(float _DeltaTime)
 	// 이번 프레임에 이동할 위치
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	// 맵 이탈 방지
-	if (0 >= NextPos.iX())
+	if (0 >= NextPos.ix())
 	{
 		MoveDir.X = 0;
 	}
-	else if (Map::MainMap->GetStageSize().iX() <= NextPos.iX())
+	else if (Map::MainMap->GetStageSize().ix() <= NextPos.ix())
 	{
 		MoveDir.X = 0;
 	}
-	if (0 >= NextPos.iY())
+	if (0 >= NextPos.iy())
 	{
 		MoveDir.Y = 0;
 	}
-	else if (Map::MainMap->GetStageSize().iY() + 100 <= NextPos.iY())
+	else if (Map::MainMap->GetStageSize().iy() + 100 <= NextPos.iy())
 	{
 		MarioPower = PowerState::Normal;
 		Die();
@@ -1133,10 +1133,10 @@ void Mario::BlockCheck()
 				ColBlock->Hit();
 
 			}
-			else if (Pos.X + FootCollisionScale.hX() < ColPos.X - BlockXSize)
+			else if (Pos.X + FootCollisionScale.hx() < ColPos.X - BlockXSize)
 			{
 				float4 Pos = GetPos();
-				Pos.X = ColPos.X - BlockXSize - FootCollisionScale.hX() - 2;
+				Pos.X = ColPos.X - BlockXSize - FootCollisionScale.hx() - 2;
 				Pos.X = std::round(Pos.X);
 
 				SetPos(Pos);
@@ -1147,10 +1147,10 @@ void Mario::BlockCheck()
 				HorizontalForce = 0;
 				MoveDir.X = 0;
 			}
-			else if (ColPos.X + BlockXSize < Pos.X - FootCollisionScale.hX())
+			else if (ColPos.X + BlockXSize < Pos.X - FootCollisionScale.hx())
 			{
 				float4 Pos = GetPos();
-				Pos.X = ColPos.X + BlockXSize + FootCollisionScale.hX() + 2;
+				Pos.X = ColPos.X + BlockXSize + FootCollisionScale.hx() + 2;
 				Pos.X = std::round(Pos.X);
 
 				SetPos(Pos);

@@ -156,10 +156,10 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	SetBkMode(hdc, TRANSPARENT);
 
 	RECT Rect;
-	Rect.left = RenderPos.iX();
-	Rect.top = RenderPos.iY();
-	Rect.right = RenderPos.iX() + TextBoxScale.iY();
-	Rect.bottom = RenderPos.iY() + TextBoxScale.iY();
+	Rect.left = RenderPos.ix();
+	Rect.top = RenderPos.iy();
+	Rect.right = RenderPos.ix() + TextBoxScale.ix();
+	Rect.bottom = RenderPos.iy() + TextBoxScale.iy();
 
 	if (GameEngineCore::GetInst()->IsDebug())
 	{

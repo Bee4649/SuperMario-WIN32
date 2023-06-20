@@ -54,70 +54,67 @@ public:
 	float Z = 0.0f;
 	float W = 1.0f;
 
-	inline int iX() const
+	int ix() const
 	{
 		return static_cast<int>(X);
 	}
 
-	inline int iY() const
+	int iy() const
 	{
 		return static_cast<int>(Y);
 	}
-	inline int iZ() const
+
+	int iz() const
 	{
 		return static_cast<int>(Z);
 	}
 
-	inline int iW() const
+	int iw() const
 	{
 		return static_cast<int>(W);
 	}
 
-	inline float hX() const
+	int hix() const
+	{
+		return static_cast<int>(X * 0.5f);
+	}
+
+	int hiy() const
+	{
+		return static_cast<int>(Y * 0.5f);
+	}
+
+	int hiz() const
+	{
+		return static_cast<int>(Z * 0.5f);
+	}
+
+	int hiw() const
+	{
+		return static_cast<int>(W * 0.5f);
+	}
+
+
+	float hx() const
 	{
 		return X * 0.5f;
 	}
 
-	inline float hY() const
+	float hy() const
 	{
 		return Y * 0.5f;
 	}
 
-	float hZ() const
+	float hz() const
 	{
-		return Z * 0.5f;
+		return X * 0.5f;
 	}
 
-	float hW() const
+	float hw() const
 	{
 		return W * 0.5f;
 	}
 
-
-	inline int ihX() const
-	{
-		return static_cast<int>(hX());
-	}
-
-	inline int ihY() const
-	{
-		return static_cast<int>(hY());
-	}
-
-	inline int ihZ() const
-	{
-		return static_cast<int>(hZ());
-	}
-
-	inline int ihW() const
-	{
-		return static_cast<int>(hW());
-	}
-
-	inline float4 Half() const
-	{
-		return { hX(), hY(), Z, W };
-	}
 
 	float GetAnagleDegress()
 	{
@@ -158,118 +155,30 @@ public:
 
 	}
 
-	float4 operator-() const
+	POINT ToWindowPOINT()
 	{
-		float4 ReturnValue = *this;
-
-		ReturnValue.X = -ReturnValue.X;
-		ReturnValue.Y = -ReturnValue.Y;
-		ReturnValue.Z = -ReturnValue.Z;
-		return ReturnValue;
-		// return { -X, -Y, -Z, 1.0f };
+		return POINT(ix(), iy());
 	}
 
-	float4 operator-(const float4& _Other) const
+	float4 half() const
 	{
-		float4 ReturnValue;
-
-		ReturnValue.X = X - _Other.X;
-		ReturnValue.Y = Y - _Other.Y;
-		ReturnValue.Z = Z - _Other.Z;
-
-		return ReturnValue;
+		return { X * 0.5f,Y * 0.5f,Z * 0.5f,W };
 	}
 
-
-
-	float4 operator+(const float4& _Other) const
+	bool IsZero() const
 	{
-		float4 ReturnValue;
-
-		ReturnValue.X = X + _Other.X;
-		ReturnValue.Y = Y + _Other.Y;
-		ReturnValue.Z = Z + _Other.Z;
-
-		return ReturnValue;
+		return X == 0.0f && Y == 0.0f && Z == 0.0f;
 	}
 
-	float4 operator*(const float4& _Other) const
+	float Size() const
 	{
-		float4 ReturnValue;
-
-		ReturnValue.X = X * _Other.X;
-		ReturnValue.Y = Y * _Other.Y;
-		ReturnValue.Z = Z * _Other.Z;
-
-		return ReturnValue;
-	}
-
-
-	float4 operator*(const float _Value) const
-	{
-		float4 ReturnValue;
-
-		ReturnValue.X = X * _Value;
-		ReturnValue.Y = Y * _Value;
-		ReturnValue.Z = Z * _Value;
-
-		return ReturnValue;
-	}
-
-	float4& operator+=(const float4& _Other)
-	{
-		X += _Other.X;
-		Y += _Other.Y;
-		Z += _Other.Z;
-
-		return *this;
-	}
-
-
-	float4& operator-=(const float4& _Other)
-	{
-		X -= _Other.X;
-		Y -= _Other.Y;
-		Z -= _Other.Z;
-
-		return *this;
-	}
-
-	float4& operator*=(const float4& _Other)
-	{
-		X *= _Other.X;
-		Y *= _Other.Y;
-		Z *= _Other.Z;
-
-		return *this;
-	}
-
-	float4& operator*=(const float _Value)
-	{
-		X *= _Value;
-		Y *= _Value;
-		Z *= _Value;
-
-		return *this;
-	}
-
-	bool operator==(const float4 _Value) const
-	{
-		return X == _Value.X &&
-			Y == _Value.Y &&
-			Z == _Value.Z;
+		return sqrtf(X * X + Y * Y);
 	}
 
 	inline void Normalize()
 	{
 		// 길이를 1로 만드는 함수입니다.
 		float Len = Size();
-
-		if (0.0f == Len)
-		{
-			// MsgBoxAssert("0으로 나누려고 했습니다.");
-			return;
-		}
 
 		X /= Len;
 		Y /= Len;
@@ -304,44 +213,105 @@ public:
 		return Lerp(Start, End, Ratio);
 	}
 
-	inline float Size()
+
+	float4 operator *(const float _Value) const
 	{
-		float Value = X * X + Y * Y; // == 빗변 * 빗변
-
-		// sqrtf : 루트
-		// 빗변의 길이
-		// 제곱수이다.
-		// 제곱을 풀어서 제곱근이라고 합니다.
-		Value; // 빗변 * 빗변 => 빗변
-
-		return sqrtf(Value);
+		float4 Return;
+		Return.X = X * _Value;
+		Return.Y = Y * _Value;
+		Return.Z = Z * _Value;
+		return Return;
 	}
 
-	float Max2D()
+
+
+	float4 operator +(const float4 _Value) const
 	{
-		return X > Y ? X : Y;
+		float4 Return;
+		Return.X = X + _Value.X;
+		Return.Y = Y + _Value.Y;
+		Return.Z = Z + _Value.Z;
+		return Return;
 	}
 
-	POINT ToWindowPOINT()
+	float4 operator -(const float4 _Value) const
 	{
-		return POINT(iX(), iY());
+		float4 Return;
+		Return.X = X - _Value.X;
+		Return.Y = Y - _Value.Y;
+		Return.Z = Z - _Value.Z;
+		return Return;
 	}
 
-	float4 half() const
+	float4 operator *(const float4 _Value) const
 	{
-		return { X * 0.5f,Y * 0.5f,Z * 0.5f,W };
+		float4 Return;
+		Return.X = X * _Value.X;
+		Return.Y = Y * _Value.Y;
+		Return.Z = Z * _Value.Z;
+		return Return;
 	}
 
-	bool IsZero() const
+	float4 operator /(const float4 _Value) const
 	{
-		return X == 0.0f && Y == 0.0f && Z == 0.0f;
+		float4 Return;
+		Return.X = X / _Value.X;
+		Return.Y = Y / _Value.Y;
+		Return.Z = Z / _Value.Z;
+		return Return;
+	}
+
+	float4 operator -() const
+	{
+		return { -X, -Y, -Z, 1.0f };
+	}
+
+	float4& operator +=(const float4& _Other)
+	{
+		X += _Other.X;
+		Y += _Other.Y;
+		Z += _Other.Z;
+		return *this;
+	}
+
+	float4& operator *=(const float& _Value)
+	{
+		X *= _Value;
+		Y *= _Value;
+		Z *= _Value;
+		return *this;
+	}
+
+
+	float4& operator *=(const float4& _Other)
+	{
+		X *= _Other.X;
+		Y *= _Other.Y;
+		Z *= _Other.Z;
+		return *this;
+	}
+
+	float4& operator -=(const float4& _Other)
+	{
+		X -= _Other.X;
+		Y -= _Other.Y;
+		Z -= _Other.Z;
+		return *this;
+	}
+
+	float4& operator /=(const float4& _Other)
+	{
+		X /= _Other.X;
+		Y /= _Other.Y;
+		Z /= _Other.Z;
+		return *this;
 	}
 
 	std::string ToString()
 	{
 		char ArrReturn[256];
 
-		sprintf_s(ArrReturn, "X: %f, Y: %f, Z: %f, W: %f", X, Y, Z, W);
+		sprintf_s(ArrReturn, "x: %f, y: %f, z: %f, w: %f", X, Y, Z, W);
 
 		return std::string(ArrReturn);
 	}
@@ -356,19 +326,19 @@ public:
 
 	float Left() const
 	{
-		return Position.X - Scale.hX();
+		return Position.X - Scale.hx();
 	}
 	float Right() const
 	{
-		return Position.X + Scale.hX();
+		return Position.X + Scale.hx();
 	}
 	float Top() const
 	{
-		return Position.Y - Scale.hY();
+		return Position.Y - Scale.hy();
 	}
 	float Bot() const
 	{
-		return Position.Y + Scale.hY();
+		return Position.Y + Scale.hy();
 	}
 
 	float4 LeftTop() const
@@ -388,7 +358,6 @@ public:
 		return float4{ Right(), Bot() };
 	}
 };
-
 
 
 

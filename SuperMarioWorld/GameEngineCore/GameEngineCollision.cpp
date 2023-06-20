@@ -38,7 +38,7 @@ bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, con
 {
 	float4 Len = _Left.Position - _Right.Position;
 	float Size = Len.Size();
-	float RadiusSum = _Left.Scale.hX();
+	float RadiusSum = _Left.Scale.hx();
 	return RadiusSum > Size;
 }
 
@@ -46,7 +46,7 @@ bool GameEngineCollision::CollisionCirCleToCirCle(const CollisionData& _Left, co
 {
 	float4 Len = _Left.Position - _Right.Position;
 	float Size = Len.Size();
-	float RadiusSum = _Left.Scale.hX() + _Right.Scale.hX();
+	float RadiusSum = _Left.Scale.hx() + _Right.Scale.hx();
 	return RadiusSum > Size;
 }
 
@@ -196,21 +196,21 @@ void GameEngineCollision::DebugRender()
 		break;
 	case CirCle:
 	{
-		int Radius = GetScale().ihX();
+		int Radius = GetScale().hix();
 		Ellipse(BackBufferDc,
-			DebugRenderPos.iX() - Radius,
-			DebugRenderPos.iY() - Radius,
-			DebugRenderPos.iX() + Radius,
-			DebugRenderPos.iY() + Radius);
+			DebugRenderPos.ix() - Radius,
+			DebugRenderPos.iy() - Radius,
+			DebugRenderPos.ix() + Radius,
+			DebugRenderPos.iy() + Radius);
 		break;
 	}
 	case Rect:
 	{
 		Rectangle(BackBufferDc,
-			DebugRenderPos.iX() - GetScale().ihX(),
-			DebugRenderPos.iY() - GetScale().ihY(),
-			DebugRenderPos.iX() + GetScale().ihX(),
-			DebugRenderPos.iY() + GetScale().ihY());
+			DebugRenderPos.ix() - GetScale().hix(),
+			DebugRenderPos.iy() - GetScale().hiy(),
+			DebugRenderPos.ix() + GetScale().hix(),
+			DebugRenderPos.iy() + GetScale().hiy());
 		break;
 	}
 	case Max:

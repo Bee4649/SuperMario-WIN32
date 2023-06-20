@@ -18,6 +18,50 @@ GameEngineWindowTexture* GameEngineWindow::DoubleBufferImage = nullptr;
 bool GameEngineWindow::IsWindowUpdate = true;
 
 
+LRESULT CALLBACK GameEngineWindow::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
+{
+	switch (_message)
+	{
+	case WM_MOUSEMOVE:
+	{
+		int a = 0;
+		break;
+	}
+	case WM_SETFOCUS:
+	{
+		int a = 0;
+		break;
+	}
+	case WM_ACTIVATE:
+	{
+		int a = 0;
+		break;
+	}
+	case WM_KILLFOCUS:
+	{
+		int a = 0;
+		break;
+	}
+	case WM_KEYDOWN:
+	{
+		GameEngineInput::IsAnyKeyOn();
+		break;
+	}
+	case WM_DESTROY:
+	{
+		// Message함수가 0을 리턴하게 만들어라.
+		PostQuitMessage(0);
+		IsWindowUpdate = false;
+		break;
+	}
+	default:
+		return DefWindowProc(_hWnd, _message, _wParam, _lParam);
+	}
+
+	return 0;
+}
+
+
 GameEngineWindow::GameEngineWindow()
 {
 }
@@ -26,15 +70,6 @@ GameEngineWindow::~GameEngineWindow()
 {
 }
 
-void GameEngineWindow::DoubleBufferClear()
-{
-	DoubleBufferImage->TextureClear();
-}
-
-void GameEngineWindow::DoubleBufferRender()
-{
-	BackBufferImage->BitCopy(DoubleBufferImage, WindowSize.half(), WindowSize);
-}
 
 void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos)
 {
@@ -89,49 +124,15 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
 	return;
 }
 
-LRESULT CALLBACK GameEngineWindow::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
+void GameEngineWindow::DoubleBufferClear()
 {
-	switch (_message)
-	{
-	case WM_MOUSEMOVE:
-	{
-		int a = 0;
-		break;
-	}
-	case WM_SETFOCUS:
-	{
-		int a = 0;
-		break;
-	}
-	case WM_ACTIVATE:
-	{
-		int a = 0;
-		break;
-	}
-	case WM_KILLFOCUS:
-	{
-		int a = 0;
-		break;
-	}
-	case WM_KEYDOWN:
-	{
-		GameEngineInput::IsAnyKeyOn();
-		break;
-	}
-	case WM_DESTROY:
-	{
-		// Message함수가 0을 리턴하게 만들어라.
-		PostQuitMessage(0);
-		IsWindowUpdate = false;
-		break;
-	}
-	default:
-		return DefWindowProc(_hWnd, _message, _wParam, _lParam);
-	}
-
-	return 0;
+	DoubleBufferImage->TextureClear();
 }
 
+void GameEngineWindow::DoubleBufferRender()
+{
+	BackBufferImage->BitCopy(DoubleBufferImage, WindowSize.half(), WindowSize);
+}
 
 int GameEngineWindow::MessageLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
 {
@@ -216,7 +217,7 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
 	// 타이틀바의 프레임까지 고려해서 크기를 설정해야 함. 
 	
 	//          위치    크기 200        200
-	RECT Rc = { 0, 0, _Size.iX(), _Size.iY() };
+	RECT Rc = { 0, 0, _Size.ix(), _Size.iy() };
 
 	ScreenSize = _Size;
 
@@ -226,7 +227,7 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
 	WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top) };
 	
 	// 0을 넣어주면 기존의 크기를 유지한다.
-	SetWindowPos(HWnd, nullptr, WindowPos.iX(), WindowPos.iY(), WindowSize.iX(), WindowSize.iY(), SWP_NOZORDER);
+	SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 
 	// 완전히 똑같은 크기의 이미지.
 
@@ -243,15 +244,15 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
 void GameEngineWindow::SettingWindowPos(float4 _Pos)
 {
 	WindowPos = _Pos;
-	SetWindowPos(HWnd, nullptr, WindowPos.iX(), WindowPos.iY(), WindowSize.iX(), WindowSize.iY(), SWP_NOZORDER);
+	SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 }
 
 float4 GameEngineWindow::GetMousePos()
 {
 	POINT MoniterPoint;
 	LPPOINT PointPtr = &MoniterPoint;
-	GetCursorPos(&MoniterPoint);
-	ScreenToClient(HWnd, &MoniterPoint);
+	GetCursorPos(PointPtr);
+	ScreenToClient(HWnd, PointPtr);
 
 	return float4{ static_cast<float>(MoniterPoint.x), static_cast<float>(MoniterPoint.y) };
 }

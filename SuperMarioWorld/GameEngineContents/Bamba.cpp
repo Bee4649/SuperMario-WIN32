@@ -511,14 +511,14 @@ void Bamba::KickUpdate(float _DeltaTime)
 				if (GetPos().X < HitBlock->GetPos().X)
 				{
 					float4 Pos = GetPos();
-					Pos.X = HitBlock->GetPos().X - BlockXSize - RenderScale.hX();
+					Pos.X = HitBlock->GetPos().X - BlockXSize - RenderScale.hx();
 					Pos.X = std::round(Pos.X);
 					SetPos(Pos);
 				}
 				else
 				{
 					float4 Pos = GetPos();
-					Pos.X = HitBlock->GetPos().X + BlockXSize + RenderScale.hX();
+					Pos.X = HitBlock->GetPos().X + BlockXSize + RenderScale.hx();
 					Pos.X = std::round(Pos.X);
 					SetPos(Pos);
 				}

@@ -49,7 +49,7 @@ void Map::SetImage(const std::string_view& _BackGroundName, const std::string_vi
 		BackGroundRender->SetPosition(BackGroundSize.half());
 		BackGroundRender->Off();
 
-		int BackGroundNum = StageSize.iX() / BackGroundSize.iX();
+		int BackGroundNum = StageSize.ix() / BackGroundSize.ix();
 		for (int i = 1; i <= BackGroundNum; i++)
 		{
 			GameEngineRenderer* Render = CreateRender(BackGroundName, RenderOrder::BackGround);

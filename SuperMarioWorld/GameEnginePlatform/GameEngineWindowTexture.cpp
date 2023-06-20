@@ -70,7 +70,7 @@ bool GameEngineWindowTexture::TextureCreate(const float4& _Scale)
 	}
 
 	// 이미지의 핸들일 뿐이고.
-	BitMap = CreateCompatibleBitmap(GameEngineWindow::GetWindowBackBufferHdc(), _Scale.iX(), _Scale.iY());
+	BitMap = CreateCompatibleBitmap(GameEngineWindow::GetWindowBackBufferHdc(), _Scale.ix(), _Scale.iy());
 
 	if (nullptr == BitMap)
 	{
@@ -155,10 +155,10 @@ void GameEngineWindowTexture ::BitCopy(const GameEngineWindowTexture* _CopyTextu
 {
 	BitBlt(
 		ImageDC, // 복사 당할 이미지
-		_Pos.iX() - _Scale.ihX(), // 위치 
-		_Pos.iY() - _Scale.ihY(),
-		_Scale.iX(),
-		_Scale.iY(),
+		_Pos.ix() - _Scale.hix(), // 위치 
+		_Pos.iy() - _Scale.hiy(),
+		_Scale.ix(),
+		_Scale.iy(),
 		_CopyTexture->GetImageDC(), // 복사할 이미지
 		0,
 		0,
@@ -185,15 +185,15 @@ void GameEngineWindowTexture::TransCopy(const GameEngineWindowTexture* _CopyText
 	// 특정 DC에 연결된 색상을
 	// 특정 DC에 고속복사하는 함수입니다.
 	TransparentBlt(ImageDC, // 여기에 그려라.
-		_Pos.iX() - _Scale.ihX(), // 여기를 시작으로
-		_Pos.iY() - _Scale.ihY(),
-		_Scale.iX(), // 이 크기로
-		_Scale.iY(),
+		_Pos.ix() - _Scale.hix(), // 여기를 시작으로
+		_Pos.iy() - _Scale.hiy(),
+		_Scale.ix(), // 이 크기로
+		_Scale.iy(),
 		_CopyTexture->GetImageDC(),
-		_OtherPos.iX(), // 카피하려는 이미지의 왼쪽위 x
-		_OtherPos.iY(), // 카피하려는 이미지의 왼쪽위 y
-		_OtherScale.iX(), // 그부분부터 사이즈  x
-		_OtherScale.iY(), // 그부분부터 사이즈  y
+		_OtherPos.ix(), // 카피하려는 이미지의 왼쪽위 x
+		_OtherPos.iy(), // 카피하려는 이미지의 왼쪽위 y
+		_OtherScale.ix(), // 그부분부터 사이즈  x
+		_OtherScale.iy(), // 그부분부터 사이즈  y
 		_TransColor);
 }
 
@@ -220,15 +220,15 @@ void GameEngineWindowTexture::AlphaCopy(const GameEngineWindowTexture* _OtherIma
 	BF.AlphaFormat = AC_SRC_ALPHA;
 
 	AlphaBlend(ImageDC, // 여기에 그려라.
-		_CopyCenterPos.iX() - _CopySize.ihX(), // 여기를 시작으로
-		_CopyCenterPos.iY() - _CopySize.ihY(),
-		_CopySize.iX(), // 이 크기로
-		_CopySize.iY(),
+		_CopyCenterPos.ix() - _CopySize.hix(), // 여기를 시작으로
+		_CopyCenterPos.iy() - _CopySize.hiy(),
+		_CopySize.ix(), // 이 크기로
+		_CopySize.iy(),
 		_OtherImage->GetImageDC(),
-		_OtherImagePos.iX(),// 이미지의 x y에서부터
-		_OtherImagePos.iY(),
-		_OtherImageSize.iX(), // 이미지의 x y까지의 위치를
-		_OtherImageSize.iY(),
+		_OtherImagePos.ix(),// 이미지의 x y에서부터
+		_OtherImagePos.iy(),
+		_OtherImageSize.ix(), // 이미지의 x y까지의 위치를
+		_OtherImageSize.iy(),
 		BF);
 }
 
@@ -259,16 +259,17 @@ void GameEngineWindowTexture::PlgCopy(const GameEngineWindowTexture* _CopyTextur
 	ArrRotPoint[1] = (RightTop.RotaitonZDegReturn(_Angle) + _CopyCenterPos).ToWindowPOINT();
 	ArrRotPoint[2] = (LeftBot.RotaitonZDegReturn(_Angle) + _CopyCenterPos).ToWindowPOINT();
 
-	PlgBlt(ImageDC,
+
+	PlgBlt(ImageDC, // 여기에 그려라.
 		ArrRotPoint,
 		_CopyTexture->GetImageDC(),
-		_OtherImagePos.iX(),
-		_OtherImagePos.iY(),
-		_OtherImageSize.iX(), 
-		_OtherImageSize.iY(),
+		_OtherImagePos.ix(),// 이미지의 x y에서부터
+		_OtherImagePos.iy(),
+		_OtherImageSize.ix(), // 이미지의 x y까지의 위치를
+		_OtherImageSize.iy(),
 		_FilterImage->BitMap,
-		_OtherImagePos.iX(),
-		_OtherImagePos.iY()
+		_OtherImagePos.ix(),
+		_OtherImagePos.iy()
 	);
 
 }
@@ -277,8 +278,8 @@ void GameEngineWindowTexture::Cut(int _X, int _Y)
 {
 	ImageCutData Data;
 
-	Data.SizeX = static_cast<float>(GetImageScale().iX() / _X);
-	Data.SizeY = static_cast<float>(GetImageScale().iY() / _Y);
+	Data.SizeX = static_cast<float>(GetImageScale().ix() / _X);
+	Data.SizeY = static_cast<float>(GetImageScale().iy() / _Y);
 
 	for (size_t i = 0; i < _Y; i++)
 	{
@@ -322,7 +323,7 @@ void GameEngineWindowTexture::Cut(float4 _Start, float4 _End, int _X, int _Y)
 
 DWORD GameEngineWindowTexture::GetPixelColor(float4 _Pos, DWORD _OutColor)
 {
-	return GetPixelColor(_Pos.iX(), _Pos.iY(), _OutColor);
+	return GetPixelColor(_Pos.ix(), _Pos.iy(), _OutColor);
 }
 
 DWORD GameEngineWindowTexture::GetPixelColor(int _X, int _Y, DWORD _OutColor)
@@ -331,7 +332,7 @@ DWORD GameEngineWindowTexture::GetPixelColor(int _X, int _Y, DWORD _OutColor)
 	{
 		return _OutColor;
 	}
-	if (_X >= GetImageScale().iX())
+	if (_X >= GetImageScale().ix())
 	{
 		return _OutColor;
 	}
@@ -339,7 +340,7 @@ DWORD GameEngineWindowTexture::GetPixelColor(int _X, int _Y, DWORD _OutColor)
 	{
 		return _OutColor;
 	}
-	if (_Y >= GetImageScale().iY())
+	if (_Y >= GetImageScale().iy())
 	{
 		return _OutColor;
 	}
