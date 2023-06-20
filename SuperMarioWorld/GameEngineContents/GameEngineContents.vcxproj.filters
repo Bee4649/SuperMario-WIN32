@@ -66,17 +66,41 @@
     <ClInclude Include="StageLevel1.h">
       <Filter>Stage</Filter>
     </ClInclude>
-    <ClInclude Include="StageLevel2.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="StageLevel3.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="StageLevel4.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="StageUnderground1.h">
       <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPoint.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldActor.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Killer.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Nokonoko.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bamba.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>PlayObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>PlayObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnBlock.h">
+      <Filter>PlayObject\Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,17 +165,41 @@
     <ClCompile Include="StageLevel1.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
-    <ClCompile Include="StageLevel2.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="StageLevel3.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="StageLevel4.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
     <ClCompile Include="StageUnderground1.cpp">
       <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Killer.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Nokonoko.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldActor.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bamba.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>PlayObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>PlayObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnBlock.cpp">
+      <Filter>PlayObject\Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "TitleLevel.h"
 #include "WorldLevel.h"
 #include "StageLevel1.h"
+#include "StageUnderground1.h"
 #include "EndingLevel.h"
 #include "GameOverLevel.h"
 #include "EndingLevel.h"
@@ -64,6 +65,7 @@ void ContentCore::Start()
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<WorldLevel>("World");
 	CreateLevel<StageLevel1>("Stage1");
+	CreateLevel<StageUnderground1>("Underground1");
 	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");
 
@@ -71,8 +73,6 @@ void ContentCore::Start()
 	// 시작 (Title) 레벨로 변경
 	ChangeLevel("Title");
 
-
-	
 }
 
 // 매 프레임마다 실행되는 함수
@@ -100,30 +100,20 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_MARIO.BMP"))->Cut(17, 9);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_MARIO.BMP"))->Cut(17, 9);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND1.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND2.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND3.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND4.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1DEBUG.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2DEBUG.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE3.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE4.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE0COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1COL.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2COL.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE3COL.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE4COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground1COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("ALLBLACK.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("NUMBER.BMP"))->Cut(10, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("NUMBERBIG.BMP"))->Cut(10, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("NUMBERYELLOW.BMP"))->Cut(10, 1);
-	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPoint.BMP"));
-	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPointPass.BMP"));
-	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPointFront.BMP"));
-	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BAMBA.BMP"))->Cut(8, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPoint.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPointPass.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("CheckPointFront.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BAMBA.BMP"))->Cut(8, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_NOKONOKO.BMP"))->Cut(3, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_NOKONOKO_HADAKA.BMP"))->Cut(4, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_NOKONOKO.BMP"))->Cut(3, 1);
@@ -149,13 +139,6 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("StarParticle.BMP"))->Cut(1, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("QuestionBlock.BMP"))->Cut(5, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Coin.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_KOOPA.BMP"))->Cut(9, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_KOOPA.BMP"))->Cut(9, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Mechakoopa.BMP"))->Cut(7, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Mechakoopa.BMP"))->Cut(7, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Pierrot.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Pierrot.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Propeller.BMP"))->Cut(1, 4);
 
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");

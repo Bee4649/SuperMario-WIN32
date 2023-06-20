@@ -3,8 +3,8 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include "ContentCore.h"
 #include "ContentsEnum.h"
-// #include "StageLevel.h"
-// #include "Mario.h"
+#include "StageLevel.h"
+#include "Mario.h"
 
 LevelLoader* LevelLoader::MainLoader = nullptr;
 

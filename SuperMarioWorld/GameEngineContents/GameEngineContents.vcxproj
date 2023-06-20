@@ -155,7 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bamba.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="ContentCore.h">
       <SubType>
       </SubType>
@@ -169,34 +172,42 @@
     <ClInclude Include="Fire.h" />
     <ClInclude Include="FireFlower.h" />
     <ClInclude Include="GameOverLevel.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="ItemActor.h" />
+    <ClInclude Include="Killer.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="Nokonoko.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="PlayUIManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="IconRes.h" />
+    <ClInclude Include="QuestionBlock.h" />
+    <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShieldActor.h" />
     <ClInclude Include="StageLevel.h" />
     <ClInclude Include="StageLevel1.h" />
-    <ClInclude Include="StageLevel2.h" />
-    <ClInclude Include="StageLevel3.h" />
-    <ClInclude Include="StageLevel4.h" />
     <ClInclude Include="StageUnderground1.h" />
     <ClInclude Include="SuperMushroom.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TurnBlock.h" />
     <ClInclude Include="WorldImage.h" />
     <ClInclude Include="WorldLevel.h" />
     <ClInclude Include="WorldMario.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bamba.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="ContentCore.cpp">
       <SubType>
       </SubType>
@@ -209,27 +220,32 @@
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireFlower.cpp" />
     <ClCompile Include="GameOverLevel.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="ItemActor.cpp" />
+    <ClCompile Include="Killer.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioState.cpp" />
+    <ClCompile Include="Nokonoko.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="PlayUIManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp" />
+    <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShieldActor.cpp" />
     <ClCompile Include="StageLevel.cpp" />
     <ClCompile Include="StageLevel1.cpp" />
-    <ClCompile Include="StageLevel2.cpp" />
-    <ClCompile Include="StageLevel3.cpp" />
-    <ClCompile Include="StageLevel4.cpp" />
     <ClCompile Include="StageUnderground1.cpp" />
     <ClCompile Include="SuperMushroom.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TurnBlock.cpp" />
     <ClCompile Include="WorldImage.cpp" />
     <ClCompile Include="WorldLevel.cpp" />
     <ClCompile Include="WorldMario.cpp" />

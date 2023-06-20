@@ -430,7 +430,7 @@ void Mario::Update(float _DeltaTime)
 		RunSpeed = 850.0f;
 		ColMap = GameEngineResources::GetInst().TextureFind(Map::MainMap->GetStageColName());
 	}
-	if (GameEngineInput::IsDown("MAPCHANGE"))
+	if (GameEngineInput::IsDown("P"))
 	{
 		LevelLoader::ChangeLevel("World");
 	}
