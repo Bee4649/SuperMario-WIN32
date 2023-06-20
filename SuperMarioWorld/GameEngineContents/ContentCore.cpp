@@ -100,6 +100,7 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_MARIO.BMP"))->Cut(17, 9);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_MARIO.BMP"))->Cut(17, 9);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND1.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND3.BMP"))->Cut(4, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1DEBUG.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground1.BMP"));
