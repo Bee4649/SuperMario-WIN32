@@ -191,7 +191,11 @@
     <ClInclude Include="ShieldActor.h" />
     <ClInclude Include="StageLevel.h" />
     <ClInclude Include="StageLevel1.h" />
+    <ClInclude Include="StageLevel2.h" />
+    <ClInclude Include="StageLevel3.h" />
+    <ClInclude Include="StageLevelBoss.h" />
     <ClInclude Include="StageUnderground1.h" />
+    <ClInclude Include="StageUnderground2.h" />
     <ClInclude Include="SuperMushroom.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
@@ -239,7 +243,11 @@
     <ClCompile Include="ShieldActor.cpp" />
     <ClCompile Include="StageLevel.cpp" />
     <ClCompile Include="StageLevel1.cpp" />
+    <ClCompile Include="StageLevel2.cpp" />
+    <ClCompile Include="StageLevel3.cpp" />
+    <ClCompile Include="StageLevelBoss.cpp" />
     <ClCompile Include="StageUnderground1.cpp" />
+    <ClCompile Include="StageUnderground2.cpp" />
     <ClCompile Include="SuperMushroom.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>

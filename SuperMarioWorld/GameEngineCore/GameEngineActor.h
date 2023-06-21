@@ -26,6 +26,11 @@ public:
 	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
 	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
 
+	inline float4 GetPos()
+	{
+		return Pos;
+	}
+
 	inline void SetPos(const float4& _MovePos)
 	{
 		Pos = _MovePos;
@@ -34,11 +39,6 @@ public:
 	inline void SetMove(const float4& _MovePos)
 	{
 		Pos += _MovePos;
-	}
-
-	inline float4 GetPos() 
-	{
-		return Pos;
 	}
 
 	GameEngineLevel* GetLevel();
@@ -87,7 +87,7 @@ protected:
 		return LiveTime;
 	}
 
-	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel);
+	virtual void LevelChangeEnd(GameEngineLevel* _PrevLevel);
 	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel);
 
 private:
