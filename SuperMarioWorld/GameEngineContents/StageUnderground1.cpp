@@ -53,7 +53,27 @@ void StageUnderground1::LevelChangeStart(GameEngineLevel* _Prev)
 	MainMap->MoveMap(0);
 
 	{
-		
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(7, 2));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(7, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(8, 2));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(8, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(9, 2));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(9, 3));
+
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 4));
+
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 5));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 5));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 5));
+
 		QuestionBlock* NewBlock = CreateActor<QuestionBlock>(RenderOrder::Map);
 		NewBlock->SetPos(GridPos(30, 5));
 		NewBlock->SetItem(ItemType::FireFlower);
