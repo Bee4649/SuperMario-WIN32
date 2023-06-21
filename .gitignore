@@ -398,3 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/SuperMarioWorld/GameEnginePlatform/ThirdParty/FMOD/lib/x64/fmodL.dll
