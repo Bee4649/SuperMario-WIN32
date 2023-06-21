@@ -193,7 +193,7 @@
     <ClInclude Include="StageLevel1.h" />
     <ClInclude Include="StageLevel2.h" />
     <ClInclude Include="StageLevel3.h" />
-    <ClInclude Include="StageLevelBoss.h" />
+    <ClInclude Include="StageLevel4.h" />
     <ClInclude Include="StageUnderground1.h" />
     <ClInclude Include="StageUnderground2.h" />
     <ClInclude Include="SuperMushroom.h" />
@@ -245,7 +245,7 @@
     <ClCompile Include="StageLevel1.cpp" />
     <ClCompile Include="StageLevel2.cpp" />
     <ClCompile Include="StageLevel3.cpp" />
-    <ClCompile Include="StageLevelBoss.cpp" />
+    <ClCompile Include="StageLevel4.cpp" />
     <ClCompile Include="StageUnderground1.cpp" />
     <ClCompile Include="StageUnderground2.cpp" />
     <ClCompile Include="SuperMushroom.cpp" />

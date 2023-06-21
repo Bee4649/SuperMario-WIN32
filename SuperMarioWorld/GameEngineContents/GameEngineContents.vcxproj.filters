@@ -105,13 +105,13 @@
     <ClInclude Include="StageLevel2.h">
       <Filter>Stage</Filter>
     </ClInclude>
-    <ClInclude Include="StageLevelBoss.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="StageUnderground2.h">
       <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="StageLevel3.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageLevel4.h">
       <Filter>Stage</Filter>
     </ClInclude>
   </ItemGroup>
@@ -216,13 +216,13 @@
     <ClCompile Include="StageLevel2.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
-    <ClCompile Include="StageLevelBoss.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
     <ClCompile Include="StageUnderground2.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
     <ClCompile Include="StageLevel3.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageLevel4.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,6 +8,7 @@
 #include "StageLevel1.h"
 #include "StageLevel2.h"
 #include "StageLevel3.h"
+#include "StageLevel4.h"
 #include "StageUnderground1.h"
 // #include "StageUnderground2.h"
 #include "EndingLevel.h"
@@ -70,6 +71,7 @@ void ContentCore::Start()
 	CreateLevel<StageLevel1>("Stage1");
 	CreateLevel<StageLevel2>("Stage2");
 	CreateLevel<StageLevel3>("Stage3");
+	CreateLevel<StageLevel4>("Stage4");
 	CreateLevel<StageUnderground1>("Underground1");
 	//CreateLevel<StageUnderground2>("Underground2");
 	CreateLevel<GameOverLevel>("GameOver");
@@ -110,17 +112,20 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND3.BMP"))->Cut(4, 1);
 	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND5.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND6.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND7.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1DEBUG.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2DEBUG.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGESKY1.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE4.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground1.BMP"));
 	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground2.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE0COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGESKYCOL.BMP"));
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE4COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground1COL.BMP"));
 	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Underground2COL.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("ALLBLACK.BMP"));

@@ -19,5 +19,6 @@
     <ClInclude Include="GameEnginePath.h" />
     <ClInclude Include="GameEngineDirectory.h" />
     <ClInclude Include="GameEngineFile.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
 </Project>
