@@ -181,6 +181,7 @@
     <ClInclude Include="Nokonoko.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayUIManager.h">
       <SubType>
       </SubType>
@@ -189,6 +190,7 @@
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="Shell.h" />
     <ClInclude Include="ShieldActor.h" />
+    <ClInclude Include="SkyMario.h" />
     <ClInclude Include="StageLevel.h" />
     <ClInclude Include="StageLevel1.h" />
     <ClInclude Include="StageLevel2.h" />
@@ -234,6 +236,7 @@
     <ClCompile Include="Nokonoko.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayUIManager.cpp">
       <SubType>
       </SubType>
@@ -241,6 +244,7 @@
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="ShieldActor.cpp" />
+    <ClCompile Include="SkyMario.cpp" />
     <ClCompile Include="StageLevel.cpp" />
     <ClCompile Include="StageLevel1.cpp" />
     <ClCompile Include="StageLevel2.cpp" />

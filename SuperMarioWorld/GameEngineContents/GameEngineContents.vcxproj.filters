@@ -30,9 +30,6 @@
     <ClInclude Include="WorldLevel.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="WorldMario.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Icon</Filter>
     </ClInclude>
@@ -113,6 +110,15 @@
     </ClInclude>
     <ClInclude Include="StageLevel4.h">
       <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMario.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyMario.h">
+      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +231,12 @@
     <ClCompile Include="StageLevel4.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyMario.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -256,6 +268,9 @@
     </Filter>
     <Filter Include="PlayObject\Block">
       <UniqueIdentifier>{5ec327eb-048c-4977-8c5f-b573d3f81f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{0c04cbfc-56bb-4ec9-81b0-9a454a917e89}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 
 #include "Mario.h"
+#include "SkyMario.h"
 #include "Map.h"
 
 #include "Killer.h"
