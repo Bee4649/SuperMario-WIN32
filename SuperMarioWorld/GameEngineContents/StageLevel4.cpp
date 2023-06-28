@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "Mario.h"
 #include "ContentsEnum.h"
+#include "Koopa.h"
 
 StageLevel4::StageLevel4() 
 {
@@ -28,7 +29,7 @@ void StageLevel4::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	UI = CreateActor<PlayUIManager>();
 	Map1->MoveMap(0);
 
-	//CreateActor<Koopa>(RenderOrder::Monster)->SetPos({ 500, 1200 });
+	CreateActor<Koopa>(RenderOrder::Monster)->SetPos({ 500, 1200 });
 
 	StageLevel::LevelChangeStart(_PrevLevel);
 }

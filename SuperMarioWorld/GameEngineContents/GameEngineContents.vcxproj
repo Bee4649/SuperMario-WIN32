@@ -175,9 +175,11 @@
     <ClInclude Include="Goal.h" />
     <ClInclude Include="ItemActor.h" />
     <ClInclude Include="Killer.h" />
+    <ClInclude Include="Koopa.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="Mechakoopa.h" />
     <ClInclude Include="Nokonoko.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pipe.h" />
@@ -227,10 +229,12 @@
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="ItemActor.cpp" />
     <ClCompile Include="Killer.cpp" />
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioState.cpp" />
+    <ClCompile Include="Mechakoopa.cpp" />
     <ClCompile Include="Nokonoko.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pipe.cpp" />

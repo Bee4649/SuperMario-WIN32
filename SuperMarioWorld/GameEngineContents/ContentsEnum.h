@@ -5,7 +5,7 @@ enum class PowerState
 };
 enum class ItemType
 {
-	Coin, UpMushroom, SuperMushroom, FireFlower
+	Coin, UpMushroom, SuperMushroom, FireFlower , Feather
 };
 enum class RenderOrder
 {

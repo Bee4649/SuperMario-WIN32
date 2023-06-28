@@ -110,9 +110,10 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND2.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND3.BMP"))->Cut(4, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND4.BMP"));
 	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND5.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND6.BMP"));
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND7.BMP"));
+	//GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("BACKGROUND7.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE1DEBUG.BMP"));
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("STAGE2.BMP"));
@@ -161,6 +162,13 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("StarParticle.BMP"))->Cut(1, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("QuestionBlock.BMP"))->Cut(5, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Coin.BMP"))->Cut(4, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_KOOPA.BMP"))->Cut(9, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_KOOPA.BMP"))->Cut(9, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Mechakoopa.BMP"))->Cut(7, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Mechakoopa.BMP"))->Cut(7, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Pierrot.BMP"))->Cut(4, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Pierrot.BMP"))->Cut(4, 1);
+	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Propeller.BMP"))->Cut(1, 4);
 
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");

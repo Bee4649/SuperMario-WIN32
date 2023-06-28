@@ -14,7 +14,6 @@
 #include "StageLevel.h"
 #include "EnemyActor.h"
 #include "LevelLoader.h"
-
 Mario* Mario::MainPlayer = nullptr;
 
 void Mario::NewItem(ItemType _Item)
@@ -38,6 +37,7 @@ void Mario::NewItem(ItemType _Item)
 	case ItemType::FireFlower:
 		NewPower(PowerState::Fire);
 		break;
+
 	default:
 		break;
 	}
@@ -47,7 +47,6 @@ void Mario::Die()
 {
 	ChangeState(MarioState::GameOver);
 }
-
 
 void Mario::StageClear()
 {
@@ -62,6 +61,7 @@ void Mario::StageClear()
 	case PowerState::Normal:
 		break;
 	case PowerState::Super:
+	case PowerState::Cape:
 		BeforeAnim = "Super_";
 		break;
 	case PowerState::Fire:
@@ -78,7 +78,6 @@ void Mario::DropHold()
 	HoldActor = nullptr;
 }
 
-
 void Mario::PipeIn(const float4& _PipePos, const float4& _Dir)
 {
 	IsHold = false;
@@ -90,7 +89,7 @@ void Mario::PipeIn(const float4& _PipePos, const float4& _Dir)
 	Timer = 100;
 	MoveDir = _Dir;
 
-	if (0 < _Dir.X || 0 > _Dir.Y)
+	if (0 < _Dir.X || 0 > _Dir.X)
 	{
 		ChangeAnimation("Walk");
 	}
@@ -124,8 +123,7 @@ void Mario::AddScore(int _Score)
 }
 
 
-Mario::Mario() 
-{
+Mario::Mario() {
 	if (MainPlayer != nullptr)
 	{
 		MsgAssert("두번째 마리오가 생성되었습니다");
@@ -133,11 +131,9 @@ Mario::Mario()
 	MainPlayer = this;
 }
 
+Mario::~Mario() {
 
-Mario::~Mario() 
-{
 }
-
 
 void Mario::Start()
 {
@@ -154,6 +150,8 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Goal", .ImageName = "LEFT_MARIO.BMP", .Start = 23, .End = 23, });
 		AnimationRender->CreateAnimation({ .AnimationName = "Super_Goal", .ImageName = "LEFT_MARIO.BMP", .Start = 23 + 53, .End = 23 + 53, });
 		AnimationRender->CreateAnimation({ .AnimationName = "Fire_Goal", .ImageName = "LEFT_MARIO.BMP", .Start = 23 + 103, .End = 23 + 103, });
+		AnimationRender->CreateAnimation({ .AnimationName = "Yoshi_Goal", .ImageName = "LEFT_MARIO.BMP", .Start = 39, .End = 39, });
+		AnimationRender->CreateAnimation({ .AnimationName = "Yoshi_Super_Goal", .ImageName = "LEFT_MARIO.BMP", .Start = 39 + 53, .End = 39 + 53, });
 		AnimationRender->CreateAnimation({ .AnimationName = "GameOver1", .ImageName = "LEFT_MARIO.BMP", .Start = 48, .End = 48, });
 		AnimationRender->CreateAnimation({ .AnimationName = "GameOver2", .ImageName = "LEFT_MARIO.BMP", .Start = 48, .End = 49, .InterTime = 0.1f });
 
@@ -186,6 +184,7 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Hold_Jump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28, .End = 28 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Hold_RunJump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28, .End = 28 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Hold_Fall", .ImageName = "RIGHT_MARIO.BMP", .Start = 28, .End = 28 });
+
 		// 오른쪽 슈퍼
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Super_Idle", .ImageName = "RIGHT_MARIO.BMP", .Start = 0 + 53, .End = 0 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Super_LookUp", .ImageName = "RIGHT_MARIO.BMP", .Start = 1 + 53, .End = 1 + 53 });
@@ -213,6 +212,7 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Super_Hold_Jump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Super_Hold_RunJump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Super_Hold_Fall", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
+
 		// 오른쪽 불꽃
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Fire_Idle", .ImageName = "RIGHT_MARIO.BMP", .Start = 0 + 103, .End = 0 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Fire_LookUp", .ImageName = "RIGHT_MARIO.BMP", .Start = 1 + 103, .End = 1 + 103 });
@@ -242,6 +242,7 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Fire_Hold_Jump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Fire_Hold_RunJump", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Fire_Hold_Fall", .ImageName = "RIGHT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
+
 		// 왼쪽 기본
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle", .ImageName = "LEFT_MARIO.BMP", .Start = 0, .End = 0 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_LookUp", .ImageName = "LEFT_MARIO.BMP", .Start = 1, .End = 1 });
@@ -271,7 +272,8 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Hold_Jump", .ImageName = "LEFT_MARIO.BMP", .Start = 28, .End = 28 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Hold_RunJump", .ImageName = "LEFT_MARIO.BMP", .Start = 28, .End = 28 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Hold_Fall", .ImageName = "LEFT_MARIO.BMP", .Start = 28, .End = 28 });
-		// 오른쪽 슈퍼
+
+		// 왼쪽 슈퍼
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_Idle", .ImageName = "LEFT_MARIO.BMP", .Start = 0 + 53, .End = 0 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_LookUp", .ImageName = "LEFT_MARIO.BMP", .Start = 1 + 53, .End = 1 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_Crouch", .ImageName = "LEFT_MARIO.BMP", .Start = 2 + 53, .End = 2 + 53 });
@@ -298,7 +300,8 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_Hold_Jump", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_Hold_RunJump", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Super_Hold_Fall", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 53, .End = 28 + 53 });
-		// 오른쪽 불꽃
+
+		// 왼쪽 불꽃
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_Idle", .ImageName = "LEFT_MARIO.BMP", .Start = 0 + 103, .End = 0 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_LookUp", .ImageName = "LEFT_MARIO.BMP", .Start = 1 + 103, .End = 1 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_Crouch", .ImageName = "LEFT_MARIO.BMP", .Start = 2 + 103, .End = 2 + 103 });
@@ -327,6 +330,7 @@ void Mario::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_Hold_Jump", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_Hold_RunJump", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Fire_Hold_Fall", .ImageName = "LEFT_MARIO.BMP", .Start = 28 + 103, .End = 28 + 103 });
+
 	}
 	ChangeAnimation("Idle");
 
@@ -346,7 +350,6 @@ void Mario::Start()
 	ScreenSize = GameEngineWindow::GetScreenSize();
 }
 
-
 void Mario::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	ColMap = GameEngineResources::GetInst().TextureFind(Map::MainMap->GetStageColName());
@@ -356,13 +359,11 @@ void Mario::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	CameraMove(1);
 }
 
-
 void Mario::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 
 	ContentCore::GetInst().SetMarioStateData(MarioPower);
 }
-
 
 void Mario::Update(float _DeltaTime)
 {
@@ -381,13 +382,11 @@ void Mario::Update(float _DeltaTime)
 		return;
 	}
 	CheckCollision();
-
 	// 시간 멈춘 상태 체크
 	if (MarioState::CHANGEPOWER == StateValue || MarioState::GameOver == StateValue)
 	{
 		return;
 	}
-
 	BlockCheck();
 	MoveCalculation(_DeltaTime);
 	KickAttack();
@@ -435,6 +434,8 @@ void Mario::Update(float _DeltaTime)
 		LevelLoader::ChangeLevel("World");
 	}
 
+	//GameEngineLevel::DebugTextPush(GetPos().ToString());
+	//GameEngineLevel::DebugTextPush(ToGridPos(GetPos()).ToString());
 }
 
 void Mario::ChangeAnimation(const std::string_view& _AnimationName)
@@ -461,7 +462,6 @@ void Mario::ChangeAnimation(const std::string_view& _AnimationName)
 	AnimationRender->ChangeAnimation(AnimStr + _AnimationName.data());
 }
 
-
 void Mario::MoveCalculation(float _DeltaTime)
 {
 	if (MarioState::GameOver == StateValue) { return; }
@@ -475,7 +475,7 @@ void Mario::MoveCalculation(float _DeltaTime)
 	// MoveDir 중력 증가
 	MoveDir += float4::DOWN * GravityAcceleration * _DeltaTime;
 
-	// 현재 중력이 최대 중력을 초과한 경우
+	// 현제 중력이 최대 중력을 초과한 경우
 	if (GravityMax < MoveDir.Y)
 	{
 		// 최대 중력 제한
@@ -522,7 +522,7 @@ void Mario::MoveCalculation(float _DeltaTime)
 		MoveDir.Y = 0;
 	}
 
-	// 맵 충돌 체크
+	// ______맵 충돌 체크______
 
 	if (nullptr == ColMap)
 	{
@@ -767,7 +767,6 @@ void Mario::MoveCalculation(float _DeltaTime)
 	SetMove(MoveDir * _DeltaTime);
 }
 
-
 void Mario::CameraMove(float _DeltaTime)
 {
 	float4 CameraPos = GetPos();
@@ -821,6 +820,9 @@ void Mario::GetDamaged()
 	case PowerState::Fire:
 		MarioPower = PowerState::Normal;
 		ChangeState(MarioState::CHANGEPOWER);
+		break;
+	case PowerState::Cape:
+		MarioPower = PowerState::Normal;
 		break;
 	default:
 		break;
@@ -879,6 +881,9 @@ void Mario::NewPower(PowerState _Power)
 		case PowerState::Fire:
 			CurrentLevel->NewStockItem(ItemType::FireFlower);
 			break;
+		case PowerState::Cape:
+			CurrentLevel->NewStockItem(ItemType::Feather);
+			break;
 		default:
 			break;
 		}
@@ -902,6 +907,9 @@ void Mario::NewPower(PowerState _Power)
 			break;
 		case PowerState::Fire:
 			CurrentLevel->NewStockItem(ItemType::FireFlower);
+			break;
+		case PowerState::Cape:
+			CurrentLevel->NewStockItem(ItemType::Feather);
 			break;
 		default:
 			break;

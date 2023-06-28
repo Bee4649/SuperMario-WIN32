@@ -114,6 +114,12 @@
     <ClInclude Include="SkyMario.h">
       <Filter>Test</Filter>
     </ClInclude>
+    <ClInclude Include="Mechakoopa.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -230,6 +236,12 @@
     </ClCompile>
     <ClCompile Include="SkyMario.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>PlayObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechakoopa.cpp">
+      <Filter>PlayObject\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
