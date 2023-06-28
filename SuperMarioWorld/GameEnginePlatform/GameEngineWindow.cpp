@@ -3,7 +3,7 @@
 #include <iostream>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include "GameEngineInput.h"
-#include <GameEngineContents/IconRes.h>
+
 
 HWND GameEngineWindow::HWnd = nullptr;
 HDC  GameEngineWindow::WindowBackBufferHdc = nullptr;
@@ -82,12 +82,12 @@ void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = _hInstance;
-	wcex.hIcon = LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIcon = nullptr;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // Èò»ö 
 	wcex.lpszMenuName = nullptr;//MAKEINTRESOURCEW(IDC_WINDOWSPROJECT1);
 	wcex.lpszClassName = "GameEngineWindowDefault";
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIconSm = nullptr;
 
 	if (0 == RegisterClassEx(&wcex))
 	{

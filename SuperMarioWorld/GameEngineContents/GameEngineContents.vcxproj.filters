@@ -8,9 +8,6 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="ContentCore.h" />
-    <ClInclude Include="IconRes.h">
-      <Filter>Icon</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="GameOverLevel.h">
       <Filter>Level</Filter>
@@ -29,9 +26,6 @@
     </ClInclude>
     <ClInclude Include="WorldLevel.h">
       <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Icon</Filter>
     </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>PlayObject\Player</Filter>
@@ -242,9 +236,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{b7cca68c-5ba7-4be7-960e-398dba3d0ecd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Icon">
-      <UniqueIdentifier>{dc49adf2-cad9-4914-8d04-f2595844f790}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{99b56018-87f0-4949-a89b-64e53a467ed2}</UniqueIdentifier>
     </Filter>
@@ -272,15 +263,5 @@
     <Filter Include="Test">
       <UniqueIdentifier>{0c04cbfc-56bb-4ec9-81b0-9a454a917e89}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\ContentsResources\Texture\Mario Swag.ico">
-      <Filter>Icon</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GameEngineContents.rc">
-      <Filter>Icon</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
