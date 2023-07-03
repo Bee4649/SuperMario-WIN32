@@ -162,13 +162,6 @@ void ContentCore::ResourcesLoad()
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("StarParticle.BMP"))->Cut(1, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("QuestionBlock.BMP"))->Cut(5, 1);
 	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Coin.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_KOOPA.BMP"))->Cut(9, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_KOOPA.BMP"))->Cut(9, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Mechakoopa.BMP"))->Cut(7, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Mechakoopa.BMP"))->Cut(7, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("LEFT_Pierrot.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("RIGHT_Pierrot.BMP"))->Cut(4, 1);
-	GameEngineResources::GetInst().TextureLoad(Dir.GetPlusFileName("Propeller.BMP"))->Cut(1, 4);
 
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");
