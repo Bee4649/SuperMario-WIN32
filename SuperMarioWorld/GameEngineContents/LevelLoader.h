@@ -1,14 +1,11 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 
-
-// fade 메서드는 요소를 서서히 나타내지고,서서히 없어지게 해주는 메서드
-// (선택요소).메서드(스피드,콜백)
 
 enum class FadeState {
-	FadeIn, // 서서히 보이게 한다.
-	FadeOut, // 서서히 없어지게 한다.
+	FadeIn,
+	FadeOut,
 	FadeOutLoad,
 	STOP,
 };
@@ -43,9 +40,8 @@ private:
 
 	static LevelLoader* MainLoader;
 	std::string_view LevelName = "";
-	GameEngineRenderer* FadeRender = nullptr;
+	GameEngineRender* FadeRender = nullptr;
 	FadeState State = FadeState::STOP;
-
 	bool IsFadeIn;
 	bool IsFadeOut;
 	float Speed = 1.5f;
@@ -56,3 +52,4 @@ private:
 	void FadeOutLoadUpdate(float _DeltaTime);
 	void ClearUpdate(float _DeltaTime);
 };
+

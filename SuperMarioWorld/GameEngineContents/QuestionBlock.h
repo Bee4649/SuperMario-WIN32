@@ -28,6 +28,8 @@ public:
 		case ItemType::FireFlower:
 			ItemActor = GetLevel()->CreateActor<FireFlower>(RenderOrder::Item);
 			break;
+		case ItemType::Feather:
+			break;
 		default:
 			break;
 		}
@@ -49,7 +51,6 @@ public:
 protected:
 	void Start() override;
 	void HitAnimEnd() override;
-
 private:
 	bool IsEmpty = false;
 	ItemActor* ItemActor = nullptr;

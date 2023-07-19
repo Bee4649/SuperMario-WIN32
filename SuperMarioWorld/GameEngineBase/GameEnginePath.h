@@ -1,15 +1,12 @@
 #pragma once
-#include <string>
-// c++ 실행되는 곳에서 사용할 수 있는 모든 문자열 관련 처리방식을 지원해준다.
+// c++이 실행되는 곳에서 사용할수 있는 모든 문자열 관련 처리방식을 지원해준다.
 #include <filesystem>
 
-// 설명 : 경로에 관련된 기능을 대표하는 킆래스
+// 설명 : 경로에 관련된 기능을 대표하는 클래스
 //class GameEngineFile;
 //class GameEngineDirectory;
-
 class GameEnginePath
 {
-
 	// 전방선언을 그냥 필요
 	friend class GameEngineFile;
 	friend class GameEngineDirectory;
@@ -38,17 +35,21 @@ public:
 	bool IsExists();
 	bool IsExistsToPlusString(const std::string_view& _String);
 
+	// bool MoveParentToChildPath(const std::string_view& _IOName );
+
 	bool IsRoot();
 
 	bool Move(const std::string_view& _Path);
 
 	void SetPath(const std::string_view& _Path);
 
+
 protected:
 
-
 private:
-	std::filesystem::path Path;
+	// 고생고생해서 만들지 않게 되었습니다.
 	// std::string Path;
+	std::filesystem::path Path;
+
 };
 

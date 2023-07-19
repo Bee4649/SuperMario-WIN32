@@ -4,20 +4,18 @@
 #include "Pipe.h"
 #include "Coin.h"
 #include "QuestionBlock.h"
+StageUnderground1::StageUnderground1() {
 
-StageUnderground1::StageUnderground1() 
-{
 }
 
-StageUnderground1::~StageUnderground1() 
-{
-}
+StageUnderground1::~StageUnderground1() {
 
+}
 
 void StageUnderground1::Loading()
 {
 	StageLevel::Loading();
-	
+	//SetName()
 }
 
 void StageUnderground1::LevelChangeStart(GameEngineLevel* _Prev)
@@ -28,7 +26,7 @@ void StageUnderground1::LevelChangeStart(GameEngineLevel* _Prev)
 	Map* MainMap = CreateActor<Map>();
 	MainMap->SetImage(BackGroundName, StageName, StageColName);
 
-	MainMap->AddStartPos({ 128, 1216 });
+	MainMap->AddStartPos({128, 1216});
 
 	MainMap->GetBackGroundRender()->CreateAnimation({ .AnimationName = "BackGroundAnim", .ImageName = BackGroundName, .Start = 0, .End = 3 });
 	MainMap->GetBackGroundRender()->SetScale({ 2048, 1728 });
@@ -36,17 +34,17 @@ void StageUnderground1::LevelChangeStart(GameEngineLevel* _Prev)
 	MainMap->GetBackGroundRender()->ChangeAnimation("BackGroundAnim");
 
 	CreateActor<Mario>();
-	UI = CreateActor<PlayUIManager>();
+	UI = CreateActor<UIManager>();
 
 	if ("Stage1" == _Prev->GetName())
 	{
 		SetTimer(dynamic_cast<StageLevel*>(_Prev)->GetTimer());
-		Mario::MainPlayer->PipeOut(float4::DOWN);
+		Mario::MainPlayer->PipeOut(float4::Down);
 	}
 
 
 	Pipe* NewPipe = CreateActor<Pipe>(RenderOrder::Map);
-	NewPipe->SetPos({ 1772, 1532 });
+	NewPipe->SetPos({1772, 1532});
 
 	NewPipe->SetPipe("Stage1", Right);
 
@@ -59,55 +57,24 @@ void StageUnderground1::LevelChangeStart(GameEngineLevel* _Prev)
 		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(8, 3));
 		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(9, 2));
 		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(9, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(10, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(10, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(11, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(11, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(12, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(12, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(13, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(13, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(14, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(14, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(18, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(18, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(19, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(19, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(23, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(23, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(24, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(24, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(25, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(25, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(26, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(26, 3));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(27, 2));
-		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(27, 3));
 
-		
-		QuestionBlock* ItemBox = CreateActor<QuestionBlock>(RenderOrder::Map);
-		
-		ItemBox->SetItem(ItemType::SuperMushroom);
-		ItemBox->SetPos(GridPos(22, 4));
-		ItemBox->SetItem(ItemType::UpMushroom);
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(15, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(16, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 3));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(17, 4));
+
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(20, 5));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(21, 5));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 4));
+		CreateActor<Coin>(RenderOrder::Item)->SetPos(GridPos(22, 5));
 
 		QuestionBlock* NewBlock = CreateActor<QuestionBlock>(RenderOrder::Map);
 		NewBlock->SetPos(GridPos(30, 5));
 		NewBlock->SetItem(ItemType::FireFlower);
-
-
 	}
 
 

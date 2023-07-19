@@ -1,17 +1,16 @@
 #pragma once
 #include <string_view>
 #include <vector>
-#include "GameEngineFile.h"
 #include "GameEnginePath.h"
+
 
 // 설명 :
 class GameEngineFile;
-class GameEngineDirectory : public GameEnginePath
+class GameEngineDirectory
 {
 public:
 	// constrcuter destructer
 	GameEngineDirectory();
-	GameEngineDirectory(const std::string& _path);
 	~GameEngineDirectory();
 
 	// delete Function
@@ -20,7 +19,7 @@ public:
 	GameEngineDirectory& operator=(const GameEngineDirectory& _Other) = delete;
 	GameEngineDirectory& operator=(GameEngineDirectory&& _Other) noexcept = delete;
 
-	// 이 디렉토리에 이 파일이 있는치 췌크!
+	// 이 디렉토리에 이 파일이 있어?
 	bool IsFile(const std::string_view& _FileName);
 
 	bool MoveParent();
@@ -37,7 +36,7 @@ public:
 protected:
 
 private:
-	// "D:\Project\AR47\WINAPI\APIApp\ContentsResources\Iamge\";
+	// "D:\Project\AR45\WINAPI\APIApp\ContentsResources\Iamge\";
 	GameEnginePath Path;
 };
 

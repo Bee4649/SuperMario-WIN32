@@ -2,21 +2,19 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineRenderer.h>
-#include "ContentsEnum.h"
+#include <GameEngineCore/GameEngineRender.h>
+#include "ContentsEnums.h"
 #include "Mario.h"
-#include "ContentCore.h"
-
+#include "MarioGameCore.h"
 Map* Map::MainMap = nullptr;
 
-Map::Map()
-{
+Map::Map() {
+
 }
 
-Map::~Map()
-{
-}
+Map::~Map() {
 
+}
 
 void Map::SetImage(const std::string_view& _BackGroundName, const std::string_view& _StageName, const std::string_view& _StageColName)
 {
@@ -39,7 +37,7 @@ void Map::SetImage(const std::string_view& _BackGroundName, const std::string_vi
 		if (true == IsBackAnim)
 		{
 			BackGroundSize = BackGroundRender->GetImage()->GetImageScale();
-			BackGroundSize.X /= 4;
+			BackGroundSize.x /= 4;
 		}
 		else
 		{
@@ -52,7 +50,7 @@ void Map::SetImage(const std::string_view& _BackGroundName, const std::string_vi
 		int BackGroundNum = StageSize.ix() / BackGroundSize.ix();
 		for (int i = 1; i <= BackGroundNum; i++)
 		{
-			GameEngineRenderer* Render = CreateRender(BackGroundName, RenderOrder::BackGround);
+			GameEngineRender* Render = CreateRender(BackGroundName, RenderOrder::BackGround);
 			if (true == IsBackAnim)
 			{
 				Render->CreateAnimation({ .AnimationName = "BackGroundAnim", .ImageName = BackGroundName, .Start = 0, .End = 3 });
@@ -60,7 +58,7 @@ void Map::SetImage(const std::string_view& _BackGroundName, const std::string_vi
 			}
 			Render->SetScale(BackGroundSize);
 			Render->SetPosition(BackGroundSize.half());
-			Render->SetMove({ BackGroundSize.X * i, 0 });
+			Render->SetMove({ BackGroundSize.x * i, 0 });
 		}
 	}
 }
@@ -73,11 +71,9 @@ void Map::SetDebugMap(const std::string_view& _DebugMapName)
 	DebugRender->Off();
 }
 
-
 void Map::SetStartPos(const std::vector<float4>& _StartPos)
 {
 }
-
 
 void Map::MoveMap(int _StartPosIndex)
 {
@@ -93,7 +89,7 @@ void Map::MoveMap(int _StartPosIndex)
 		{
 			MsgAssert("현재 사용중인 맵을 다시 사용하려 했습니다");
 		}
-	
+		//MainMap->ObjectOff();
 	}
 	MainMap = this;
 	if (nullptr != BackGroundRender)
@@ -104,9 +100,8 @@ void Map::MoveMap(int _StartPosIndex)
 	{
 		StageRender->On();
 	}
-	
+	//ObjectOn();
 }
-
 
 void Map::Update(float _DeltaTime)
 {
@@ -114,7 +109,7 @@ void Map::Update(float _DeltaTime)
 	{
 		return;
 	}
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		DebugRender->On();
 	}

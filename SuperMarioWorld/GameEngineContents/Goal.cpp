@@ -1,16 +1,15 @@
 #include "Goal.h"
-#include "ContentsEnum.h"
-#include "ContentCore.h"
+#include "ContentsEnums.h"
+#include "MarioGameCore.h"
 #include "StageLevel.h"
 #include "Mario.h"
 #include "Particle.h"
+Goal::Goal() {
 
-Goal::Goal()
-{
 }
 
-Goal::~Goal() 
-{
+Goal::~Goal() {
+
 }
 
 void Goal::SetGoal(const float4& _Pos)
@@ -23,12 +22,12 @@ void Goal::Start()
 {
 	GoalRender = CreateRender("Goal.bmp", RenderOrder::BackGround);
 	GoalRender->SetScaleToImage();
-	GoalRender->SetPosition(float4::UP * GoalRender->GetScale().half().Y);
+	GoalRender->SetPosition(float4::Up * GoalRender->GetScale().half().y);
 
 	Collision = CreateCollision(CollisionOrder::Check);
 	Collision->SetScale(CollisionScale);
 	Collision->SetPosition(CollisionPos);
-	Collision->SetDebugRenderType(Rect);
+	Collision->SetDebugRenderType(CT_Rect);
 }
 
 void Goal::Update(float _DeltaTime)
@@ -38,17 +37,17 @@ void Goal::Update(float _DeltaTime)
 		return;
 	}
 
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = Rect, .ThisColType = Rect, };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = CT_Rect, .ThisColType = CT_Rect, };
 	if (true == Collision->Collision(Check))
 	{
 		GoalEvent(0);
 	}
-
+	
 }
 
 void Goal::Render(float _DeltaTime)
 {
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		Collision->DebugRender();
 	}
@@ -66,9 +65,9 @@ GameEngineActor* ClearBar::SetGoalActor(Goal* _Goal)
 {
 	GoalActor = _Goal;
 	float4 Pos = GoalActor->GetPos();
-	Pos.X -= 16;
+	Pos.x -= 16;
 	SetPos(Pos);
-	UpPos = Pos + float4::UP * Height;
+	UpPos = Pos + float4::Up * Height;
 	DownPos = Pos;
 
 	return this;
@@ -81,7 +80,7 @@ void ClearBar::Start()
 
 	Collision = CreateCollision(CollisionOrder::Check);
 	Collision->SetScale(CollisionScale);
-	Collision->SetDebugRenderType(Rect);
+	Collision->SetDebugRenderType(CT_Rect);
 }
 
 void ClearBar::Update(float _DeltaTime)
@@ -98,7 +97,7 @@ void ClearBar::Update(float _DeltaTime)
 		break;
 	}
 
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = Rect,  .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = CT_Rect,  .ThisColType = CT_Rect};
 	if (Collision->Collision(Check))
 	{
 		GoalActor->GoalEvent(static_cast<int>(Timer * HeightScore));
@@ -107,7 +106,7 @@ void ClearBar::Update(float _DeltaTime)
 
 void ClearBar::Render(float _DeltaTime)
 {
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		Collision->DebugRender();
 	}

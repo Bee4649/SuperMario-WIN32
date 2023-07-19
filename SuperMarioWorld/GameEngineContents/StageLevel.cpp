@@ -9,13 +9,12 @@
 #include "FireFlower.h"
 #include "WorldLevel.h"
 
-
 StageLevel::StageLevel()
-{ 
+{
 }
 
-StageLevel::~StageLevel() 
-{
+StageLevel::~StageLevel() {
+
 }
 
 void StageLevel::NewStockItem(ItemType _Item)
@@ -27,6 +26,8 @@ void StageLevel::NewStockItem(ItemType _Item)
 	case ItemType::SuperMushroom:
 		break;
 	case ItemType::FireFlower:
+		break;
+	case ItemType::Feather:
 		break;
 	default:
 		break;
@@ -48,12 +49,21 @@ void StageLevel::DropStockItem()
 	case ItemType::SuperMushroom:
 		NewActor = CreateActor<SuperMushroom>(RenderOrder::Item);
 		break;
+	case ItemType::FireFlower:
+	{
+		FireFlower* NewFlower = CreateActor<FireFlower>(RenderOrder::Item);
+		NewFlower->SetFall();
+		NewActor = NewFlower;
+		break;
+	}
+	case ItemType::Feather:
+		break;
 	default:
 		return;
 	}
 
 	float4 SpawnPos = Mario::MainPlayer->GetPos();
-	SpawnPos.Y = GetCameraPos().Y;
+	SpawnPos.y = GetCameraPos().y;
 
 	NewActor->SetPos(SpawnPos);
 	Item = ItemType::Coin;
@@ -153,7 +163,7 @@ void StageLevel::LevelPause()
 
 void StageLevel::Loading()
 {
-
+	
 }
 
 void StageLevel::Update(float _DeltaTime)
@@ -183,7 +193,7 @@ void StageLevel::Update(float _DeltaTime)
 		}
 		return;
 	}
-
+	
 	CountTime(_DeltaTime);
 }
 
@@ -193,16 +203,16 @@ void StageLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	{
 		Timer = Time;
 	}
-	Life = ContentCore::GetInst().GetLife();
-	Star = ContentCore::GetInst().GetStar();
-	CoinNum = ContentCore::GetInst().GetCoin();
-	Score = ContentCore::GetInst().GetScore();
-	Item = ContentCore::GetInst().GetStockStateData();
+	Life = MarioGameCore::GetInst().GetLife();
+	Star = MarioGameCore::GetInst().GetStar();
+	CoinNum = MarioGameCore::GetInst().GetCoin();
+	Score = MarioGameCore::GetInst().GetScore();
+	Item = MarioGameCore::GetInst().GetStockStateData();
 	IsClear = false;
 
 	UI->SetValue(Life, Star, CoinNum, Score);
 	UI->SetStockItem(Item);
-
+	
 	State = ClearState::None;
 
 	CreateActor<LevelLoader>();
@@ -227,13 +237,13 @@ void StageLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 		}
 		Mario::MainPlayer = nullptr;
 	}
-	SetCameraPos(float4::ZERO);
+	SetCameraPos(float4::Zero);
 
-	ContentCore::GetInst().SetCoin(CoinNum);
-	ContentCore::GetInst().SetLife(Life);
-	ContentCore::GetInst().SetScore(Score);
-	ContentCore::GetInst().SetStar(Star);
-	ContentCore::GetInst().SetStockStateData(Item);
+	MarioGameCore::GetInst().SetCoin(CoinNum);
+	MarioGameCore::GetInst().SetLife(Life);
+	MarioGameCore::GetInst().SetScore(Score);
+	MarioGameCore::GetInst().SetStar(Star);
+	MarioGameCore::GetInst().SetStockStateData(Item);
 
 	BGMPlayer.Stop();
 }

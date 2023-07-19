@@ -3,10 +3,10 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/NumberRenderObject.h>
-#include "ContentCore.h"
-#include "ContentsEnum.h"
+#include "MarioGameCore.h"
+#include "ContentsEnums.h"
 WorldImage::WorldImage() {
 
 }
@@ -19,13 +19,13 @@ void WorldImage::Start()
 {
 	{
 		{
-			GameEngineRenderer* Render = CreateRender("SEA.BMP", RenderOrder::Sky);
+			GameEngineRender* Render = CreateRender("SEA.BMP", RenderOrder::Sky);
 			Render->SetScale(GameEngineWindow::GetScreenSize());
 			Render->SetPosition(Render->GetScale().half());
 		}
 		for (int i = 0; i < 42; i++)
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::BackGround);
+			GameEngineRender* Render = CreateRender(RenderOrder::BackGround);
 			Render->SetScale({ 1024 ,8 });
 			if (i % 2 == 0)
 			{
@@ -40,7 +40,7 @@ void WorldImage::Start()
 		}
 
 		{
-			GameEngineRenderer* Render = CreateRender("WORLD1.BMP", RenderOrder::Map);
+			GameEngineRender* Render = CreateRender("WORLD1.BMP", RenderOrder::Map);
 			Render->SetScaleToImage();
 			Render->SetPosition(Render->GetScale().half());
 			Render = CreateRender("WORLD1FRONT.BMP", RenderOrder::ForeGround);
@@ -55,7 +55,7 @@ void WorldImage::Start()
 			BlockRender2->SetPosition(Render->GetScale().half());
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {0, 1, 2, 3, 2, 1, 0} });
 			Render->ChangeAnimation("CLOUD");
@@ -63,28 +63,28 @@ void WorldImage::Start()
 
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {0, 1, 2, 3, 2, 1, 0} });
 			Render->ChangeAnimation("CLOUD");
 			Render->SetPosition({ 575, 240 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {0, 1, 2, 3, 2, 1, 0} });
 			Render->ChangeAnimation("CLOUD");
 			Render->SetPosition({ 775, 280 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {0, 1, 2, 3, 2, 1, 0} });
 			Render->ChangeAnimation("CLOUD");
 			Render->SetPosition({ 635, 600 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {3, 2, 1, 0, 1, 2, 3} });
 			Render->ChangeAnimation("CLOUD");
@@ -96,21 +96,21 @@ void WorldImage::Start()
 			Render->SetPosition({ 150, 320 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {3, 2, 1, 0, 1, 2, 3} });
 			Render->ChangeAnimation("CLOUD");
 			Render->SetPosition({ 615, 215 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {3, 2, 1, 0, 1, 2, 3} });
 			Render->ChangeAnimation("CLOUD");
 			Render->SetPosition({ 500, 460 });
 		}
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::PlayerAttack);
+			GameEngineRender* Render = CreateRender(RenderOrder::PlayerAttack);
 			Render->SetScale({ 82 ,30 });
 			Render->CreateAnimation({ .AnimationName = "CLOUD", .ImageName = "CLOUD.BMP",  .InterTime = 0.3f, .FrameIndex = {3, 2, 1, 0, 1, 2, 3} });
 			Render->ChangeAnimation("CLOUD");
@@ -130,7 +130,7 @@ void WorldImage::Start()
 
 		// 스테이지
 		{
-			GameEngineRenderer* Render = CreateRender(RenderOrder::Item);
+			GameEngineRender* Render = CreateRender(RenderOrder::Item);
 			Render->SetScale({ 68 ,68 });
 			Render->CreateAnimation({ .AnimationName = "STAGE", .ImageName = "STAGEBUTTON.BMP", .Start = 0, .End = 6, .InterTime = 0.1f });
 			Render->ChangeAnimation("STAGE");
@@ -160,7 +160,7 @@ void WorldImage::Start()
 		// 플레이어
 		{
 			AnimationRender = CreateRender(RenderOrder::Player);
-			AnimationRender->CreateAnimation({ .AnimationName = "Normal", .ImageName = "LEFT_MARIO.BMP", .Start = 3, .End = 5, .InterTime = 0.12f });
+			AnimationRender->CreateAnimation({.AnimationName = "Normal", .ImageName = "LEFT_MARIO.BMP", .Start = 3, .End = 5, .InterTime = 0.12f });
 			AnimationRender->CreateAnimation({ .AnimationName = "Super", .ImageName = "LEFT_MARIO.BMP", .Start = 3 + 53, .End = 5 + 53, .InterTime = 0.12f });
 			AnimationRender->CreateAnimation({ .AnimationName = "Fire", .ImageName = "LEFT_MARIO.BMP", .Start = 3 + 103, .End = 5 + 103, .InterTime = 0.12f });
 			AnimationRender->SetScale({ 192,192 });
@@ -168,11 +168,11 @@ void WorldImage::Start()
 			AnimationRender->ChangeAnimation("Normal");
 		}
 		{
-			LifeNumber.SetOwner(this);
-			LifeNumber.SetImage("NUMBER.BMP", { 32 ,28 }, static_cast<int>(RenderOrder::UI), RGB(255, 0, 255), "NONE.bmp");
-			LifeNumber.SetRenderPos({ 300, 138 });
-			LifeNumber.SetAlign(Align::Right);
-			LifeNumber.SetValue(3);
+			LifeNum.SetOwner(this);
+			LifeNum.SetImage("NUMBER.BMP", { 32 ,28 }, static_cast<int>(RenderOrder::UI), RGB(255, 0, 255), "NONE.bmp");
+			LifeNum.SetRenderPos({ 300, 138 });
+			LifeNum.SetAlign(Align::Right);
+			LifeNum.SetValue(3);
 		}
 	}
 }
@@ -183,8 +183,8 @@ void WorldImage::Update(float _DeltaTime)
 
 void WorldImage::LevelChangeStart(GameEngineLevel* _Prev)
 {
-	LifeNumber.SetValue(ContentCore::GetInst().GetLife());
-	switch (ContentCore::GetInst().GetMarioStateData())
+	LifeNum.SetValue(MarioGameCore::GetInst().GetLife());
+	switch (MarioGameCore::GetInst().GetMarioStateData())
 	{
 	case PowerState::Normal:
 		AnimationRender->ChangeAnimation("Normal");

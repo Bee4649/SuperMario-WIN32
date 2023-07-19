@@ -1,21 +1,20 @@
 #include "Shell.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include "ContentsEnum.h"
+#include "ContentsEnums.h"
 #include "Map.h"
 #include "Block.h"
 #include "Particle.h"
 #include "Mario.h"
 #include "Coin.h"
+Shell::Shell() {
 
-Shell::Shell() 
-{
 }
 
-Shell::~Shell()
-{
+Shell::~Shell() {
+
 }
 
 bool Shell::IsCollisionAttack()
@@ -56,19 +55,19 @@ void Shell::JumpHit(bool IsLeft)
 	{
 		StateValue = ShellState::Spin;
 		AnimationRender->ChangeAnimation("Spin");
-
+		
 		if (true == IsLeft)
 		{
-			DirSetting(float4::LEFT);
+			DirSetting(float4::Left);
 		}
 		else
 		{
-			DirSetting(float4::RIGHT);
+			DirSetting(float4::Right);
 		}
 	}
 	else
 	{
-		MoveDir.X = 0;
+		MoveDir.x = 0;
 		StateValue = ShellState::Idle;
 		AnimationRender->ChangeAnimation("Idle");
 	}
@@ -95,7 +94,7 @@ void Shell::MonsterHit(bool IsLeft)
 	// 이동 지정
 	if (true == IsLeft)
 	{
-		MoveDir.X *= -1;
+		MoveDir.x *= -1;
 	}
 }
 
@@ -106,7 +105,7 @@ void Shell::Hold()
 
 void Shell::Kick(const float4& _Force)
 {
-	if (-1000 > _Force.Y)
+	if (-1000 > _Force.y)
 	{
 		MoveDir = _Force;
 		StateValue = ShellState::Idle;
@@ -114,16 +113,16 @@ void Shell::Kick(const float4& _Force)
 		return;
 	}
 
-	if (500 < _Force.X)
+	if (500 < _Force.x)
 	{
-		DirSetting(float4::RIGHT);
+		DirSetting(float4::Right);
 		StateValue = ShellState::Kick;
 		Timer = KickWaitTime;
 		AnimationRender->ChangeAnimation("Spin");
 	}
-	else if (-500 > _Force.X)
+	else if (-500 > _Force.x)
 	{
-		DirSetting(float4::LEFT);
+		DirSetting(float4::Left);
 		StateValue = ShellState::Kick;
 		Timer = KickWaitTime;
 		AnimationRender->ChangeAnimation("Spin");
@@ -134,7 +133,7 @@ void Shell::Kick(const float4& _Force)
 		Timer = StateWaitTime;
 		return;
 	}
-
+	
 }
 
 void Shell::Start()
@@ -158,7 +157,7 @@ void Shell::Start()
 		Collision = CreateCollision(CollisionOrder::Monster);
 		Collision->SetScale(CollisionScale);
 		Collision->SetPosition(CollisionPos);
-		Collision->SetDebugRenderType(CollisionType::Rect);
+		Collision->SetDebugRenderType(CollisionType::CT_Rect);
 	}
 }
 
@@ -240,10 +239,10 @@ void Shell::SpinUpdate(float _DeltaTime)
 
 
 	// 중력 적용
-	MoveDir.Y += GravityAcceleration * _DeltaTime;
-	if (GravityMax < MoveDir.Y)
+	MoveDir.y += GravityAcceleration * _DeltaTime;
+	if (GravityMax < MoveDir.y)
 	{
-		MoveDir.Y = GravityMax;
+		MoveDir.y = GravityMax;
 	}
 
 	// 충돌 이미지 검사
@@ -254,7 +253,7 @@ void Shell::SpinUpdate(float _DeltaTime)
 	// 이동될 위치
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	float4 ForwardPos = NextPos;
-	ForwardPos.Y = GetPos().Y + float4::UP.Y;
+	ForwardPos.y = GetPos().y + float4::Up.y;
 
 	// 맵 충돌 체크용 컬러 변수
 	DWORD PixelColor = ColMap->GetPixelColor(ForwardPos, White);
@@ -269,55 +268,55 @@ void Shell::SpinUpdate(float _DeltaTime)
 	PixelColor = ColMap->GetPixelColor(NextPos, White);
 	if (Black == PixelColor)
 	{
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (Black != PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				//StateValue = State::Overturn;
 				return;
 			}
 		}
 	}
 	// 아래에서 통과되는 블록들 체크 ex) 구름
-	else if (Green == PixelColor && 0 < MoveDir.Y)
+	else if (Green == PixelColor && 0 < MoveDir.y)
 	{
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (White == PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				//StateValue = State::Overturn;
 				return;
 			}
 		}
 	}
 	// 비탈길 체크
-	else if (Red == PixelColor && 0 < MoveDir.Y)
+	else if (Red == PixelColor && 0 < MoveDir.y)
 	{
 		float4 SlopePos = NextPos;
 		SlopePos += SlopeRightUp;
 		PixelColor = ColMap->GetPixelColor(SlopePos, Black);
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (White == PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				return;
 			}
 		}
@@ -325,7 +324,7 @@ void Shell::SpinUpdate(float _DeltaTime)
 
 	// 블록 체크
 	std::vector<GameEngineCollision*> Collisions;
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check, Collisions))
 	{
 		std::vector<GameEngineCollision*>::iterator Start = Collisions.begin();
@@ -339,46 +338,46 @@ void Shell::SpinUpdate(float _DeltaTime)
 				continue;
 			}
 			// 엑터가 블록보다 위에 있는 경우
-			if (GetPos().Y < HitBlock->GetPos().Y - BlockYSize)
+			if (GetPos().y < HitBlock->GetPos().y - BlockYSize)
 			{
 				// 블록위에 선다
 				float4 Pos = GetPos();
-				Pos.Y = HitBlock->GetPos().Y - BlockOnPos;
-				Pos.Y = std::round(Pos.Y);
+				Pos.y = HitBlock->GetPos().y - BlockOnPos;
+				Pos.y = std::round(Pos.y);
 				SetPos(Pos);
-				MoveDir.Y = 0.0f;
+				MoveDir.y = 0.0f;
 				continue;
 			}
 			// 밑에서 위로 친 경우
-			else if (GetPos().Y > HitBlock->GetPos().Y)
+			else if (GetPos().y > HitBlock->GetPos().y)
 			{
 				// 블록이 히트한다
 				Hit = true;
 				HitBlock->Hit();
 				// 블록 밑으로 이동한다
 				float4 Pos = GetPos();
-				Pos.Y = HitBlock->GetPos().Y + BlockOnPos;
-				Pos.Y = std::round(Pos.Y);
+				Pos.y = HitBlock->GetPos().y + BlockOnPos;
+				Pos.y = std::round(Pos.y);
 				SetPos(Pos);
-				MoveDir.Y = HeadingReaction;
+				MoveDir.y = HeadingReaction;
 			}
 			// 그 외 경우 (옆에서 친 경우)
 			else
 			{
 				// 방향에 따라 위치 조정한다
-				if (GetPos().X < HitBlock->GetPos().X)
+				if (GetPos().x < HitBlock->GetPos().x)
 				{
 					float4 Pos = GetPos();
-					Pos.X = HitBlock->GetPos().X - BlockXSize - RenderScale.hx();
-					Pos.X = std::round(Pos.X);
+					Pos.x = HitBlock->GetPos().x - BlockXSize - RenderScale.hx();
+					Pos.x = std::round(Pos.x);
 					SetPos(Pos);
-
+					
 				}
 				else
 				{
 					float4 Pos = GetPos();
-					Pos.X = HitBlock->GetPos().X + BlockXSize + RenderScale.hx();
-					Pos.X = std::round(Pos.X);
+					Pos.x = HitBlock->GetPos().x + BlockXSize + RenderScale.hx();
+					Pos.x = std::round(Pos.x);
 					SetPos(Pos);
 				}
 				// 블록이 히트한다
@@ -403,7 +402,7 @@ void Shell::MonsterCheck()
 {
 	// 몬스터 체크
 	std::vector<GameEngineCollision*> Collisions;
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Monster), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check, Collisions))
 	{
 		std::vector<GameEngineCollision*>::iterator Start = Collisions.begin();
@@ -427,7 +426,7 @@ void Shell::MonsterCheck()
 			GameEngineResources::GetInst().SoundPlay("kick.wav");
 			Particle::CreateParticle(GetLevel(), GetPos(), "KICK");
 
-			if (ColActor->GetPos().X < GetPos().X)
+			if (ColActor->GetPos().x < GetPos().x)
 			{
 				ColActor->MonsterHit(true);
 				if (StateValue == ShellState::Hold)

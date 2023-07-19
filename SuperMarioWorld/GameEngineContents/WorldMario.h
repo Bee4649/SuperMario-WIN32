@@ -1,12 +1,12 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 class WorldLevel;
 
 // 월드맵 구성을 표현하는 클래스
 class WorldMap
 {
-
+	
 public:
 	// 스테이지 지점을 표시하는 포인트
 	class Point
@@ -50,7 +50,7 @@ public:
 				delete DeletePoint;
 			}
 		}
-		float4 Pos = float4::ZERO;			// 스테이지의 위치
+		float4 Pos = float4::Zero;			// 스테이지의 위치
 		std::string_view StageName = "";	// 스테이지의 이름 (Level의 Name)
 		Point* Up = nullptr;				// 위에 연결된 스테이지
 		Point* Down = nullptr;				// 밑에 연결된 스테이지
@@ -78,7 +78,7 @@ public:
 				Right = nullptr;
 			}
 		}
-
+		
 		// 해당 포인트가 스테이지의 이름을 가지고 있는지 여부를 반환
 		bool IsStage()
 		{
@@ -89,7 +89,7 @@ public:
 		{
 			Lock = false;
 		}
-
+		
 		// 포인트를 연결하는 함수들
 		void SetUp(Point* _Up)
 		{
@@ -223,10 +223,10 @@ private:
 	const float speed = 2;
 	bool IsStart = false;
 	bool IsMove = false;
-	float4 StartPos = float4::ZERO;
-	float4 EndPos = float4::ZERO;
+	float4 StartPos = float4::Zero;
+	float4 EndPos = float4::Zero;
 	float Timer = 0;
-	GameEngineRenderer* AnimationRender = nullptr;
+	GameEngineRender* AnimationRender = nullptr;
 	WorldMap* Map = nullptr;
 
 	// 스테이지 포인트들
@@ -234,6 +234,6 @@ private:
 	WorldMap::Point* Stage2 = nullptr;
 	WorldMap::Point* Stage3 = nullptr;
 	WorldMap::Point* Stage4 = nullptr;
-
+	WorldMap::Point* Stage5 = nullptr;
 };
 

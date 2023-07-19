@@ -1,13 +1,12 @@
 #include "Killer.h"
-#include <GameEngineCore/GameEngineRenderer.h>
-#include "ContentsEnum.h"
+#include <GameEngineCore/GameEngineRender.h>
+#include "ContentsEnums.h"
+Killer::Killer() {
 
-Killer::Killer() 
-{
 }
 
-Killer::~Killer() 
-{
+Killer::~Killer() {
+
 }
 
 bool Killer::IsCollisionAttack()
@@ -70,7 +69,7 @@ void Killer::Start()
 	Collision = CreateCollision(CollisionOrder::Monster);
 	Collision->SetScale(CollisionScale);
 	Collision->SetPosition(CollisionPos);
-	Collision->SetDebugRenderType(CollisionType::Rect);
+	Collision->SetDebugRenderType(CollisionType::CT_Rect);
 }
 
 void Killer::Update(float _DeltaTime)
@@ -83,6 +82,6 @@ void Killer::Update(float _DeltaTime)
 
 	CameraInCheck();
 	if (false == IsOnCamera) { return; }
-	SetMove(float4::LEFT * ActorSpeed * _DeltaTime);
+	SetMove(float4::Left * ActorSpeed * _DeltaTime);
 }
 

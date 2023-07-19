@@ -1,12 +1,10 @@
 #pragma once
-
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "PlayUIManager.h"
-#include "ContentsEnum.h"
+#include "UIManager.h"
+#include "ContentsEnums.h"
 
-enum class ClearState 
-{
+enum class ClearState {
 	None,
 	FadeOut,
 	ClearBonus,
@@ -20,9 +18,8 @@ static float4 GridPos(int x, int y)
 }
 static float4 ToGridPos(const float4& _Pos)
 {
-	return float4(static_cast<float>((_Pos.X - 32) / 64), static_cast<float>(-(_Pos.Y / 64 - 24)));
+	return float4(static_cast<float>((_Pos.x-32) / 64), static_cast<float>(-(_Pos.y / 64 - 24)));
 }
-
 
 class StageLevel : public GameEngineLevel
 {
@@ -61,7 +58,7 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
 
 	GameEngineSoundPlayer BGMPlayer = GameEngineSoundPlayer();
-	PlayUIManager* UI = nullptr;
+	UIManager* UI = nullptr;
 private:
 	ItemType Item = ItemType::Coin;
 	ClearState State = ClearState::None;
@@ -84,4 +81,3 @@ private:
 	void FadeInUpdate();
 	void WorldLoadUpdate();
 };
-

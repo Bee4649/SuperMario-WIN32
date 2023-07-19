@@ -1,23 +1,24 @@
 #pragma once
-#include "GameEngineDebug.h"
+
 #include <math.h>
 #include <cmath>
 #include <string>
 #include <Windows.h>
 #include <vector>
 
+
 // final 더이상 상속내릴지 못한다.
-// 상속도 못하고 만들지도 못하게 만드는 상태
+// 상속도 못하고 만들지도 못하게 만든 상태로
 
 class GameEngineMath final
 {
 public:
 	static std::vector<unsigned int> GetDigits(int _Value);
 	static unsigned int GetLenth(int _Value);
-	static const float PI;
-	static const float PI2;
-	static const float DegressToRadians;
-	static const float RadiansToDegress;
+	static const float PIE;
+	static const float PIE2;
+	static const float DegToRad;
+	static const float RadToDeg;
 
 private:
 	virtual ~GameEngineMath() = 0;
@@ -26,19 +27,18 @@ private:
 class float4
 {
 public:
-	static const float4 ZERO;
-	static const float4 LEFT;
-	static const float4 RIGHT;
-	static const float4 UP;
-	static const float4 DOWN;
-	static const float4 FORWARD;
-	static const float4 BACK;
+	static const float4 Left;
+	static const float4 Right;
+	static const float4 Up;
+	static const float4 Down;
+	static const float4 Forward;
+	static const float4 Back;
+	static const float4 Zero;
 	static const float4 Null;
-
 
 	static float4 AngleToDirection2DToDeg(float _Deg)
 	{
-		return AngleToDirection2DToRad(_Deg * GameEngineMath::DegressToRadians);
+		return AngleToDirection2DToRad(_Deg * GameEngineMath::DegToRad);
 	}
 
 	static float4 AngleToDirection2DToRad(float _Rad)
@@ -46,111 +46,107 @@ public:
 		return float4(cosf(_Rad), sinf(_Rad), 0.0f, 1.0f);
 	}
 
-	// 실수는 기본적으로 == 이 거의 불가능하다. 
-	// 해도 정확하지 않는다. 실수를 처리하는 방식이 애초에 정확하지 않기 때문이다.
-	// 부동소수점 계산방식은 기본적으로 오차를 가지고 있고
-	// + - 등을 할때 여러분들의 생각과는 다른 값이 존재할 가능성이 높다. 
-	float X = 0.0f;
-	float Y = 0.0f;
-	float Z = 0.0f;
-	float W = 1.0f;
+public:
+	float x = 0.0f;
+	float y = 0.0f;
+	float z = 0.0f;
+	float w = 1.0f;
 
 	int ix() const
 	{
-		return static_cast<int>(X);
+		return static_cast<int>(x);
 	}
 
 	int iy() const
 	{
-		return static_cast<int>(Y);
+		return static_cast<int>(y);
 	}
 
 	int iz() const
 	{
-		return static_cast<int>(Z);
+		return static_cast<int>(z);
 	}
 
 	int iw() const
 	{
-		return static_cast<int>(W);
+		return static_cast<int>(w);
 	}
 
 	int hix() const
 	{
-		return static_cast<int>(X * 0.5f);
+		return static_cast<int>(x * 0.5f);
 	}
 
 	int hiy() const
 	{
-		return static_cast<int>(Y * 0.5f);
+		return static_cast<int>(y * 0.5f);
 	}
 
 	int hiz() const
 	{
-		return static_cast<int>(Z * 0.5f);
+		return static_cast<int>(z * 0.5f);
 	}
 
 	int hiw() const
 	{
-		return static_cast<int>(W * 0.5f);
+		return static_cast<int>(w * 0.5f);
 	}
 
 
 	float hx() const
 	{
-		return X * 0.5f;
+		return x * 0.5f;
 	}
 
 	float hy() const
 	{
-		return Y * 0.5f;
+		return y * 0.5f;
 	}
 
 	float hz() const
 	{
-		return X * 0.5f;
+		return z * 0.5f;
 	}
 
 	float hw() const
 	{
-		return W * 0.5f;
+		return w * 0.5f;
 	}
 
-
-	float GetAnagleDegress()
+	float GetAnagleDeg()
 	{
-		return GetAnagleRadians() * GameEngineMath::RadiansToDegress;
+		return GetAnagleRad() * GameEngineMath::RadToDeg;
 	}
 
-	void RotaitonZDegress(float _Deg)
+	void RotaitonZDeg(float _Deg)
 	{
-		RotaitonZRadians(_Deg * GameEngineMath::DegressToRadians);
+		RotaitonZRad(_Deg * GameEngineMath::DegToRad);
 	}
 
-	void RotaitonZRadians(float _Rad)
+	void RotaitonZRad(float _Rad)
 	{
 		float4 Copy = *this;
-		X = Copy.X * cosf(_Rad) - Copy.Y * sinf(_Rad);
-		Y = Copy.X * sinf(_Rad) + Copy.Y * cosf(_Rad);
+		x = Copy.x * cosf(_Rad) - Copy.y * sinf(_Rad);
+		y = Copy.x * sinf(_Rad) + Copy.y * cosf(_Rad);
 	}
 
 	float4 RotaitonZDegReturn(float _Deg)
 	{
 		float4 Copy = *this;
-		Copy.RotaitonZDegress(_Deg);
+		Copy.RotaitonZDeg(_Deg);
 		return Copy;
 	}
 
 
-	float GetAnagleRadians()
+	float GetAnagleRad()
 	{
 		float4 AngleCheck = (*this);
 		AngleCheck.Normalize();
-		float Result = acosf(AngleCheck.X);
+		float Result = acosf(AngleCheck.x);
 
-		if (AngleCheck.Y > 0)
+		if (AngleCheck.y > 0)
 		{
-			Result = GameEngineMath::PI2 - Result;
+			Result = GameEngineMath::PIE2 - Result;
 		}
 		return Result;
 
@@ -163,29 +159,30 @@ public:
 
 	float4 half() const
 	{
-		return { X * 0.5f,Y * 0.5f,Z * 0.5f,W };
+		return { x * 0.5f,y * 0.5f,z * 0.5f,w };
 	}
 
 	bool IsZero() const
 	{
-		return X == 0.0f && Y == 0.0f && Z == 0.0f;
+		return x == 0.0f && y == 0.0f && z == 0.0f;
 	}
 
 	float Size() const
 	{
-		return sqrtf(X * X + Y * Y);
+		return sqrtf(x * x + y * y);
 	}
 
+	// 2, 0
+	// 0, 2
 	void Normalize()
 	{
-		// 길이를 1로 만드는 함수입니다.
-		float Len = Size();
-
-		X /= Len;
-		Y /= Len;
-		Z /= Len;
+		float SizeValue = Size();
+		x /= SizeValue;
+		y /= SizeValue;
+		z /= SizeValue;
 	}
 
+	// 자기가 길이 1로 줄어든 애를 리턴해주는것.
 	float4 NormalizeReturn()
 	{
 		float4 Result = *this;
@@ -214,13 +211,12 @@ public:
 		return Lerp(Start, End, Ratio);
 	}
 
-
 	float4 operator *(const float _Value) const
 	{
 		float4 Return;
-		Return.X = X * _Value;
-		Return.Y = Y * _Value;
-		Return.Z = Z * _Value;
+		Return.x = x * _Value;
+		Return.y = y * _Value;
+		Return.z = z * _Value;
 		return Return;
 	}
 
@@ -229,82 +225,82 @@ public:
 	float4 operator +(const float4 _Value) const
 	{
 		float4 Return;
-		Return.X = X + _Value.X;
-		Return.Y = Y + _Value.Y;
-		Return.Z = Z + _Value.Z;
+		Return.x = x + _Value.x;
+		Return.y = y + _Value.y;
+		Return.z = z + _Value.z;
 		return Return;
 	}
 
 	float4 operator -(const float4 _Value) const
 	{
 		float4 Return;
-		Return.X = X - _Value.X;
-		Return.Y = Y - _Value.Y;
-		Return.Z = Z - _Value.Z;
+		Return.x = x - _Value.x;
+		Return.y = y - _Value.y;
+		Return.z = z - _Value.z;
 		return Return;
 	}
 
 	float4 operator *(const float4 _Value) const
 	{
 		float4 Return;
-		Return.X = X * _Value.X;
-		Return.Y = Y * _Value.Y;
-		Return.Z = Z * _Value.Z;
+		Return.x = x * _Value.x;
+		Return.y = y * _Value.y;
+		Return.z = z * _Value.z;
 		return Return;
 	}
 
 	float4 operator /(const float4 _Value) const
 	{
 		float4 Return;
-		Return.X = X / _Value.X;
-		Return.Y = Y / _Value.Y;
-		Return.Z = Z / _Value.Z;
+		Return.x = x / _Value.x;
+		Return.y = y / _Value.y;
+		Return.z = z / _Value.z;
 		return Return;
 	}
 
 	float4 operator -() const
 	{
-		return { -X, -Y, -Z, 1.0f };
+		return { -x, -y, -z, 1.0f };
 	}
 
 	float4& operator +=(const float4& _Other)
 	{
-		X += _Other.X;
-		Y += _Other.Y;
-		Z += _Other.Z;
+		x += _Other.x;
+		y += _Other.y;
+		z += _Other.z;
 		return *this;
 	}
 
 	float4& operator *=(const float& _Value)
 	{
-		X *= _Value;
-		Y *= _Value;
-		Z *= _Value;
+		x *= _Value;
+		y *= _Value;
+		z *= _Value;
 		return *this;
 	}
 
 
 	float4& operator *=(const float4& _Other)
 	{
-		X *= _Other.X;
-		Y *= _Other.Y;
-		Z *= _Other.Z;
+		x *= _Other.x;
+		y *= _Other.y;
+		z *= _Other.z;
 		return *this;
 	}
 
 	float4& operator -=(const float4& _Other)
 	{
-		X -= _Other.X;
-		Y -= _Other.Y;
-		Z -= _Other.Z;
+		x -= _Other.x;
+		y -= _Other.y;
+		z -= _Other.z;
 		return *this;
 	}
 
 	float4& operator /=(const float4& _Other)
 	{
-		X /= _Other.X;
-		Y /= _Other.Y;
-		Z /= _Other.Z;
+		x /= _Other.x;
+		y /= _Other.y;
+		z /= _Other.z;
 		return *this;
 	}
 
@@ -312,7 +308,7 @@ public:
 	{
 		char ArrReturn[256];
 
-		sprintf_s(ArrReturn, "x: %f, y: %f, z: %f, w: %f", X, Y, Z, W);
+		sprintf_s(ArrReturn, "x: %f, y: %f, z: %f, w: %f", x, y, z, w);
 
 		return std::string(ArrReturn);
 	}
@@ -327,19 +323,19 @@ public:
 
 	float Left() const
 	{
-		return Position.X - Scale.hx();
+		return Position.x - Scale.hx();
 	}
 	float Right() const
 	{
-		return Position.X + Scale.hx();
+		return Position.x + Scale.hx();
 	}
 	float Top() const
 	{
-		return Position.Y - Scale.hy();
+		return Position.y - Scale.hy();
 	}
 	float Bot() const
 	{
-		return Position.Y + Scale.hy();
+		return Position.y + Scale.hy();
 	}
 
 	float4 LeftTop() const
@@ -359,7 +355,3 @@ public:
 		return float4{ Right(), Bot() };
 	}
 };
-
-
-
-

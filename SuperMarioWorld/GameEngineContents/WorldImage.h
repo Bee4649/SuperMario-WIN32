@@ -6,7 +6,6 @@ class WorldLevel;
 class WorldImage : public GameEngineActor
 {
 	friend WorldLevel;
-
 public:
 	WorldImage();
 	~WorldImage();
@@ -22,17 +21,12 @@ protected:
 
 	void LevelChangeStart(GameEngineLevel* _Prev);
 
-
 private:
-	GameEngineRenderer* AnimationRender = nullptr;
-	GameEngineRenderer* BlockRender1 = nullptr;
-	GameEngineRenderer* BlockRender2 = nullptr;
-	GameEngineRenderer* LockStage1 = nullptr;
-	GameEngineRenderer* LockStage2 = nullptr;
-	NumberRenderObject LifeNumber;
-
-
-
-
+	GameEngineRender* AnimationRender = nullptr;
+	GameEngineRender* BlockRender1 = nullptr;
+	GameEngineRender* BlockRender2 = nullptr;
+	GameEngineRender* LockStage1 = nullptr;
+	GameEngineRender* LockStage2 = nullptr;
+	NumberRenderObject LifeNum;
 };
 

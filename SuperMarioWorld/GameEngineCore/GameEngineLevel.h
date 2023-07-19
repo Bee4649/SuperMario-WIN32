@@ -10,12 +10,12 @@
 // 설명 :
 class GameEngineCore;
 class GameEngineActor;
-class GameEngineRenderer;
+class GameEngineRender;
 class GameEngineCollision;
 class GameEngineLevel : public GameEngineObject
 {
 	friend GameEngineCore;
-	friend GameEngineRenderer;
+	friend GameEngineRender;
 	friend GameEngineCollision;
 
 public:
@@ -37,8 +37,11 @@ public:
 	float4 GetMousePos();
 	float4 GetMousePosToCamera();
 
-	
+	/// <summary>
 	/// 액터를 만드는 함수
+	/// </summary>
+	/// <typeparam name="ActorType"> GameEngineActor를 상속받은 클래스 타입 </typeparam>
+	/// <param name="_Order"> Actor의 업데이트 순서 숫자가 작을수록 먼저 업데이트 </param>
 	template<typename ActorType, typename EnumType>
 	ActorType* CreateActor(EnumType _Order)
 	{
@@ -145,7 +148,7 @@ protected:
 private:
 	static bool IsDebugRender;
 
-	float4 CameraPos = float4::ZERO;
+	float4 CameraPos = float4::Zero;
 
 	static float4 TextOutStart;
 	static std::vector<std::string> DebugTexts;
@@ -161,8 +164,8 @@ private:
 
 	void ActorStart(GameEngineActor* _Actor, int _Order);
 
-	std::map<int, std::list<GameEngineRenderer*>> Renders;
-	void PushRender(GameEngineRenderer* _Render, int _ChangeOrder);
+	std::map<int, std::list<GameEngineRender*>> Renders;
+	void PushRender(GameEngineRender* _Render, int _ChangeOrder);
 
 	std::map<int, float> TimeScales;
 

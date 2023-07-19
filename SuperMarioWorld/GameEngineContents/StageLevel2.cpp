@@ -2,7 +2,7 @@
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "PlayUIManager.h"
+#include "UIManager.h"
 #include "Mario.h"
 #include "Map.h"
 #include "Bamba.h"
@@ -13,15 +13,15 @@
 #include "Goal.h"
 #include "Coin.h"
 #include "Pipe.h"
-#include "CheckPoint.h"
+#include "CheckPointActor.h"
 #include "Nokonoko.h"
 #include "Killer.h"
-StageLevel2::StageLevel2()
-{
+StageLevel2::StageLevel2() {
+
 }
 
-StageLevel2::~StageLevel2()
-{
+StageLevel2::~StageLevel2() {
+
 }
 
 void StageLevel2::Loading()
@@ -29,7 +29,7 @@ void StageLevel2::Loading()
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentsResources");
 	Dir.Move("ContentsResources");
-	Dir.Move("Texture");
+	Dir.Move("Image");
 	Dir.Move("Play");
 
 }
@@ -40,20 +40,16 @@ void StageLevel2::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Overworld.mp3");
 
-	// 맵 이미지 생성
 	Map* Map1 = CreateActor<Map>();
 	Map1->SetImage(BackGroundName, StageName, StageColName);
 	Map1->SetDebugMap("STAGE2DEBUG.bmp");
 	CreateActor<Mario>();
-	UI = CreateActor<PlayUIManager>();
-	// 맵 시작 위치
+	UI = CreateActor<UIManager>();
 	Map1->AddStartPos(GridPos(3, 0));
 	Map1->AddStartPos(GridPos(163, 0));
 	Map1->MoveMap(GetCheckPoint());
-
 	SetCameraMove({ 0, 790 });
 	CreateActor<Goal>()->SetGoal(GridPos(302, 0));
-	
 	CreateActor<CheckPointActor>(RenderOrder::Item)->SetCheckPoint(1, GridPos(163, 0));
 	{
 		CreateActor<Nokonoko>(RenderOrder::Monster)->SetPos(GridPos(24, 3));
@@ -71,6 +67,7 @@ void StageLevel2::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		CreateActor<Bamba>(RenderOrder::Monster)->SetPos(GridPos(95, 0));
 		CreateActor<Bamba>(RenderOrder::Monster)->SetPos(GridPos(100, 0));
 		CreateActor<Killer>(RenderOrder::Monster)->SetPos(GridPos(110, 4));
+
 
 		CreateActor<TurnBlock>(RenderOrder::Map)->SetPos(GridPos(81, 3));
 		CreateActor<TurnBlock>(RenderOrder::Map)->SetPos(GridPos(82, 3));

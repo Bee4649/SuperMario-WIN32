@@ -7,12 +7,12 @@ class GameEngineFile
 public:
 	// constrcuter destructer
 	GameEngineFile();
-	GameEngineFile(std::filesystem::path _Path);
 	~GameEngineFile();
+	GameEngineFile(std::filesystem::path _Path);
 
-	//// delete Function
+	// delete Function
 	//GameEngineFile(const GameEngineFile& _Other) = delete;
-	//GameEngineFile(GameEngineFile&& _Other) noexcept = delete;
+	// GameEngineFile(GameEngineFile&& _Other) noexcept = delete;
 	//GameEngineFile& operator=(const GameEngineFile& _Other) = delete;
 	//GameEngineFile& operator=(GameEngineFile&& _Other) noexcept = delete;
 

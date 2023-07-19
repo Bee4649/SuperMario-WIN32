@@ -1,11 +1,11 @@
 #include "WorldMario.h"
 #include <GameEnginePlatform/GameEngineInput.h>
-#include "ContentsEnum.h"
-#include "ContentCore.h"
+#include "ContentsEnums.h"
+#include "MarioGameCore.h"
 #include "LevelLoader.h"
 #include "WorldLevel.h"
 WorldMario::WorldMario() {
-
+	
 }
 
 WorldMario::~WorldMario() {
@@ -20,11 +20,11 @@ void WorldMario::Start()
 {
 	// 월드레벨에서 표시되는 마리오의 애니메이션을 지정
 	AnimationRender = CreateRender(RenderOrder::Player);
-	AnimationRender->SetScale({ 64, 64 });
-	AnimationRender->CreateAnimation({ .AnimationName = "DOWN", .ImageName = "MARIO.BMP", .Start = 0, .End = 3, .InterTime = 0.15f });
-	AnimationRender->CreateAnimation({ .AnimationName = "UP", .ImageName = "MARIO.BMP", .Start = 4, .End = 7, .InterTime = 0.15f });
-	AnimationRender->CreateAnimation({ .AnimationName = "LEFT", .ImageName = "MARIO.BMP", .Start = 8, .End = 9, .InterTime = 0.15f });
-	AnimationRender->CreateAnimation({ .AnimationName = "RIGHT", .ImageName = "MARIO.BMP", .Start = 12, .End = 13, .InterTime = 0.15f });
+	AnimationRender->SetScale({64, 64});
+	AnimationRender->CreateAnimation({ .AnimationName = "DOWN", .ImageName = "MARIO.BMP", .Start = 0, .End = 3, .InterTime = 0.15f});
+	AnimationRender->CreateAnimation({ .AnimationName = "UP", .ImageName = "MARIO.BMP", .Start = 4, .End = 7, .InterTime = 0.15f});
+	AnimationRender->CreateAnimation({ .AnimationName = "LEFT", .ImageName = "MARIO.BMP", .Start = 8, .End = 9, .InterTime = 0.15f});
+	AnimationRender->CreateAnimation({ .AnimationName = "RIGHT", .ImageName = "MARIO.BMP", .Start = 12, .End = 13, .InterTime = 0.15f});
 	AnimationRender->CreateAnimation({ .AnimationName = "START", .ImageName = "MARIO.BMP", .Start = 10, .End = 10, });
 	AnimationRender->ChangeAnimation("Down");
 
@@ -68,7 +68,7 @@ void WorldMario::Update(float _DeltaTime)
 	if (GameEngineInput::IsDown("Left"))
 	{
 		AnimationRender->ChangeAnimation("LEFT");
-
+		
 		if (true == Map->MoveLeft())
 		{
 			StartPos = GetPos();
@@ -131,7 +131,7 @@ void WorldMario::Update(float _DeltaTime)
 	}
 
 	// 치트
-	if (GameEngineInput::IsDown("P"))
+	if (GameEngineInput::IsDown("3"))
 	{
 		WorldLevel::GetInstance()->StageClear("Stage1");
 		WorldLevel::GetInstance()->StageClear("Stage2");

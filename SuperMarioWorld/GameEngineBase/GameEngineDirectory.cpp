@@ -1,6 +1,7 @@
 #include "GameEngineDirectory.h"
-#include "GameEngineDebug.h"
 #include "GameEngineFile.h"
+#include <GameEngineBase/GameEngineDebug.h>
+
 
 GameEngineDirectory::GameEngineDirectory()
 {
@@ -9,7 +10,6 @@ GameEngineDirectory::GameEngineDirectory()
 GameEngineDirectory::~GameEngineDirectory()
 {
 }
-
 void GameEngineDirectory::MoveParentToDirectory(const std::string_view& _String)
 {
 	std::string MovePath = "\\";
@@ -47,6 +47,9 @@ bool GameEngineDirectory::MoveParent()
 
 	return true;
 }
+
+// .png
+// png
 
 std::vector<GameEngineFile> GameEngineDirectory::GetAllFile(const std::string_view& _Ext)
 {

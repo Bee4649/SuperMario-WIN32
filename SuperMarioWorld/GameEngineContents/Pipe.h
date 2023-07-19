@@ -12,7 +12,6 @@ enum Direction
 class Pipe : public GameEngineActor
 {
 public:
-
 	Pipe();
 	~Pipe();
 
@@ -40,13 +39,13 @@ public:
 			Key = "Left";
 			Collision->SetScale(HorizontalCollisionSize);
 			Collision->SetPosition(HorizontalCollisionPosition);
-			Collision->SetMove(float4::LEFT * 24);
+			Collision->SetMove(float4::Left * 24);
 			break;
 		case Right:
 			Key = "Right";
 			Collision->SetScale(HorizontalCollisionSize);
 			Collision->SetPosition(HorizontalCollisionPosition);
-			Collision->SetMove(float4::RIGHT * 24);
+			Collision->SetMove(float4::Right * 24);
 			break;
 		default:
 			break;
@@ -62,7 +61,6 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
-
 private:
 	Direction Dir = Down;
 	std::string_view Key = "Down";

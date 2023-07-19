@@ -1,12 +1,12 @@
 #include "GameEngineLevel.h"
 #include "GameEngineActor.h"
-#include "GameEngineRenderer.h"
+#include "GameEngineRender.h"
 #include "GameEngineCollision.h"
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 bool GameEngineLevel::IsDebugRender = false;
-float4 GameEngineLevel::TextOutStart = float4::ZERO;
+float4 GameEngineLevel::TextOutStart = float4::Zero;
 std::vector<std::string> GameEngineLevel::DebugTexts;
 
 GameEngineLevel::GameEngineLevel()
@@ -34,11 +34,11 @@ GameEngineLevel::~GameEngineLevel()
 
 float4 GameEngineLevel::GetMousePos()
 {
-	return GameEngineWindow::GetMousePos();
+	return GameEngineWindow::GetMousePosition();
 }
 float4 GameEngineLevel::GetMousePosToCamera()
 {
-	return GameEngineWindow::GetMousePos() + CameraPos;
+	return GameEngineWindow::GetMousePosition() + CameraPos;
 }
 
 void GameEngineLevel::ActorStart(GameEngineActor* _Actor, int _Order)
@@ -116,19 +116,19 @@ void GameEngineLevel::Release()
 	}
 
 	{ // 랜더러만 삭제
-		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renders.begin();
-		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renders.end();
+		std::map<int, std::list<GameEngineRender*>>::iterator GroupStartIter = Renders.begin();
+		std::map<int, std::list<GameEngineRender*>>::iterator GroupEndIter = Renders.end();
 
 		for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 		{
-			std::list<GameEngineRenderer*>& RenderList = GroupStartIter->second;
+			std::list<GameEngineRender*>& RenderList = GroupStartIter->second;
 
-			std::list<GameEngineRenderer*>::iterator RenderIterStart = RenderList.begin();
-			std::list<GameEngineRenderer*>::iterator RenderIterEnd = RenderList.end();
+			std::list<GameEngineRender*>::iterator RenderIterStart = RenderList.begin();
+			std::list<GameEngineRender*>::iterator RenderIterEnd = RenderList.end();
 
 			for (; RenderIterStart != RenderIterEnd; )
 			{
-				GameEngineRenderer* ReleaseRender = *RenderIterStart;
+				GameEngineRender* ReleaseRender = *RenderIterStart;
 
 				// Actors.erase()
 				if (nullptr != ReleaseRender && false == ReleaseRender->IsDeath())
@@ -178,14 +178,14 @@ void GameEngineLevel::Release()
 void GameEngineLevel::ActorsRender(float _DeltaTime)
 {
 	{
-		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renders.begin();
-		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renders.end();
+		std::map<int, std::list<GameEngineRender*>>::iterator GroupStartIter = Renders.begin();
+		std::map<int, std::list<GameEngineRender*>>::iterator GroupEndIter = Renders.end();
 
 		for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 		{
-			std::list<GameEngineRenderer*>& RenderList = GroupStartIter->second;
+			std::list<GameEngineRender*>& RenderList = GroupStartIter->second;
 
-			for (GameEngineRenderer* Renderer : RenderList)
+			for (GameEngineRender* Renderer : RenderList)
 			{
 				// Actors.erase()
 				if (nullptr == Renderer || false == Renderer->IsUpdate())
@@ -247,7 +247,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 
 	//text 출력
 	{
-		TextOutStart = float4::ZERO;
+		TextOutStart = float4::Zero;
 
 		for (size_t i = 0; i < DebugTexts.size(); i++)
 		{
@@ -264,7 +264,7 @@ void GameEngineLevel::ActorsRender(float _DeltaTime)
 			DrawTextA(ImageDc, DebugTexts[i].c_str(), static_cast<int>(DebugTexts[i].size()), &Rect, DT_LEFT);
 
 			// TextOutA(ImageDc, TextOutStart.ix(), TextOutStart.iy(), DebugTexts[i].c_str(), static_cast<int>(DebugTexts[i].size()));
-			TextOutStart.Y += 20.0f;
+			TextOutStart.y += 20.0f;
 		}
 
 		DebugTexts.clear();
@@ -307,7 +307,7 @@ void GameEngineLevel::ActorLevelChangeStart(GameEngineLevel* _PrevLevel)
 	}
 }
 
-void GameEngineLevel::PushRender(GameEngineRenderer* _Render, int _ChangeOrder)
+void GameEngineLevel::PushRender(GameEngineRender* _Render, int _ChangeOrder)
 {
 	// 0 => 10
 	Renders[_Render->GetOrder()].remove(_Render);

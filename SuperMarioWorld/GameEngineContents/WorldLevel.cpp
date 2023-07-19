@@ -2,9 +2,7 @@
 #include "WorldImage.h"
 #include "WorldMario.h"
 #include "LevelLoader.h"
-
 WorldLevel* WorldLevel::Instance = nullptr;
-
 
 void WorldLevel::StageClear(const std::string_view& _StageName)
 {

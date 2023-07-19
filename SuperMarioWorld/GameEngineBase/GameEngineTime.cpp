@@ -1,41 +1,40 @@
 #include "GameEngineTime.h"
-#include <Windows.h>
 
-GameEngineTime GameEngineTime::MainTimer;
+GameEngineTime GameEngineTime::GlobalTime;
 
 GameEngineTime::GameEngineTime()
 {
-	// 1초 기준으로한 정수 단위
-	// 시작할 때 1번만 정하면 됨.
-	QueryPerformanceFrequency(&Count);
-	QueryPerformanceFrequency(&Prev);
-
+	// 1초를 기준으로한 정수 단위입니다. 
+	// 시작할때 1번만 정하면 된다.
+	QueryPerformanceFrequency(&Second);
+	QueryPerformanceCounter(&Prev);
 }
 
 GameEngineTime::~GameEngineTime()
 {
 }
 
+
 void GameEngineTime::Reset()
 {
 	QueryPerformanceCounter(&Prev);
 }
 
-// 프레임 사이에서 실행되어야할 함수들은 다 업데이트라고 이름을 지을 것이다.
 float GameEngineTime::TimeCheck()
 {
-	// 이 함수가 실행될때까지 걸린 시간...
-	QueryPerformanceCounter(&Cur);
+	// 그래서 이 함수가 실행될때까지 걸린 시간은....
 
-	Tick = Cur.QuadPart - Prev.QuadPart;
+	QueryPerformanceCounter(&Current);
 
-	// 현재 시간
-	// 8바이트 실수형          200사이값               100                        /             셀수있는 시간
-	DoubleDelta = static_cast<double>(Cur.QuadPart) - static_cast<double>(Prev.QuadPart) / static_cast<double>(Count.QuadPart);
+	Tick = Current.QuadPart - Prev.QuadPart;
 
-	Prev.QuadPart = Cur.QuadPart;
+	// 현재시간
+	//                          200                               100                                              100
+	DoubleDeltaTime = (static_cast<double>(Current.QuadPart) - static_cast<double>(Prev.QuadPart)) / static_cast<double>(Second.QuadPart);
 
-	FloatDelta = static_cast<float>(DoubleDelta);
+	Prev.QuadPart = Current.QuadPart;
 
-	return FloatDelta;
+	floatDeltaTime = static_cast<float>(DoubleDeltaTime);
+
+	return floatDeltaTime;
 }

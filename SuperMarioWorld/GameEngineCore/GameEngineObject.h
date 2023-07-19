@@ -1,14 +1,10 @@
 #pragma once
-
 #include <string>
 #include <string_view>
 
-
-// 설명 : 모든 기본적인 행동을 제안하는 클래스
-// 제안하는 클래스
+// 설명 : 오브젝트 구조의 가장 기본이 되어주는 클래스.
 class GameEngineObject
 {
-
 public:
 	// constrcuter destructer
 	GameEngineObject();
@@ -20,7 +16,7 @@ public:
 	GameEngineObject& operator=(const GameEngineObject& _Other) = delete;
 	GameEngineObject& operator=(GameEngineObject&& _Other) noexcept = delete;
 
-	bool IsUpdate() 
+	bool IsUpdate()
 	{
 		//         조건          ?              true 일때                                      :         false 일때
 		// 부모가 있다면
@@ -30,7 +26,7 @@ public:
 		// 부모도 켜져있어야 한다 true == Parent->IsUpdate()
 
 		return nullptr != Parent ? ((true == ObjectUpdate && false == IsDeath()) && true == Parent->IsUpdate()) : (ObjectUpdate && false == IsDeath());
-		
+
 		// return nullptr != Parent ? 1000 : 200;
 	}
 
@@ -102,15 +98,13 @@ public:
 protected:
 
 private:
-	// float LiveTime = 0.0f;
-
 	int Order = 0;
 
 	// 자기를 관리하거나 자기를 소유한 오브젝트들을 부모라는 느낌으로 보려고 하는것.
 	GameEngineObject* Parent = nullptr;
 
-	bool ObjectDeath = false; // 이걸 false로 만들면 됩니다.
-	bool ObjectUpdate = true; // 아예 메모리에서 날려버리고 싶어.
+	bool ObjectDeath = false;
+	bool ObjectUpdate = true;
 
 	std::string Name;
 

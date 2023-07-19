@@ -14,14 +14,12 @@ private:
 	{
 		friend GameEngineInput;
 
-		bool Down = false; // 누른 순간.
-		bool Press = false; // 계속 누르고 있는 상태.
-		bool Up = false; // 떈 순간.
-		bool Free = true; // 안눌렀을 때.
+		bool Down = false; // 누른 한순간
+		bool Press = false; // 계속 누르고 있다.
+		bool Up = false; // 땐 한순간
+		bool Free = true; // 안눌리고 있다.
 
-		// 의미가 없다고 봐요. 몇초간 눌렀을 때
-		float PressTime = 0.0f;
-
+		float PressTime; // 몇초간 눌렀다.
 		int Key = -1;
 
 		bool KeyCheck()
@@ -30,12 +28,9 @@ private:
 		}
 
 		void Update(float _DeltaTime);
-
 	};
 
 public:
-	
-	
 
 	// delete Function
 	GameEngineInput(const GameEngineInput& _Other) = delete;
@@ -43,10 +38,10 @@ public:
 	GameEngineInput& operator=(const GameEngineInput& _Other) = delete;
 	GameEngineInput& operator=(GameEngineInput&& _Other) noexcept = delete;
 
-	// static float4 MousePos();
-
 	static void Update(float _DeltaTime);
+
 	static void CreateKey(const std::string_view& _Name, int _Key);
+
 	static bool IsKey(const std::string_view& _Name);
 
 	static bool IsDown(const std::string_view& _Name);
@@ -69,7 +64,7 @@ private:
 	GameEngineInput();
 	~GameEngineInput();
 
-	//      PlayerJump       
+	//      PlayerJump       A
 	static std::map<std::string, GameEngineKey> Keys;
 	static bool IsAnyKeyValue;
 
@@ -83,4 +78,5 @@ private:
 		IsAnyKeyValue = false;
 	}
 };
+
 

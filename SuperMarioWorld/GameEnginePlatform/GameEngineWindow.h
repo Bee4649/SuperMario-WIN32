@@ -1,18 +1,16 @@
 #pragma once
-#include <Windows.h>
 #include <string>
-#include "GameEngineWindowTexture.h"
+#include <Windows.h>
 #include <GameEngineBase/GameEngineMath.h>
 
+
 // 설명 :
-class GameEngineWindowTexture;
+class GameEngineImage;
 class GameEngineWindow
 {
-	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
+	static LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
 
 public:
-	static GameEngineWindow MainWindow;
-	
 	// 윈도우를 만들어 주는 기능
 	static void WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos);
 
@@ -34,7 +32,7 @@ public:
 		return WindowBackBufferHdc;
 	}
 
-	static GameEngineWindowTexture* GetDoubleBufferImage()
+	static GameEngineImage* GetDoubleBufferImage()
 	{
 		return DoubleBufferImage;
 	}
@@ -47,11 +45,10 @@ public:
 	static void DoubleBufferClear();
 	static void DoubleBufferRender();
 
-	static int MessageLoop(void(*Start)(), void(*Loop)(), void(*End)());
+	static int WindowLoop(void(*Start)(), void(*Loop)(), void(*End)());
 
-	static float4 GetMousePos();
+	static float4 GetMousePosition();
 
-	// constrcuter destructer
 	GameEngineWindow();
 	~GameEngineWindow();
 
@@ -61,16 +58,18 @@ public:
 	GameEngineWindow& operator=(const GameEngineWindow& _Other) = delete;
 	GameEngineWindow& operator=(GameEngineWindow&& _Other) noexcept = delete;
 
+
+
 protected:
 
 private:
-	static bool IsWindowUpdate;
 	static float4 WindowSize;
 	static float4 ScreenSize;
 	static float4 WindowPos;
 	static HWND HWnd;
 	static HDC WindowBackBufferHdc;
-	static GameEngineWindowTexture* BackBufferImage;
-	static GameEngineWindowTexture* DoubleBufferImage;
+	static GameEngineImage* BackBufferImage;
+	static GameEngineImage* DoubleBufferImage;
+	static bool IsWindowUpdate;
 };
 

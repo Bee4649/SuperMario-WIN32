@@ -1,31 +1,26 @@
 #include "Fire.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEnginePlatform/GameEngineImage.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "ContentsEnum.h"
+#include "ContentsEnums.h"
 #include "Particle.h"
 #include "Map.h"
 #include "Block.h"
 #include "EnemyActor.h"
-#include "ContentCore.h"
-
+#include "MarioGameCore.h"
 int Fire::Num = 0;
 
-Fire::Fire() 
-{
+Fire::Fire() {
 	Fire::Num++;
-	ColMap = GameEngineResources::GetInst().TextureFind(Map::MainMap->GetStageColName());
+	ColMap = GameEngineResources::GetInst().ImageFind(Map::MainMap->GetStageColName());
 }
 
-
-Fire::~Fire() 
-{
+Fire::~Fire() {
 	Fire::Num--;
 }
-
 
 void Fire::Start()
 {
@@ -42,7 +37,7 @@ void Fire::Start()
 		Collision = CreateCollision(CollisionOrder::PlayerAttack);
 		Collision->SetScale({ 32, 32 });
 		Collision->SetPosition({ 0, 0 });
-		Collision->SetDebugRenderType(CollisionType::Rect);
+		Collision->SetDebugRenderType(CollisionType::CT_Rect);
 	}
 }
 
@@ -53,14 +48,14 @@ void Fire::Update(float _DeltaTime)
 
 	// 화면 밖으로 나갔는지 체크
 	float4 InCameraPos = GetPos() - GetLevel()->GetCameraPos();
-	if (0 > InCameraPos.X + 10)
+	if (0 > InCameraPos.x + 10)
 	{
 		// 화면 밖으로 나가면 제거
 		Death();
 		return;
 	}
-	if (GameEngineWindow::GetScreenSize().X < InCameraPos.X - 10)
-	{
+	if (GameEngineWindow::GetScreenSize().x < InCameraPos.x - 10)
+	{ 
 		// 화면 밖으로 나가면 제거
 		Death();
 		return;
@@ -68,7 +63,7 @@ void Fire::Update(float _DeltaTime)
 
 	// 적이 공격을 받았는지 체크
 	std::vector<GameEngineCollision*> Collisions;
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Monster), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check, Collisions))
 	{
 		EnemyActor* ColActor = Collisions[0]->GetOwner<EnemyActor>();
@@ -92,19 +87,19 @@ void Fire::MoveCalculation(float _DeltaTime)
 	// MoveDir 중력 증가
 	if (true == IsSlope)
 	{
-		MoveDir += float4::DOWN * GravityAcceleration * 2 * _DeltaTime;
+		MoveDir += float4::Down * GravityAcceleration * 2 * _DeltaTime;
 	}
 	else
 	{
-		MoveDir += float4::DOWN * GravityAcceleration * _DeltaTime;
+		MoveDir += float4::Down * GravityAcceleration * _DeltaTime;
 	}
 	// MoveDir 속도 증가
-
+	
 	// 현제 중력이 최대 중력을 초과한 경우
-	if (GravityMax < MoveDir.Y)
+	if (GravityMax < MoveDir.y)
 	{
 		// 최대 중력 제한
-		MoveDir.Y = GravityMax;
+		MoveDir.y = GravityMax;
 	}
 
 	// 이번 프레임에 이동할 위치
@@ -116,11 +111,11 @@ void Fire::MoveCalculation(float _DeltaTime)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
-
+	
 	// 맵 충돌 체크용 컬러 변수
 	DWORD PixelColor = ColMap->GetPixelColor(NextPos, White);
 	float4 ForwardPos = NextPos;
-	ForwardPos.Y = GetPos().Y - 4;
+	ForwardPos.y = GetPos().y - 4;
 	// 벽 체크
 	if (Black == ColMap->GetPixelColor(ForwardPos, White))
 	{
@@ -133,16 +128,16 @@ void Fire::MoveCalculation(float _DeltaTime)
 	if (Black == PixelColor)
 	{
 		IsSlope = false;
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos.Y -= 1;
+			NextPos.y -= 1;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (Black != PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = -JumpForce;
+ 				MoveDir.y = -JumpForce;
 				break;
 			}
 		}
@@ -151,16 +146,16 @@ void Fire::MoveCalculation(float _DeltaTime)
 	if (Green == PixelColor)
 	{
 		IsSlope = false;
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos.Y -= 1;
+			NextPos.y -= 1;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (White == PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = -JumpForce;
+				MoveDir.y = -JumpForce;
 				break;
 			}
 		}
@@ -170,13 +165,13 @@ void Fire::MoveCalculation(float _DeltaTime)
 	{
 		bool Check = false;
 		float4 SlopePos = NextPos;
-		SlopePos.X += 5;
-		SlopePos.Y -= 5;
+		SlopePos.x += 5;
+		SlopePos.y -= 5;
 		PixelColor = ColMap->GetPixelColor(SlopePos, Black);
 		// 경사로가 오른쪽
 		if (Red == PixelColor)
 		{
-			if (0 < MoveDir.X)
+			if (0 < MoveDir.x)
 			{
 				Check = true;
 			}
@@ -184,7 +179,7 @@ void Fire::MoveCalculation(float _DeltaTime)
 		// 경사로가 왼쪽
 		else
 		{
-			if (0 > MoveDir.X)
+			if (0 > MoveDir.x)
 			{
 				Check = true;
 			}
@@ -193,25 +188,25 @@ void Fire::MoveCalculation(float _DeltaTime)
 		if (true == Check)
 		{
 			IsSlope = true;
-			NextPos.Y = std::round(NextPos.Y);
+			NextPos.y = std::round(NextPos.y);
 			// 바닥에서 제일 위로 올라간다
 			while (true)
 			{
-				NextPos.Y -= 1;
+				NextPos.y -= 1;
 				PixelColor = ColMap->GetPixelColor(NextPos, Black);
 				if (White == PixelColor)
 				{
 					SetPos(NextPos);
-					MoveDir.Y = -SlopeJumpForce;
+					MoveDir.y = -SlopeJumpForce;
 					break;
 				}
 			}
-			NextPos.X += 1;
+			NextPos.x += 1;
 		}
 	}
 	// 블록 체크
 	std::vector<GameEngineCollision*> Collisions;
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check, Collisions))
 	{
 		bool IsHeading = false;
@@ -225,13 +220,13 @@ void Fire::MoveCalculation(float _DeltaTime)
 				continue;
 			}
 			// 내 위치가 블록보다 위에 있는 경우
-			if (GetPos().Y < ColActor->GetPos().Y - 60)
+			if (GetPos().y < ColActor->GetPos().y - 60)
 			{
-				MoveDir.Y = -JumpForce;
+				MoveDir.y = -JumpForce;
 				break;
 			}
 			// 내 위치가 블록 밑에 있는 경우
-			else if (GetPos().Y > ColActor->GetPos().Y + 60)
+			else if (GetPos().y > ColActor->GetPos().y + 60)
 			{
 				Particle::CreateParticle(GetLevel(), GetPos(), "SMOKE1");
 				Death();
@@ -252,7 +247,7 @@ void Fire::MoveCalculation(float _DeltaTime)
 
 void Fire::Render(float _DeltaTime)
 {
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		Collision->DebugRender();
 	}

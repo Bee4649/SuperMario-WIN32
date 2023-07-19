@@ -15,7 +15,6 @@ public:
 protected:
 	void Loading() override;
 	void LevelChangeStart(GameEngineLevel* _Prev) override;
-
 private:
 	const std::string_view BackGroundName = "BACKGROUND3.BMP";
 	const std::string_view StageName = "Underground1.BMP";

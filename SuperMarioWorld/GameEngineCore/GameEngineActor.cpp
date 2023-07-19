@@ -1,15 +1,15 @@
 #include "GameEngineActor.h"
-#include "GameEngineRenderer.h"
+#include "GameEngineRender.h"
 #include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
 
-GameEngineActor::GameEngineActor() 
+GameEngineActor::GameEngineActor()
 {
 }
 
 GameEngineActor::~GameEngineActor()
 {
-	for (GameEngineRenderer* _Render : RenderList)
+	for (GameEngineRender* _Render : RenderList)
 	{
 		if (nullptr == _Render)
 		{
@@ -30,6 +30,7 @@ GameEngineActor::~GameEngineActor()
 		delete _Collision;
 		_Collision = nullptr;
 	}
+
 }
 
 GameEngineLevel* GameEngineActor::GetLevel()
@@ -37,16 +38,17 @@ GameEngineLevel* GameEngineActor::GetLevel()
 	return GetOwner<GameEngineLevel>();
 }
 
-GameEngineRenderer* GameEngineActor::CreateRender(const std::string_view& _Image, int _Order /*= 0*/)
+
+GameEngineRender* GameEngineActor::CreateRender(const std::string_view& _Image, int _Order /*= 0*/)
 {
-	GameEngineRenderer* Render = CreateRender(_Order);
+	GameEngineRender* Render = CreateRender(_Order);
 	Render->SetImage(_Image);
 	return Render;
 }
 
-GameEngineRenderer* GameEngineActor::CreateRender(int _Order /*= 0*/)
+GameEngineRender* GameEngineActor::CreateRender(int _Order /*= 0*/)
 {
-	GameEngineRenderer* Render = new GameEngineRenderer();
+	GameEngineRender* Render = new GameEngineRender();
 	Render->SetOwner(this);
 	Render->SetOrder(_Order);
 	RenderList.push_back(Render);
@@ -62,20 +64,19 @@ GameEngineCollision* GameEngineActor::CreateCollision(int _GroupIndex)
 	return Collision;
 }
 
-
 void GameEngineActor::Release()
 {
 	{
-		std::list<GameEngineRenderer*>::iterator StartIter = RenderList.begin();
-		std::list<GameEngineRenderer*>::iterator EndIter = RenderList.end();
+		std::list<GameEngineRender*>::iterator StartIter = RenderList.begin();
+		std::list<GameEngineRender*>::iterator EndIter = RenderList.end();
 
 		for (; StartIter != EndIter; )
 		{
-			GameEngineRenderer* ReleaseRender = *StartIter;
+			GameEngineRender* ReleaseRender = *StartIter;
 
 			if (nullptr == ReleaseRender)
 			{
-				MsgAssert("nullptr 인 Render가 내부에 들어있습니다.");
+				MsgAssert("nullptr 인 랜더가 내부에 들어있습니다.");
 			}
 
 			if (false == ReleaseRender->IsDeath())
@@ -100,7 +101,7 @@ void GameEngineActor::Release()
 
 			if (nullptr == ReleaseCollision)
 			{
-				MsgAssert("nullptr 인 Render가 내부에 들어있습니다.");
+				MsgAssert("nullptr 인 랜더가 내부에 들어있습니다.");
 			}
 
 			if (false == ReleaseCollision->IsDeath())

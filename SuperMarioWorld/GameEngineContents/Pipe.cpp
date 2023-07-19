@@ -2,22 +2,21 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "ContentsEnum.h"
+#include "ContentsEnums.h"
 #include "LevelLoader.h"
 #include "Mario.h"
+Pipe::Pipe() {
 
-Pipe::Pipe() 
-{
 }
 
-Pipe::~Pipe() 
-{
+Pipe::~Pipe() {
+
 }
 
 void Pipe::Start()
 {
 	Collision = CreateCollision(CollisionOrder::Check);
-	Collision->SetDebugRenderType(Rect);
+	Collision->SetDebugRenderType(CT_Rect);
 }
 
 void Pipe::Update(float _DeltaTime)
@@ -33,23 +32,23 @@ void Pipe::Update(float _DeltaTime)
 		return;
 	}
 
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Player), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check) && GameEngineInput::IsPress(Key))
 	{
 		float4 MoveDir;
 		switch (Dir)
 		{
 		case Up:
-			MoveDir = float4::UP;
+			MoveDir = float4::Up;
 			break;
 		case Down:
-			MoveDir = float4::DOWN;
+			MoveDir = float4::Down;
 			break;
 		case Left:
-			MoveDir = float4::LEFT;
+			MoveDir = float4::Left;
 			break;
 		case Right:
-			MoveDir = float4::RIGHT;
+			MoveDir = float4::Right;
 			break;
 		default:
 			break;
@@ -62,7 +61,7 @@ void Pipe::Update(float _DeltaTime)
 
 void Pipe::Render(float _DeltaTime)
 {
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		Collision->DebugRender();
 	}

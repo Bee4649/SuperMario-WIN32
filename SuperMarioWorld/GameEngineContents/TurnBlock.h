@@ -18,8 +18,8 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void HitAnimEnd() override;
-
 private:
+
 	bool IsRoll = false;
 	float RollTimer = 0;
 	const float RollTime = 5.2f;

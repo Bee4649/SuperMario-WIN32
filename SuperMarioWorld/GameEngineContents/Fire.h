@@ -2,17 +2,12 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
-class GameEngineWindowTexture;
+class GameEngineImage;
 class Fire : public GameEngineActor
 {
 public:
 	Fire();
 	~Fire();
-
-	Fire(const Fire& _Other) = delete;
-	Fire(Fire&& _Other) noexcept = delete;
-	Fire& operator=(const Fire& _Other) = delete;
-	Fire& operator=(Fire&& _Other) noexcept = delete;
 
 	void SetDir(const float4& _Dir)
 	{
@@ -22,7 +17,11 @@ public:
 	{
 		return Max <= Num;
 	}
-	
+	Fire(const Fire& _Other) = delete;
+	Fire(Fire&& _Other) noexcept = delete;
+	Fire& operator=(const Fire& _Other) = delete;
+	Fire& operator=(Fire&& _Other) noexcept = delete;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -30,9 +29,9 @@ protected:
 	void MoveCalculation(float _DeltaTime);
 private:
 
-	GameEngineRenderer* AnimationRender = nullptr;
+	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
-	GameEngineWindowTexture* ColMap = nullptr;
+	GameEngineImage* ColMap = nullptr;
 
 	static int Num;
 	static const int Max = 2;
@@ -42,5 +41,5 @@ private:
 	const float GravityAcceleration = 4000;
 	const float JumpForce = 750;
 	const float SlopeJumpForce = 1500;
-	float4 MoveDir = float4::ZERO;
+	float4 MoveDir = float4::Zero;
 };

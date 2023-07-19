@@ -1,17 +1,19 @@
 #include "GameEngineSound.h"
-#include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineString.h>
 
-// lib를 가져다 사용하겠다는 전처리문입니다.
-// lib는 구현이다.
+// 다른 lib나 dll을 사용하기 위한 전처리문을 여기 넣을것
+// #pragma comment(lib, "GameEngineBase.lib");
+
+// lib를 통해서 dll을 사용한다고 하는건.
+// fmod.dll을 쓰겠다.
 #ifdef _DEBUG
-#pragma comment(lib, "..\\GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmodL_vc.lib")
+#pragma comment(lib, "GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmodL_vc.lib")
 #else
-#pragma comment(lib, "..\\GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmod_vc.lib")
+#pragma comment(lib, "GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmod_vc.lib")
 #endif
 
-
-// FMOD를 사용하기 위한 핸들 및 객체
+// FMOD는 자신들의 기능을 이용할수 있게 해주는 클래스의 포인터를 주고
 FMOD::System* SoundSystem = nullptr;
 
 class SoundSystemCreator
@@ -35,8 +37,6 @@ public:
 
 	~SoundSystemCreator()
 	{
-
-
 		SoundSystem->release();
 	}
 };
@@ -60,9 +60,7 @@ GameEngineSound::GameEngineSound()
 
 GameEngineSound::~GameEngineSound()
 {
-	
 }
-
 
 void GameEngineSound::SoundLoad(const std::string_view& _Path)
 {

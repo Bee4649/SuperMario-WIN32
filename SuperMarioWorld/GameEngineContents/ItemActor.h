@@ -1,8 +1,8 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineCollision.h>
-#include <GameEngineCore/GameEngineRenderer.h>
-#include "ContentsEnum.h"
+#include <GameEngineCore/GameEngineRender.h>
+#include "ContentsEnums.h"
 
 class ItemActor : public GameEngineActor
 {
@@ -10,13 +10,13 @@ public:
 	ItemActor();
 	~ItemActor();
 
+	void BlockOut();
+	virtual void BlockHit() {}
+
 	ItemActor(const ItemActor& _Other) = delete;
 	ItemActor(ItemActor&& _Other) noexcept = delete;
 	ItemActor& operator=(const ItemActor& _Other) = delete;
 	ItemActor& operator=(ItemActor&& _Other) noexcept = delete;
-
-	void BlockOut();
-	virtual void BlockHit() {}
 
 protected:
 	void Start() override;
@@ -33,22 +33,20 @@ protected:
 	}
 
 	ItemType ThisItemType = ItemType::Coin;
-	GameEngineRenderer* ItemRender = nullptr;
-	GameEngineWindowTexture* ColMap = nullptr;
-
+	GameEngineRender* ItemRender = nullptr;
+	GameEngineImage* ColMap = nullptr;
 private:
 	const float4 CollisionScale = { 48, 48 };
 	const float4 CollisionPos = { 0, -24 };
 	const float GravityMax = 750;
 	const float GravityAcceleration = 1500;
-	
-	float4 FallDir = float4::ZERO;
+	GameEngineCollision* Collision = nullptr;
+	float4 FallDir = float4::Zero;
 	bool IsOnCamera = false;
+
 	bool IsBlockOut = false;
 	float Timer = 0;
 	const float BlockOutTime = 0.5f;
-
-	GameEngineCollision* Collision = nullptr;
 
 };
 

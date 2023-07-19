@@ -1,11 +1,11 @@
 #include "GameEngineCore.h"
-#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineDebug.h>
-#include <GameEngineBase/GameEngineTime.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 #include "GameEngineLevel.h"
 #include "GameEngineResources.h"
-#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 GameEngineCore* Core;
 
@@ -18,22 +18,21 @@ void GameEngineCore::GlobalStart()
 {
 	Core->Start();
 
-	GameEngineTime::MainTimer.Reset();
+	GameEngineTime::GlobalTime.Reset();
 }
-
 
 void GameEngineCore::GlobalUpdate()
 {
 
 	// 프레임 시작할때 한번 델타타임을 정하고
 	GameEngineSound::SoundUpdate();
-	float TimeDeltaTime = GameEngineTime::MainTimer.TimeCheck();
+	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
 	GameEngineInput::Update(TimeDeltaTime);
 
 	// 여기에서 처리한다
 	if (nullptr != Core->NextLevel)
 	{
-		GameEngineLevel* PrevLevel = Core->CurLevel;
+		GameEngineLevel* PrevLevel = Core->MainLevel;
 		GameEngineLevel* NextLevel = Core->NextLevel;
 
 		if (nullptr != PrevLevel)
@@ -42,7 +41,7 @@ void GameEngineCore::GlobalUpdate()
 			PrevLevel->ActorLevelChangeEnd(NextLevel);
 		}
 
-		Core->CurLevel = NextLevel;
+		Core->MainLevel = NextLevel;
 		Core->NextLevel = nullptr;
 
 		if (nullptr != NextLevel)
@@ -58,20 +57,19 @@ void GameEngineCore::GlobalUpdate()
 	}
 
 	Core->Update();
-	if (nullptr == Core->CurLevel)
+	if (nullptr == Core->MainLevel)
 	{
 		MsgAssert("레벨을 지정해주지 않은 상태로 코어를 실행했습니다");
 		return;
 	}
 
-	Core->CurLevel->Update(TimeDeltaTime);
-	Core->CurLevel->ActorsUpdate(TimeDeltaTime);
+	Core->MainLevel->Update(TimeDeltaTime);
+	Core->MainLevel->ActorsUpdate(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferClear();
-	Core->CurLevel->ActorsRender(TimeDeltaTime);
+	Core->MainLevel->ActorsRender(TimeDeltaTime);
 	GameEngineWindow::DoubleBufferRender();
-	Core->CurLevel->Release();
+	Core->MainLevel->Release();
 }
-
 
 void GameEngineCore::GlobalEnd()
 {
@@ -81,15 +79,15 @@ void GameEngineCore::GlobalEnd()
 }
 
 
-GameEngineCore::GameEngineCore() 
+GameEngineCore::GameEngineCore()
 {
 	GameEngineDebug::LeakCheck();
 	// 나는 자식중에 하나일수밖에 없다.
-	// 나는 절대 만들어질 수 없기 때문이다.
+	// 나는 절대만들어질수 없기 때문이다.
 	Core = this;
 }
 
-GameEngineCore::~GameEngineCore() 
+GameEngineCore::~GameEngineCore()
 {
 	std::map<std::string, GameEngineLevel*>::iterator StartIter = Levels.begin();
 	std::map<std::string, GameEngineLevel*>::iterator EndIter = Levels.end();
@@ -105,7 +103,7 @@ GameEngineCore::~GameEngineCore()
 	Levels.clear();
 }
 
-void GameEngineCore::CoreStart(HINSTANCE _Instance)
+void GameEngineCore::CoreStart(HINSTANCE _instance)
 {
 	if (false == GameEngineInput::IsKey("EngineMouseLeft"))
 	{
@@ -113,8 +111,8 @@ void GameEngineCore::CoreStart(HINSTANCE _Instance)
 		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
 	}
 
-	GameEngineWindow::WindowCreate(_Instance, "Super Mario Wolrd", { 1280, 720 }, { 0, 0 });
-	GameEngineWindow::MessageLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
+	GameEngineWindow::WindowCreate(_instance, "MainWindow", { 1280, 720 }, { 0, 0 });
+	GameEngineWindow::WindowLoop(GameEngineCore::GlobalStart, GameEngineCore::GlobalUpdate, GameEngineCore::GlobalEnd);
 }
 
 void GameEngineCore::ChangeLevel(const std::string_view& _Name)

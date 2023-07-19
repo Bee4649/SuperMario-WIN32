@@ -1,7 +1,7 @@
 #include "GameEnginePath.h"
-#include "GameEngineDebug.h"
-#include <io.h>
 #include <Windows.h>
+#include <io.h>
+#include <GameEngineBase/GameEngineDebug.h>
 
 GameEnginePath::GameEnginePath()
 	: Path(std::filesystem::current_path())
@@ -39,6 +39,7 @@ std::string GameEnginePath::GetFileName() const
 {
 	return Path.filename().string();
 }
+
 
 std::string GameEnginePath::GetPathToString() const
 {

@@ -1,35 +1,34 @@
 #pragma once
+#include <vector>
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineComponent.h"
-#include <string>
-#include <map>
-#include <vector>
 
-
-enum CollisionType 
+enum CollisionType
 {
-	Point, // 점
-	Rect, // 사각형
-	CirCle, // 원
-	Max, // 원
-	
+	CT_Point,
+	CT_CirCle,
+	CT_Rect,
+	CT_Max,
 };
 
 class CollisionCheckParameter
 {
 public:
 	int TargetGroup = -342367842;
-	CollisionType TargetColType = CollisionType::CirCle;
-	CollisionType ThisColType = CollisionType::CirCle;
+	CollisionType TargetColType = CollisionType::CT_CirCle;
+	CollisionType ThisColType = CollisionType::CT_CirCle;
 };
+
+// 
 
 // 설명 :
 class CollisionFunctionInit;
 class GameEngineCollision : public GameEngineComponent
 {
-
 	friend CollisionFunctionInit;
-	
+
+private:
+
 public:
 	static bool CollisionCirCleToCirCle(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right);
@@ -37,7 +36,7 @@ public:
 	static bool CollisionRectToRect(const CollisionData& _Left, const CollisionData& _Right);
 	static bool CollisionRectToPoint(const CollisionData& _Left, const CollisionData& _Right);
 
-public:
+
 	// constrcuter destructer
 	GameEngineCollision();
 	~GameEngineCollision();
@@ -63,11 +62,10 @@ public:
 
 	void DebugRender();
 
-
 protected:
 
 private:
-	CollisionType DebugRenderType = CollisionType::CirCle;
+	CollisionType DebugRenderType = CollisionType::CT_CirCle;
 
 };
 

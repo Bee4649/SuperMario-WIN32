@@ -1,7 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
-
 class GameOverLevel : public GameEngineLevel
 {
 public:

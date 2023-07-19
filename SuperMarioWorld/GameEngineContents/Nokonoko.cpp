@@ -1,21 +1,21 @@
 #include "Nokonoko.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include "ContentsEnum.h"
+#include "ContentsEnums.h"
 #include "Map.h"
 #include "Block.h"
 #include "Particle.h"
 #include "Mario.h"
 #include "Coin.h"
 #include "Shell.h"
-Nokonoko::Nokonoko() 
-{
+Nokonoko::Nokonoko() {
+
 }
 
-Nokonoko::~Nokonoko()
-{
+Nokonoko::~Nokonoko() {
+
 }
 
 bool Nokonoko::IsCollisionAttack()
@@ -72,7 +72,7 @@ void Nokonoko::MonsterHit(bool IsLeft)
 {
 	Mario::MainPlayer->AddScore(Score);
 	// 애니메이션 변경
-	if (0 < DirValue.X)
+	if (0 < DirValue.x)
 	{
 		AnimationRender->ChangeAnimation("RIGHT_IDLE");
 	}
@@ -88,13 +88,13 @@ void Nokonoko::MonsterHit(bool IsLeft)
 	// 이동 지정
 	if (true == IsLeft)
 	{
-		MoveDir.X *= -1;
+		MoveDir.x *= -1;
 	}
 }
 
 void Nokonoko::Hold()
 {
-
+	
 }
 
 void Nokonoko::Kick(const float4& _Force)
@@ -106,7 +106,7 @@ void Nokonoko::Start()
 	EnemyActor::Start();
 	Speed = ActorSpeed;
 	SlopeSpeed = ActorSlopeSpeed;
-	DirSetting(float4::LEFT);
+	DirSetting(float4::Left);
 	// 렌더 생성
 	{
 		AnimationRender = CreateRender(RenderOrder::Monster);
@@ -114,7 +114,7 @@ void Nokonoko::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "LEFT_WALK", .ImageName = "LEFT_NOKONOKO.BMP", .Start = 0, .End = 1, .InterTime = 0.25f });
 		AnimationRender->CreateAnimation({ .AnimationName = "LEFT_IDLE", .ImageName = "LEFT_NOKONOKO.BMP", .Start = 0, .End = 0, });
 		AnimationRender->CreateAnimation({ .AnimationName = "RIGHT_WALK", .ImageName = "RIGHT_NOKONOKO.BMP", .Start = 0, .End = 1, .InterTime = 0.25f });
-		AnimationRender->CreateAnimation({ .AnimationName = "RIGHT_IDLE", .ImageName = "RIGHT_NOKONOKO.BMP", .Start = 0, .End = 0, });
+		AnimationRender->CreateAnimation({ .AnimationName = "RIGHT_IDLE", .ImageName = "RIGHT_NOKONOKO.BMP", .Start = 0, .End = 0,  });
 		AnimationRender->ChangeAnimation("LEFT_WALK");
 		AnimationRender->SetPosition(RenderPos);
 	}
@@ -123,7 +123,7 @@ void Nokonoko::Start()
 		Collision = CreateCollision(CollisionOrder::Monster);
 		Collision->SetScale(CollisionScale);
 		Collision->SetPosition(CollisionPos);
-		Collision->SetDebugRenderType(CollisionType::Rect);
+		Collision->SetDebugRenderType(CollisionType::CT_Rect);
 	}
 }
 
@@ -155,7 +155,7 @@ void Nokonoko::Update(float _DeltaTime)
 void Nokonoko::Turn()
 {
 	EnemyActor::Turn();
-	if (0 < DirValue.X)
+	if (0 < DirValue.x)
 	{
 		AnimationRender->ChangeAnimation("RIGHT_WALK");
 	}

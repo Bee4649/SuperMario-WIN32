@@ -1,6 +1,6 @@
 #include "GameEngineString.h"
+#include <Windows.h>
 #include "GameEngineDebug.h"
-
 
 GameEngineString::GameEngineString()
 {
@@ -9,6 +9,7 @@ GameEngineString::GameEngineString()
 GameEngineString::~GameEngineString()
 {
 }
+
 
 std::string GameEngineString::ToUpper(const std::string_view& _Str)
 {
@@ -26,6 +27,7 @@ std::string GameEngineString::ToString(int Value)
 {
 	return std::to_string(Value);
 }
+
 
 std::wstring GameEngineString::AnsiToUniCode(const std::string_view& _Text)
 {

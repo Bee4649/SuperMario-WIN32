@@ -1,12 +1,11 @@
 #include "ShieldActor.h"
-#include "ContentsEnum.h"
+#include "ContentsEnums.h"
+ShieldActor::ShieldActor() {
 
-ShieldActor::ShieldActor() 
-{
 }
 
-ShieldActor::~ShieldActor() 
-{
+ShieldActor::~ShieldActor() {
+
 }
 
 void ShieldActor::SetOwner(GameEngineActor* _Owner)
@@ -19,7 +18,7 @@ void ShieldActor::SetCollision(const float4& _Scale, const float4 _Pos)
 	Collision = CreateCollision(CollisionOrder::Monster);
 	Collision->SetScale(_Scale);
 	Collision->SetPosition(_Pos);
-	Collision->SetDebugRenderType(Rect);
+	Collision->SetDebugRenderType(CT_Rect);
 }
 
 bool ShieldActor::IsCollisionAttack()

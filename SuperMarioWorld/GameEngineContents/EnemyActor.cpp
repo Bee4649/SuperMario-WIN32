@@ -1,17 +1,16 @@
 #include "EnemyActor.h"
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include "Map.h"
 #include "Block.h"
-#include "ContentsEnum.h"
-#include "ContentCore.h"
+#include "ContentsEnums.h"
+#include "MarioGameCore.h"
+EnemyActor::EnemyActor() {
 
-EnemyActor::EnemyActor() 
-{
 }
 
-EnemyActor::~EnemyActor() 
-{
+EnemyActor::~EnemyActor() {
+
 }
 
 void EnemyActor::Start()
@@ -22,12 +21,12 @@ void EnemyActor::Start()
 
 void EnemyActor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	ColMap = GameEngineResources::GetInst().TextureFind(Map::MainMap->GetStageColName());
+	ColMap = GameEngineResources::GetInst().ImageFind(Map::MainMap->GetStageColName());
 }
 
 void EnemyActor::Render(float _DeltaTime)
 {
-	if (true == ContentCore::GetInst().GetCollisionDebug())
+	if (true == MarioGameCore::GetInst().GetCollisionDebug())
 	{
 		Collision->DebugRender();
 	}
@@ -37,11 +36,11 @@ void EnemyActor::CameraInCheck()
 {
 	// 화면 밖으로 나갔는지 체크
 	float4 InCameraPos = GetPos() - GetLevel()->GetCameraPos();
-	if (0 > InCameraPos.X + 256)
+	if (0 > InCameraPos.x + 256)
 	{
 		OffCamera();
 	}
-	else if (GameEngineWindow::GetScreenSize().X < InCameraPos.X - 256)
+	else if (GameEngineWindow::GetScreenSize().x < InCameraPos.x - 256)
 	{
 		OffCamera();
 	}
@@ -54,10 +53,10 @@ void EnemyActor::CameraInCheck()
 void EnemyActor::MoveUpdate(float _DeltaTime)
 {
 	// 중력
-	MoveDir.Y += GravityAcceleration * _DeltaTime;
-	if (GravityMax < MoveDir.Y)
+	MoveDir.y += GravityAcceleration * _DeltaTime;
+	if (GravityMax < MoveDir.y)
 	{
-		MoveDir.Y = GravityMax;
+		MoveDir.y = GravityMax;
 	}
 	// 충돌 이미지 검사
 	if (nullptr == ColMap)
@@ -67,7 +66,7 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 	// 이동될 위치
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	float4 ForwardPos = NextPos;
-	ForwardPos.Y = GetPos().Y + float4::UP.Y * 4;
+	ForwardPos.y = GetPos().y + float4::Up.y * 4;
 
 	// 맵 충돌 체크용 컬러 변수
 	DWORD PixelColor = ColMap->GetPixelColor(ForwardPos, White);
@@ -82,16 +81,16 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 	if (Black == PixelColor)
 	{
 		IsSlope = false;
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (Black != PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				break;
 			}
 		}
@@ -100,16 +99,16 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 	else if (Green == PixelColor)
 	{
 		IsSlope = false;
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (White == PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				break;
 			}
 		}
@@ -118,20 +117,20 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 	else if (Red == PixelColor)
 	{
 		IsSlope = true;
-		MoveDir.X = DirValue.X * SlopeSpeed;
+		MoveDir.x = DirValue.x * SlopeSpeed;
 		float4 SlopePos = NextPos;
 		SlopePos += SlopeRightUp;
 		PixelColor = ColMap->GetPixelColor(SlopePos, Black);
-		NextPos.Y = std::round(NextPos.Y);
+		NextPos.y = std::round(NextPos.y);
 		// 바닥에서 제일 위로 올라간다
 		while (true)
 		{
-			NextPos += float4::UP;
+			NextPos += float4::Up;
 			PixelColor = ColMap->GetPixelColor(NextPos, Black);
 			if (White == PixelColor)
 			{
 				SetPos(NextPos);
-				MoveDir.Y = 0;
+				MoveDir.y = 0;
 				break;
 			}
 		}
@@ -140,7 +139,7 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 
 	// 블록 체크
 	std::vector<GameEngineCollision*> Collisions;
-	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = Rect, .ThisColType = Rect };
+	CollisionCheckParameter Check = { .TargetGroup = static_cast<int>(CollisionOrder::Block), .TargetColType = CT_Rect, .ThisColType = CT_Rect };
 	if (true == Collision->Collision(Check, Collisions))
 	{
 		std::vector<GameEngineCollision*>::iterator Start = Collisions.begin();
@@ -153,24 +152,24 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 				continue;
 			}
 			// 엑터가 블록보다 위에 있는 경우
-			if (GetPos().Y < ColActor->GetPos().Y - BlockYSize)
+			if (GetPos().y < ColActor->GetPos().y - BlockYSize)
 			{
 				float4 Pos = GetPos();
-				Pos.Y = ColActor->GetPos().Y - BlockOnPos;
-				Pos.Y = std::round(Pos.Y);
+				Pos.y = ColActor->GetPos().y - BlockOnPos;
+				Pos.y = std::round(Pos.y);
 				SetPos(Pos);
-				MoveDir.Y = 0.0f;
+				MoveDir.y = 0.0f;
 				continue;
 			}
-			else if (GetPos().Y > ColActor->GetPos().Y)
+			else if (GetPos().y > ColActor->GetPos().y)
 			{
 				ColActor->Hit();
 				// 블록 밑으로 이동한다
 				float4 Pos = GetPos();
-				Pos.Y = ColActor->GetPos().Y + BlockOnPos;
-				Pos.Y = std::round(Pos.Y);
+				Pos.y = ColActor->GetPos().y + BlockOnPos;
+				Pos.y = std::round(Pos.y);
 				SetPos(Pos);
-				MoveDir.Y = 100;
+				MoveDir.y = 100;
 				continue;
 			}
 			// 그 외 경우
@@ -188,10 +187,10 @@ void EnemyActor::MoveUpdate(float _DeltaTime)
 void EnemyActor::DieUpdate(float _DeltaTime)
 {
 	// 중력
-	MoveDir.Y += GravityAcceleration * _DeltaTime;
-	if (GravityMax < MoveDir.Y)
+	MoveDir.y += GravityAcceleration * _DeltaTime;
+	if (GravityMax < MoveDir.y)
 	{
-		MoveDir.Y = GravityMax;
+		MoveDir.y = GravityMax;
 	}
 	SetMove(MoveDir * _DeltaTime);
 
@@ -221,12 +220,12 @@ inline void EnemyActor::Turn()
 
 inline void EnemyActor::TurnLeft()
 {
-	DirValue = float4::LEFT;
+	DirValue = float4::Left;
 	MoveDir = DirValue * Speed;
 }
 
 inline void EnemyActor::TurnRight()
 {
-	DirValue = float4::RIGHT;
+	DirValue = float4::Right;
 	MoveDir = DirValue * Speed;
 }

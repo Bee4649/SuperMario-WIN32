@@ -2,9 +2,9 @@
 #include "GameEngineActor.h"
 #include "GameEngineLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineImage.h>
 
-static bool(*ColFunctionPtr[Max][Max])(const CollisionData& _Left, const CollisionData& _Right);
+static bool(*ColFunctionPtr[CT_Max][CT_Max])(const CollisionData& _Left, const CollisionData& _Right);
 
 
 class CollisionFunctionInit
@@ -12,10 +12,10 @@ class CollisionFunctionInit
 public:
 	CollisionFunctionInit()
 	{
-		ColFunctionPtr[CirCle][CirCle] = GameEngineCollision::CollisionCirCleToCirCle;
-		ColFunctionPtr[CirCle][Point] = GameEngineCollision::CollisionCirCleToPoint;
-		ColFunctionPtr[Rect][Rect] = GameEngineCollision::CollisionRectToRect;
-		ColFunctionPtr[Rect][Point] = GameEngineCollision::CollisionRectToPoint;
+		ColFunctionPtr[CT_CirCle][CT_CirCle] = GameEngineCollision::CollisionCirCleToCirCle;
+		ColFunctionPtr[CT_CirCle][CT_Point] = GameEngineCollision::CollisionCirCleToPoint;
+		ColFunctionPtr[CT_Rect][CT_Rect] = GameEngineCollision::CollisionRectToRect;
+		ColFunctionPtr[CT_Rect][CT_Point] = GameEngineCollision::CollisionRectToPoint;
 	}
 	~CollisionFunctionInit()
 	{
@@ -32,7 +32,6 @@ GameEngineCollision::GameEngineCollision()
 GameEngineCollision::~GameEngineCollision()
 {
 }
-
 
 bool GameEngineCollision::CollisionCirCleToPoint(const CollisionData& _Left, const CollisionData& _Right)
 {
@@ -77,22 +76,22 @@ bool GameEngineCollision::CollisionRectToRect(const CollisionData& _Left, const 
 
 bool GameEngineCollision::CollisionRectToPoint(const CollisionData& _Left, const CollisionData& _Right)
 {
-	if (_Left.Bot() <= _Right.Position.Y)
+	if (_Left.Bot() <= _Right.Position.y)
 	{
 		return false;
 	}
 
-	if (_Left.Top() >= _Right.Position.Y)
+	if (_Left.Top() >= _Right.Position.y)
 	{
 		return false;
 	}
 
-	if (_Left.Left() >= _Right.Position.X)
+	if (_Left.Left() >= _Right.Position.x)
 	{
 		return false;
 	}
 
-	if (_Left.Right() <= _Right.Position.X)
+	if (_Left.Right() <= _Right.Position.x)
 	{
 		return false;
 	}
@@ -192,9 +191,9 @@ void GameEngineCollision::DebugRender()
 	float4 DebugRenderPos = GetActorPlusPos() - GetActor()->GetLevel()->GetCameraPos();
 	switch (DebugRenderType)
 	{
-	case Point:
+	case CT_Point:
 		break;
-	case CirCle:
+	case CT_CirCle:
 	{
 		int Radius = GetScale().hix();
 		Ellipse(BackBufferDc,
@@ -204,7 +203,7 @@ void GameEngineCollision::DebugRender()
 			DebugRenderPos.iy() + Radius);
 		break;
 	}
-	case Rect:
+	case CT_Rect:
 	{
 		Rectangle(BackBufferDc,
 			DebugRenderPos.ix() - GetScale().hix(),
@@ -213,7 +212,7 @@ void GameEngineCollision::DebugRender()
 			DebugRenderPos.iy() + GetScale().hiy());
 		break;
 	}
-	case Max:
+	case CT_Max:
 		break;
 	default:
 		break;

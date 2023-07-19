@@ -7,13 +7,12 @@ public:
 	SuperMushroom();
 	~SuperMushroom();
 
+	void BlockHit() override;
+	
 	SuperMushroom(const SuperMushroom& _Other) = delete;
 	SuperMushroom(SuperMushroom&& _Other) noexcept = delete;
 	SuperMushroom& operator=(const SuperMushroom& _Other) = delete;
 	SuperMushroom& operator=(SuperMushroom&& _Other) noexcept = delete;
-
-	void BlockHit() override;
-
 
 protected:
 	void Start() override;
@@ -28,7 +27,7 @@ private:
 	float Speed = 250;
 	float SlopeSpeed = Speed * 0.6f;
 
-	float4 DirValue = float4::RIGHT;
+	float4 DirValue = float4::Right;
 	const float GravityMax = 1750;
 	const float GravityAcceleration = 4600;
 	const float4 CollisionScale = { 16, 16 };
@@ -36,8 +35,8 @@ private:
 	bool IsOnCamera = true;
 	bool IsSlope = false;
 	GameEngineCollision* Collision = nullptr;
-
-	float4 MoveDir = float4::ZERO;
+	
+	float4 MoveDir = float4::Zero;
 
 	void Turn();
 	void TurnLeft();

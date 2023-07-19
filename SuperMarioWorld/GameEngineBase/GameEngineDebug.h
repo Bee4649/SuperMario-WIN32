@@ -1,15 +1,12 @@
 #pragma once
 #include <Windows.h>
-#include <string>
 #include <assert.h>
+#include <string>
 
-//// 설명 :
+// 설명 :
 class GameEngineDebug
 {
 public:
-	// constrcuter destructer
-	GameEngineDebug();
-	~GameEngineDebug();
 
 	// delete Function
 	GameEngineDebug(const GameEngineDebug& _Other) = delete;
@@ -23,7 +20,11 @@ public:
 protected:
 
 private:
+	// constrcuter destructer
+	GameEngineDebug();
+	~GameEngineDebug();
 
 };
+
 
 #define MsgAssert(MsgText) std::string ErrorText = MsgText; MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK); assert(false);

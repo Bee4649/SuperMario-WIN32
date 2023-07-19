@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include "GameEngineObject.h"
-#include "GameEngineRenderer.h"
 
+#include "GameEngineObject.h"
+#include "GameEngineRender.h"
 
 enum class Align
 {
@@ -11,11 +11,9 @@ enum class Align
 	Center
 };
 
-
-// 설명 : Image로 숫자출력을 해주는 클래스.
-// 세팅되는 이미지는 무조건 10개로 컷팅되어있어야 한다. 
-// 넣어줘야할건 무조건 Actor계열.
-
+// 설명 : Image로 숫자출력을 해주는 클래스
+//        세팅되는 이미지는 무조건 10개로 컷팅되어있어야 한다.
+// 넣어줘야할건 무조건 Actor계열
 class GameEngineActor;
 class NumberRenderObject : public GameEngineObject
 {
@@ -33,6 +31,7 @@ public:
 	// 
 	void SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName = "");
 	void SetValue(int _Value);
+
 	void SetMove(float4 _RenderPos);
 	void SetAlign(Align _Align);
 
@@ -56,7 +55,7 @@ public:
 		NumOfDigits = _Num;
 	}
 
-	inline void ResetDigits() { // 숫자 길이 리셋 (Value만큼 랜더)
+	inline void ResetDigits() { // 숫자길이 리셋 (Value만큼 랜더)
 		SetNumOfDigits(-1);
 	}
 
@@ -72,7 +71,7 @@ private:
 	bool Negative = false;
 
 	int NumOfDigits = -1; // 렌더할 숫자 길이
-	//GameEngineWindowTexture* NumberImage;
+	// GameEngineImage* NumberImage;
 
 	bool CameraEffect = false;
 
@@ -80,10 +79,9 @@ private:
 
 	std::string_view NegativeName = std::string_view();
 
-	std::vector<GameEngineRenderer*> NumberRenders = std::vector<GameEngineRenderer*>();
-	GameEngineRenderer* NegativeRender = nullptr;
+	std::vector<GameEngineRender*> NumberRenders = std::vector<GameEngineRender*>();
+	GameEngineRender* NegativeRender = nullptr;
 
 	void SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame = -1);
-
 };
 

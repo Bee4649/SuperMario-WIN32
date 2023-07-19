@@ -2,11 +2,12 @@
 #include <chrono>
 #include <Windows.h>
 
-// Ό³Έν :
+
+
 class GameEngineTime
 {
 public:
-	static GameEngineTime MainTimer;
+	static GameEngineTime GlobalTime;
 
 	// constrcuter destructer
 	GameEngineTime();
@@ -18,23 +19,24 @@ public:
 	GameEngineTime& operator=(const GameEngineTime& _Other) = delete;
 	GameEngineTime& operator=(GameEngineTime&& _Other) noexcept = delete;
 
-	float GetDeltaTime()
-	{
-		return FloatDelta;
-	}
-
 	void Reset();
 
 	float TimeCheck();
 
+	float GetFloatDeltaTime()
+	{
+		return floatDeltaTime;
+	}
+
 protected:
+
 
 private:
 	__int64 Tick = 0;
-	LARGE_INTEGER Count = LARGE_INTEGER();
-	LARGE_INTEGER Cur = LARGE_INTEGER();
 	LARGE_INTEGER Prev = LARGE_INTEGER();
-	double DoubleDelta = 0.0f;
-	float FloatDelta = 0.0f;
+	LARGE_INTEGER Current = LARGE_INTEGER();
+	LARGE_INTEGER Second = LARGE_INTEGER();
+	double DoubleDeltaTime = 0.0;
+	float floatDeltaTime = 0.0;
 };
 

@@ -18,10 +18,312 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bamba.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CheckPointActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ContentsEnums.h" />
+    <ClInclude Include="EndingLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameOverLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Killer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MarioGameCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EnemyActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Mechakoopa.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Nokonoko.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShieldActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageLevel4.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageUnderground1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageLevel1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageLevel2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageLevel3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SuperMushroom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TurnBlock.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WorldImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WorldLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WorldMario.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bamba.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CheckPointActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameOverLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Killer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MarioGameCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Mario_State.cpp" />
+    <ClCompile Include="EnemyActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Mechakoopa.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Nokonoko.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShieldActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageLevel4.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageUnderground1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageLevel1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageLevel2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageLevel3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SuperMushroom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TurnBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WorldImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WorldLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WorldMario.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c01f45aa-4d17-4f5e-8a65-81cc34f5fc66}</ProjectGuid>
+    <ProjectGuid>{2d13db34-8648-4966-8b4b-5a495312f26b}</ProjectGuid>
     <RootNamespace>GameEngineContents</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -70,25 +372,31 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);;..\;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);;..\;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,8 +404,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,8 +420,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,8 +436,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,8 +452,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,123 +462,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Bamba.h" />
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="CheckPoint.h" />
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="ContentCore.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ContentsEnum.h" />
-    <ClInclude Include="EndingLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="EnemyActor.h" />
-    <ClInclude Include="Fire.h" />
-    <ClInclude Include="FireFlower.h" />
-    <ClInclude Include="GameOverLevel.h" />
-    <ClInclude Include="Goal.h" />
-    <ClInclude Include="ItemActor.h" />
-    <ClInclude Include="Killer.h" />
-    <ClInclude Include="LevelLoader.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Mario.h" />
-    <ClInclude Include="Nokonoko.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayUIManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="QuestionBlock.h" />
-    <ClInclude Include="Shell.h" />
-    <ClInclude Include="ShieldActor.h" />
-    <ClInclude Include="SkyMario.h" />
-    <ClInclude Include="StageLevel.h" />
-    <ClInclude Include="StageLevel1.h" />
-    <ClInclude Include="StageLevel2.h" />
-    <ClInclude Include="StageLevel3.h" />
-    <ClInclude Include="StageLevel4.h" />
-    <ClInclude Include="StageUnderground1.h" />
-    <ClInclude Include="StageUnderground2.h" />
-    <ClInclude Include="SuperMushroom.h" />
-    <ClInclude Include="TitleLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TurnBlock.h" />
-    <ClInclude Include="WorldImage.h" />
-    <ClInclude Include="WorldLevel.h" />
-    <ClInclude Include="WorldMario.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Bamba.cpp" />
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="CheckPoint.cpp" />
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="ContentCore.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="EndingLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="EnemyActor.cpp" />
-    <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="FireFlower.cpp" />
-    <ClCompile Include="GameOverLevel.cpp" />
-    <ClCompile Include="Goal.cpp" />
-    <ClCompile Include="ItemActor.cpp" />
-    <ClCompile Include="Killer.cpp" />
-    <ClCompile Include="LevelLoader.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Mario.cpp" />
-    <ClCompile Include="MarioState.cpp" />
-    <ClCompile Include="Nokonoko.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayUIManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="QuestionBlock.cpp" />
-    <ClCompile Include="Shell.cpp" />
-    <ClCompile Include="ShieldActor.cpp" />
-    <ClCompile Include="SkyMario.cpp" />
-    <ClCompile Include="StageLevel.cpp" />
-    <ClCompile Include="StageLevel1.cpp" />
-    <ClCompile Include="StageLevel2.cpp" />
-    <ClCompile Include="StageLevel3.cpp" />
-    <ClCompile Include="StageLevel4.cpp" />
-    <ClCompile Include="StageUnderground1.cpp" />
-    <ClCompile Include="StageUnderground2.cpp" />
-    <ClCompile Include="SuperMushroom.cpp" />
-    <ClCompile Include="TitleLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="TurnBlock.cpp" />
-    <ClCompile Include="WorldImage.cpp" />
-    <ClCompile Include="WorldLevel.cpp" />
-    <ClCompile Include="WorldMario.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
-      <Project>{43e95582-82fc-46c5-a7ca-7d887cd0432b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GameEngineCore\GameEngineCore.vcxproj">
-      <Project>{25420802-ca45-42a3-9d95-42f2a0bd9d5b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GameEnginePlatform\GameEnginePlatform.vcxproj">
-      <Project>{a4198b71-d72c-4c1a-9fa2-6a2a1290c0e7}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,13 +1,11 @@
 #include "LevelLoader.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "ContentCore.h"
-#include "ContentsEnum.h"
+#include "MarioGameCore.h"
+#include "ContentsEnums.h"
 #include "StageLevel.h"
 #include "Mario.h"
-
 LevelLoader* LevelLoader::MainLoader = nullptr;
-
 
 LevelLoader::LevelLoader()
 	: IsFadeIn(true), IsFadeOut(true)
@@ -15,9 +13,7 @@ LevelLoader::LevelLoader()
 
 }
 
-LevelLoader::~LevelLoader() 
-{
-
+LevelLoader::~LevelLoader() {
 }
 
 void LevelLoader::Goal()
@@ -34,7 +30,6 @@ void LevelLoader::FadeOut()
 {
 	MainLoader->State = FadeState::FadeOut;
 }
-
 
 void LevelLoader::ChangeLevel(const std::string_view& _Name)
 {
@@ -113,7 +108,7 @@ void LevelLoader::FadeOutLoadUpdate(float _DeltaTime)
 	Timer += Speed * _DeltaTime;
 	if (1 < Timer)
 	{
-		ContentCore::GetInst().ChangeLevel(LevelName);
+		MarioGameCore::GetInst().ChangeLevel(LevelName);
 		return;
 	}
 	FadeRender->SetAlpha(static_cast<int>(Timer * 255));

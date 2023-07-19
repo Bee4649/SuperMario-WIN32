@@ -1,34 +1,32 @@
-#pragma once
 #include "StageLevel1.h"
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
-#include "PlayUIManager.h"
+#include "UIManager.h"
 #include "Mario.h"
 #include "Map.h"
+#include "Bamba.h"
 #include "SuperMushroom.h"
 #include "FireFlower.h"
-#include "Pipe.h"
-#include "CheckPoint.h"
-#include "Goal.h"
-#include "Bamba.h"
 #include "TurnBlock.h"
 #include "QuestionBlock.h"
+#include "Goal.h"
 #include "Coin.h"
+#include "Pipe.h"
+#include "CheckPointActor.h"
 #include "Nokonoko.h"
 #include "Killer.h"
+StageLevel1::StageLevel1() {
 
-StageLevel1::StageLevel1() 
-{
 }
 
-StageLevel1::~StageLevel1() 
-{
+StageLevel1::~StageLevel1() {
+
 }
 
 void StageLevel1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-
+	
 	// BGM 설정
 	BGMPlayer = GameEngineResources::GetInst().SoundPlayToControl("Overworld.mp3");
 	BGMPlayer.LoopCount(0);
@@ -37,20 +35,19 @@ void StageLevel1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	Map* MainMap = CreateActor<Map>();
 	MainMap->SetImage(BackGroundName, StageName, StageColName);
 	MainMap->SetDebugMap("STAGE1DEBUG.bmp");
-	
 	// 맵 시작 위치 지정
-	MainMap->AddStartPos(GridPos(5, 0));
-	MainMap->AddStartPos(GridPos(146, 0));
+	MainMap->AddStartPos(GridPos(5,0));
+	MainMap->AddStartPos(GridPos(146,0));
 	MainMap->AddStartPos({ 8945, 1471 });
 
 	CreateActor<Mario>();
-	UI = CreateActor <PlayUIManager> ();
+	UI = CreateActor<UIManager>();
 
 	// 지하에서 파이프를 통해 이동한 경우
 	if ("Underground1" == _PrevLevel->GetName())
 	{
 		MainMap->MoveMap(2);
-		Mario::MainPlayer->PipeOut(float4::UP);
+		Mario::MainPlayer->PipeOut(float4::Up);
 		SetTimer(dynamic_cast<StageLevel*>(_PrevLevel)->GetTimer());
 	}
 	else
@@ -58,7 +55,7 @@ void StageLevel1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		// 체크포인트 지점으로 이동
 		MainMap->MoveMap(GetCheckPoint());
 	}
-
+	
 	// 스테이지 구성
 	{
 		CreateActor<CheckPointActor>(RenderOrder::Item)->SetCheckPoint(1, GridPos(149, 0));
@@ -98,7 +95,7 @@ void StageLevel1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		CreateActor<Bamba>(RenderOrder::Monster)->SetPos(GridPos(106, 0));
 		CreateActor<Bamba>(RenderOrder::Monster)->SetPos(GridPos(107, 0));
 
-		CreateActor<TurnBlock>(RenderOrder::Map)->SetPos({ 7700, 1341 });
+		CreateActor<TurnBlock>(RenderOrder::Map)->SetPos({7700, 1341});
 		CreateActor<TurnBlock>(RenderOrder::Map)->SetPos({ 7764, 1341 });
 		Pipe* NewPipe = CreateActor<Pipe>(RenderOrder::Map);
 		NewPipe->SetPos({ 7732, 1405 });
@@ -146,7 +143,7 @@ void StageLevel1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 		CreateActor<Goal>()->SetGoal(GridPos(302, 0));
 	}
-
+	
 
 	StageLevel::LevelChangeStart(_PrevLevel);
 

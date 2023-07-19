@@ -1,20 +1,20 @@
 #include "EndingLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "LevelLoader.h"
-#include "ContentsEnum.h"
-#include "ContentCore.h"
+#include "ContentsEnums.h"
+#include "MarioGameCore.h"
 
-EndingLevel::EndingLevel() 
-{
+EndingLevel::EndingLevel() {
+
 }
 
-EndingLevel::~EndingLevel() 
-{
+EndingLevel::~EndingLevel() {
+
 }
 
 void EndingLevel::Loading()
 {
-	GameEngineRenderer* ImageRender = CreateActor<GameEngineActor>()->CreateRender("ENDING.bmp", RenderOrder::BackGround);
+	GameEngineRender* ImageRender = CreateActor<GameEngineActor>()->CreateRender("ENDING.bmp", RenderOrder::BackGround);
 	ImageRender->SetScaleToImage();
 	ImageRender->SetPosition(ImageRender->GetScale().half());
 	CreateActor<LevelLoader>();
@@ -37,4 +37,3 @@ void EndingLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	BGMPlayer.LoopCount(1);
 
 }
-

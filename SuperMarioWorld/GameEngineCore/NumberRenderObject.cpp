@@ -15,14 +15,14 @@ NumberRenderObject::~NumberRenderObject()
 
 void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Scale, int _Order, int _TransColor, const std::string_view& _NegativeName)
 {
-	GameEngineWindowTexture* FindNumberImage = GameEngineResources::GetInst().TextureFind(_ImageName);
+	GameEngineImage* FindNumberImage = GameEngineResources::GetInst().ImageFind(_ImageName);
 
 	if (FindNumberImage->GetImageCuttingCount() != 10)
 	{
 		MsgAssert("숫자 이미지는 무조건 10개로 짤려있어야 합니다.");
 	}
 
-	if (0 >= _Scale.X || 0 >= _Scale.Y)
+	if (0 >= _Scale.x || 0 >= _Scale.y)
 	{
 		MsgAssert("크기가 0으로 숫자를 출력할 수 없습니다.");
 	}
@@ -36,7 +36,7 @@ void NumberRenderObject::SetImage(const std::string_view& _ImageName, float4 _Sc
 
 void NumberRenderObject::SetNumberRenders(size_t _Index, int _TransColor, float4 _Pos, const std::string_view& _ImageName, float4 _Scale, bool _CameraEffect, int _Frame)
 {
-	GameEngineRenderer* Render = NumberRenders[_Index];
+	GameEngineRender* Render = NumberRenders[_Index];
 	if (nullptr == Render)
 	{
 		MsgAssert("숫자랜더러가 nullptr 입니다");
@@ -88,7 +88,7 @@ void NumberRenderObject::SetValue(int _Value)
 	}
 
 	// -선택 음수 + digits길이 설정한경우
-	// 1. c길이를 value길이로 바꾼다.(리셋)
+	// 1. digits길이를 value길이로 바꾼다.(리셋)
 	// 2. MsgAssert
 	if (-1 != NumOfDigits && Value < 0) //
 	{
@@ -117,7 +117,7 @@ void NumberRenderObject::SetValue(int _Value)
 		//                       5                   3
 		for (size_t i = 0; i < (CurRenderSize - Digits); ++i)
 		{
-			GameEngineRenderer* LastRender = NumberRenders.back();
+			GameEngineRender* LastRender = NumberRenders.back();
 			NumberRenders.pop_back(); // 삭제되는지 체크 필요
 			LastRender->Death();
 		}
@@ -134,10 +134,10 @@ void NumberRenderObject::SetValue(int _Value)
 	case Align::Left:
 		break;
 	case Align::Right:
-		RenderPos.X -= (Digits - 1) * NumberScale.X;
+		RenderPos.x -= (Digits - 1) * NumberScale.x;
 		break;
 	case Align::Center:
-		RenderPos.Y -= ((Digits - 1) * NumberScale.X) / 2;
+		RenderPos.x -= ((Digits - 1) * NumberScale.x) / 2;
 		break;
 	default:
 		break;
@@ -146,17 +146,17 @@ void NumberRenderObject::SetValue(int _Value)
 	if (true == Negative && nullptr == NegativeRender)
 	{
 		SetNumberRenders(NumRenderIndex++, TransColor, RenderPos, NegativeName, NumberScale, CameraEffect);
-		RenderPos.X += NumberScale.X;
+		RenderPos.x += NumberScale.x;
 	}
 	for (; NumRenderIndex < Digits - Numbers.size(); ++NumRenderIndex)
 	{
 		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, 0);
-		RenderPos.X += NumberScale.X;
+		RenderPos.x += NumberScale.x;
 	}
 	for (int i = 0; NumRenderIndex < NumberRenders.size(); ++NumRenderIndex)
 	{
 		SetNumberRenders(NumRenderIndex, TransColor, RenderPos, ImageName, NumberScale, CameraEffect, Numbers[i++]);
-		RenderPos.X += NumberScale.X;
+		RenderPos.x += NumberScale.x;
 	}
 }
 
@@ -178,3 +178,5 @@ void NumberRenderObject::SetRenderPos(float4 _Pos)
 	Pos = _Pos;
 	SetValue(Value);
 }
+
+
